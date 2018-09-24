@@ -6,11 +6,6 @@ import (
 )
 
 func AddModel(profile *Profile) {
-	profile.types["unsigned short"] = NewIntParser(
-		"unsigned short", func(buf []byte) int64 {
-			return int64(binary.LittleEndian.Uint16(buf))
-		})
-
 	profile.types["uint8"] = NewIntParser(
 		"uint8", func(buf []byte) int64 {
 			return int64(uint8(buf[0]))
@@ -59,4 +54,5 @@ func AddModel(profile *Profile) {
 	profile.types["unsigned int"] = profile.types["uint32"]
 	profile.types["unsigned long"] = profile.types["uint32"]
 	profile.types["unsigned long long"] = profile.types["uint64"]
+	profile.types["unsigned short"] = profile.types["uint16"]
 }
