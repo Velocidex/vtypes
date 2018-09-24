@@ -176,15 +176,6 @@ func (self *BaseObject) Fields() []string {
 	}
 }
 
-func (self *BaseObject) MarshalJSON() ([]byte, error) {
-	res := make(map[string]interface{})
-	for _, field := range self.Fields() {
-		res[field] = self.Get(field).Value()
-	}
-	buf, err := json.Marshal(res)
-	return buf, err
-}
-
 // When an operation fails we return an error object. The error object
 // can continue to be used in all operations and it will just carry
 // itself over safely. This means that callers do not need to check
@@ -271,7 +262,11 @@ type BaseParser struct {
 }
 
 func (self BaseParser) Copy() Parser {
-	return &self
+	return &BaseParser{
+		Name:      self.Name,
+		size:      self.size,
+		type_name: self.type_name,
+	}
 }
 
 func (self *BaseParser) SetName(name string) Parser {
@@ -475,6 +470,35 @@ func (self *FlagsParser) getParser() (Parser, bool) {
 	return self.parser, true
 }
 
+func (self *FlagsParser) Get(base Object, field string) Object {
+	bitmap, pres := self.options.Bitmap[field]
+	if pres {
+		parser, pres := self.getParser()
+		if pres {
+			integer, ok := parser.(Integerer)
+			if ok {
+				value := integer.AsInteger(
+					base.Offset(), base.Reader())
+
+				if value&(1<<uint8(bitmap)) != 0 {
+					return base
+				}
+				return NewErrorObject("Not set.")
+			}
+		}
+	}
+	return NewErrorObject("No such value.")
+}
+
+func (self *FlagsParser) Fields() []string {
+	result := []string{}
+	for k, _ := range self.options.Bitmap {
+		result = append(result, k)
+	}
+
+	return result
+}
+
 func (self *FlagsParser) AsInteger(offset int64, reader io.ReaderAt) int64 {
 	parser, pres := self.getParser()
 	if !pres {
@@ -505,6 +529,7 @@ func (self *FlagsParser) AsString(offset int64, reader io.ReaderAt) string {
 			}
 		}
 
+		sort.Strings(result)
 		return strings.Join(result, ", ")
 	}
 
