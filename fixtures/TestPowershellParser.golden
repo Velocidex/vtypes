@@ -1,0 +1,4379 @@
+{
+ "Signature": "PSMODULECACHE",
+ "CountOfEntries": 38,
+ "Entries": [
+  {
+   "Offset": 18,
+   "EntryLength": 555,
+   "TimestampTicks": 637112777454888301,
+   "ModuleLength": 113,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\DirectAccessClientComponents\\DirectAccessClientComponents.psd1",
+   "CommandCount": 11,
+   "Func": [
+    {
+     "NameLen": 25,
+     "Name": "Set-DAEntryPointTableItem",
+     "Count": 2
+    },
+    {
+     "NameLen": 35,
+     "Name": "Set-DAClientExperienceConfiguration",
+     "Count": 2
+    },
+    {
+     "NameLen": 34,
+     "Name": "Enable-DAManualEntryPointSelection",
+     "Count": 2
+    },
+    {
+     "NameLen": 25,
+     "Name": "Get-DAEntryPointTableItem",
+     "Count": 2
+    },
+    {
+     "NameLen": 27,
+     "Name": "Reset-DAEntryPointTableItem",
+     "Count": 2
+    },
+    {
+     "NameLen": 37,
+     "Name": "Reset-DAClientExperienceConfiguration",
+     "Count": 2
+    },
+    {
+     "NameLen": 28,
+     "Name": "Remove-DAEntryPointTableItem",
+     "Count": 2
+    },
+    {
+     "NameLen": 25,
+     "Name": "New-DAEntryPointTableItem",
+     "Count": 2
+    },
+    {
+     "NameLen": 35,
+     "Name": "Get-DAClientExperienceConfiguration",
+     "Count": 2
+    },
+    {
+     "NameLen": 35,
+     "Name": "Disable-DAManualEntryPointSelection",
+     "Count": 2
+    },
+    {
+     "NameLen": 28,
+     "Name": "Rename-DAEntryPointTableItem",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 1869762652
+  },
+  {
+   "Offset": 573,
+   "EntryLength": 749,
+   "TimestampTicks": 637112779626377672,
+   "ModuleLength": 83,
+   "ModuleName": "C:\\Program Files\\WindowsPowerShell\\Modules\\PowerShellGet\\1.0.0.1\\PowerShellGet.psd1",
+   "CommandCount": 29,
+   "Func": [
+    {
+     "NameLen": 16,
+     "Name": "Uninstall-Module",
+     "Count": 2
+    },
+    {
+     "NameLen": 4,
+     "Name": "inmo",
+     "Count": 1
+    },
+    {
+     "NameLen": 4,
+     "Name": "fimo",
+     "Count": 1
+    },
+    {
+     "NameLen": 14,
+     "Name": "Install-Module",
+     "Count": 2
+    },
+    {
+     "NameLen": 18,
+     "Name": "New-ScriptFileInfo",
+     "Count": 2
+    },
+    {
+     "NameLen": 14,
+     "Name": "Publish-Module",
+     "Count": 2
+    },
+    {
+     "NameLen": 14,
+     "Name": "Install-Script",
+     "Count": 2
+    },
+    {
+     "NameLen": 13,
+     "Name": "Update-Script",
+     "Count": 2
+    },
+    {
+     "NameLen": 12,
+     "Name": "Find-Command",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Update-ModuleManifest",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Find-DscResource",
+     "Count": 2
+    },
+    {
+     "NameLen": 11,
+     "Name": "Save-Module",
+     "Count": 2
+    },
+    {
+     "NameLen": 11,
+     "Name": "Save-Script",
+     "Count": 2
+    },
+    {
+     "NameLen": 4,
+     "Name": "upmo",
+     "Count": 1
+    },
+    {
+     "NameLen": 16,
+     "Name": "Uninstall-Script",
+     "Count": 2
+    },
+    {
+     "NameLen": 19,
+     "Name": "Get-InstalledScript",
+     "Count": 2
+    },
+    {
+     "NameLen": 13,
+     "Name": "Update-Module",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Register-PSRepository",
+     "Count": 2
+    },
+    {
+     "NameLen": 11,
+     "Name": "Find-Script",
+     "Count": 2
+    },
+    {
+     "NameLen": 23,
+     "Name": "Unregister-PSRepository",
+     "Count": 2
+    },
+    {
+     "NameLen": 4,
+     "Name": "pumo",
+     "Count": 1
+    },
+    {
+     "NameLen": 19,
+     "Name": "Test-ScriptFileInfo",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Update-ScriptFileInfo",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Set-PSRepository",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Get-PSRepository",
+     "Count": 2
+    },
+    {
+     "NameLen": 19,
+     "Name": "Get-InstalledModule",
+     "Count": 2
+    },
+    {
+     "NameLen": 11,
+     "Name": "Find-Module",
+     "Count": 2
+    },
+    {
+     "NameLen": 19,
+     "Name": "Find-RoleCapability",
+     "Count": 2
+    },
+    {
+     "NameLen": 14,
+     "Name": "Publish-Script",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 352321536
+  },
+  {
+   "Offset": 1322,
+   "EntryLength": 152,
+   "TimestampTicks": 637067190000000000,
+   "ModuleLength": 63,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\ISE\\ISE.psd1",
+   "CommandCount": 3,
+   "Func": [
+    {
+     "NameLen": 17,
+     "Name": "Import-IseSnippet",
+     "Count": 2
+    },
+    {
+     "NameLen": 14,
+     "Name": "Get-IseSnippet",
+     "Count": 2
+    },
+    {
+     "NameLen": 14,
+     "Name": "New-IseSnippet",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 1768778100
+  },
+  {
+   "Offset": 1474,
+   "EntryLength": 453,
+   "TimestampTicks": 637112777812871682,
+   "ModuleLength": 67,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\iSCSI\\iSCSI.psd1",
+   "CommandCount": 13,
+   "Func": [
+    {
+     "NameLen": 21,
+     "Name": "Register-IscsiSession",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "New-IscsiTargetPortal",
+     "Count": 2
+    },
+    {
+     "NameLen": 15,
+     "Name": "Get-IscsiTarget",
+     "Count": 2
+    },
+    {
+     "NameLen": 19,
+     "Name": "Connect-IscsiTarget",
+     "Count": 2
+    },
+    {
+     "NameLen": 19,
+     "Name": "Get-IscsiConnection",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Get-IscsiSession",
+     "Count": 2
+    },
+    {
+     "NameLen": 24,
+     "Name": "Remove-IscsiTargetPortal",
+     "Count": 2
+    },
+    {
+     "NameLen": 19,
+     "Name": "Set-IscsiChapSecret",
+     "Count": 2
+    },
+    {
+     "NameLen": 22,
+     "Name": "Disconnect-IscsiTarget",
+     "Count": 2
+    },
+    {
+     "NameLen": 24,
+     "Name": "Update-IscsiTargetPortal",
+     "Count": 2
+    },
+    {
+     "NameLen": 23,
+     "Name": "Unregister-IscsiSession",
+     "Count": 2
+    },
+    {
+     "NameLen": 18,
+     "Name": "Update-IscsiTarget",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Get-IscsiTargetPortal",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 1952794368
+  },
+  {
+   "Offset": 1927,
+   "EntryLength": 549,
+   "TimestampTicks": 637112778328895147,
+   "ModuleLength": 67,
+   "ModuleName": "C:\\Program Files\\WindowsPowerShell\\Modules\\Pester\\3.4.0\\Pester.psd1",
+   "CommandCount": 23,
+   "Func": [
+    {
+     "NameLen": 8,
+     "Name": "Describe",
+     "Count": 2
+    },
+    {
+     "NameLen": 17,
+     "Name": "Get-TestDriveItem",
+     "Count": 2
+    },
+    {
+     "NameLen": 11,
+     "Name": "New-Fixture",
+     "Count": 2
+    },
+    {
+     "NameLen": 2,
+     "Name": "In",
+     "Count": 2
+    },
+    {
+     "NameLen": 11,
+     "Name": "Invoke-Mock",
+     "Count": 2
+    },
+    {
+     "NameLen": 13,
+     "Name": "InModuleScope",
+     "Count": 2
+    },
+    {
+     "NameLen": 4,
+     "Name": "Mock",
+     "Count": 2
+    },
+    {
+     "NameLen": 14,
+     "Name": "SafeGetCommand",
+     "Count": 2
+    },
+    {
+     "NameLen": 9,
+     "Name": "AfterEach",
+     "Count": 2
+    },
+    {
+     "NameLen": 6,
+     "Name": "Should",
+     "Count": 2
+    },
+    {
+     "NameLen": 10,
+     "Name": "BeforeEach",
+     "Count": 2
+    },
+    {
+     "NameLen": 25,
+     "Name": "Get-MockDynamicParameters",
+     "Count": 2
+    },
+    {
+     "NameLen": 2,
+     "Name": "It",
+     "Count": 2
+    },
+    {
+     "NameLen": 22,
+     "Name": "Assert-VerifiableMocks",
+     "Count": 2
+    },
+    {
+     "NameLen": 9,
+     "Name": "BeforeAll",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Set-TestInconclusive",
+     "Count": 2
+    },
+    {
+     "NameLen": 7,
+     "Name": "Context",
+     "Count": 2
+    },
+    {
+     "NameLen": 8,
+     "Name": "AfterAll",
+     "Count": 2
+    },
+    {
+     "NameLen": 29,
+     "Name": "Set-DynamicParameterVariables",
+     "Count": 2
+    },
+    {
+     "NameLen": 5,
+     "Name": "Setup",
+     "Count": 2
+    },
+    {
+     "NameLen": 13,
+     "Name": "Invoke-Pester",
+     "Count": 2
+    },
+    {
+     "NameLen": 17,
+     "Name": "Assert-MockCalled",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "New-PesterOption",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 1701736047
+  },
+  {
+   "Offset": 2476,
+   "EntryLength": 222,
+   "TimestampTicks": 637112778329382842,
+   "ModuleLength": 137,
+   "ModuleName": "C:\\Program Files\\WindowsPowerShell\\Modules\\Microsoft.PowerShell.Operation.Validation\\1.0.1\\Microsoft.PowerShell.Operation.Validation.psd1",
+   "CommandCount": 2,
+   "Func": [
+    {
+     "NameLen": 23,
+     "Name": "Get-OperationValidation",
+     "Count": 2
+    },
+    {
+     "NameLen": 26,
+     "Name": "Invoke-OperationValidation",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 268435456
+  },
+  {
+   "Offset": 2698,
+   "EntryLength": 749,
+   "TimestampTicks": 637112777060811460,
+   "ModuleLength": 97,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\DeliveryOptimization\\DeliveryOptimization.psd1",
+   "CommandCount": 16,
+   "Func": [
+    {
+     "NameLen": 27,
+     "Name": "Get-DeliveryOptimizationLog",
+     "Count": 8
+    },
+    {
+     "NameLen": 38,
+     "Name": "Get-DOPercentageMaxForegroundBandwidth",
+     "Count": 2
+    },
+    {
+     "NameLen": 38,
+     "Name": "Set-DOPercentageMaxBackgroundBandwidth",
+     "Count": 8
+    },
+    {
+     "NameLen": 30,
+     "Name": "Set-DeliveryOptimizationStatus",
+     "Count": 8
+    },
+    {
+     "NameLen": 32,
+     "Name": "Delete-DeliveryOptimizationCache",
+     "Count": 8
+    },
+    {
+     "NameLen": 38,
+     "Name": "Set-DOPercentageMaxForegroundBandwidth",
+     "Count": 8
+    },
+    {
+     "NameLen": 35,
+     "Name": "Get-DeliveryOptimizationLogAnalysis",
+     "Count": 8
+    },
+    {
+     "NameLen": 18,
+     "Name": "Get-DODownloadMode",
+     "Count": 2
+    },
+    {
+     "NameLen": 12,
+     "Name": "Get-DOConfig",
+     "Count": 2
+    },
+    {
+     "NameLen": 30,
+     "Name": "Get-DeliveryOptimizationStatus",
+     "Count": 2
+    },
+    {
+     "NameLen": 32,
+     "Name": "Get-DeliveryOptimizationPerfSnap",
+     "Count": 2
+    },
+    {
+     "NameLen": 39,
+     "Name": "Disable-DeliveryOptimizationVerboseLogs",
+     "Count": 2
+    },
+    {
+     "NameLen": 18,
+     "Name": "Set-DODownloadMode",
+     "Count": 8
+    },
+    {
+     "NameLen": 38,
+     "Name": "Get-DOPercentageMaxBackgroundBandwidth",
+     "Count": 2
+    },
+    {
+     "NameLen": 38,
+     "Name": "Enable-DeliveryOptimizationVerboseLogs",
+     "Count": 2
+    },
+    {
+     "NameLen": 41,
+     "Name": "Get-DeliveryOptimizationPerfSnapThisMonth",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 2145
+  },
+  {
+   "Offset": 3447,
+   "EntryLength": 2174,
+   "TimestampTicks": 637112778459146048,
+   "ModuleLength": 119,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\Microsoft.PowerShell.Management\\Microsoft.PowerShell.Management.psd1",
+   "CommandCount": 94,
+   "Func": [
+    {
+     "NameLen": 9,
+     "Name": "Test-Path",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Limit-EventLog",
+     "Count": 8
+    },
+    {
+     "NameLen": 21,
+     "Name": "Show-ControlPanelItem",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Get-Content",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Rename-Item",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Add-Computer",
+     "Count": 8
+    },
+    {
+     "NameLen": 3,
+     "Name": "gin",
+     "Count": 1
+    },
+    {
+     "NameLen": 3,
+     "Name": "gcb",
+     "Count": 1
+    },
+    {
+     "NameLen": 15,
+     "Name": "Suspend-Service",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Stop-Computer",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Rename-Computer",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Checkpoint-Computer",
+     "Count": 8
+    },
+    {
+     "NameLen": 10,
+     "Name": "Split-Path",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Start-Service",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Get-Service",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Set-TimeZone",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Remove-Computer",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Pop-Location",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Get-Clipboard",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Set-Location",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Clear-Content",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Stop-Service",
+     "Count": 8
+    },
+    {
+     "NameLen": 22,
+     "Name": "Enable-ComputerRestore",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Get-PSProvider",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Get-EventLog",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Set-Service",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Invoke-Item",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Get-ComputerInfo",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Stop-Process",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Restart-Service",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Restore-Computer",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Convert-Path",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Start-Transaction",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Get-TimeZone",
+     "Count": 8
+    },
+    {
+     "NameLen": 9,
+     "Name": "Copy-Item",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Remove-EventLog",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Set-Content",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "New-Service",
+     "Count": 8
+    },
+    {
+     "NameLen": 10,
+     "Name": "Get-HotFix",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Test-Connection",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Get-Transaction",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Show-EventLog",
+     "Count": 8
+    },
+    {
+     "NameLen": 20,
+     "Name": "Get-ControlPanelItem",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Invoke-WmiMethod",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Get-PSDrive",
+     "Count": 8
+    },
+    {
+     "NameLen": 29,
+     "Name": "Reset-ComputerMachinePassword",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Rename-ItemProperty",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Set-WmiInstance",
+     "Count": 8
+    },
+    {
+     "NameLen": 21,
+     "Name": "Get-ItemPropertyValue",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "New-WebServiceProxy",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Remove-PSDrive",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Copy-ItemProperty",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Remove-WmiObject",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Start-Process",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Undo-Transaction",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Restart-Computer",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Remove-Item",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Wait-Process",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Remove-ItemProperty",
+     "Count": 8
+    },
+    {
+     "NameLen": 24,
+     "Name": "Get-ComputerRestorePoint",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Set-Clipboard",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Get-ItemProperty",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "New-EventLog",
+     "Count": 8
+    },
+    {
+     "NameLen": 3,
+     "Name": "gtz",
+     "Count": 1
+    },
+    {
+     "NameLen": 17,
+     "Name": "Register-WmiEvent",
+     "Count": 8
+    },
+    {
+     "NameLen": 8,
+     "Name": "Set-Item",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Resolve-Path",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Write-EventLog",
+     "Count": 8
+    },
+    {
+     "NameLen": 3,
+     "Name": "stz",
+     "Count": 1
+    },
+    {
+     "NameLen": 23,
+     "Name": "Disable-ComputerRestore",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Resume-Service",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Get-Process",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Use-Transaction",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Set-ItemProperty",
+     "Count": 8
+    },
+    {
+     "NameLen": 3,
+     "Name": "scb",
+     "Count": 1
+    },
+    {
+     "NameLen": 12,
+     "Name": "Get-Location",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Get-ChildItem",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Clear-Recyclebin",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Push-Location",
+     "Count": 8
+    },
+    {
+     "NameLen": 18,
+     "Name": "Clear-ItemProperty",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "New-PSDrive",
+     "Count": 8
+    },
+    {
+     "NameLen": 26,
+     "Name": "Test-ComputerSecureChannel",
+     "Count": 8
+    },
+    {
+     "NameLen": 9,
+     "Name": "Join-Path",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Add-Content",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Get-WmiObject",
+     "Count": 8
+    },
+    {
+     "NameLen": 9,
+     "Name": "Move-Item",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Move-ItemProperty",
+     "Count": 8
+    },
+    {
+     "NameLen": 8,
+     "Name": "Get-Item",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Clear-EventLog",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "New-ItemProperty",
+     "Count": 8
+    },
+    {
+     "NameLen": 10,
+     "Name": "Clear-Item",
+     "Count": 8
+    },
+    {
+     "NameLen": 8,
+     "Name": "New-Item",
+     "Count": 8
+    },
+    {
+     "NameLen": 20,
+     "Name": "Complete-Transaction",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Debug-Process",
+     "Count": 8
+    }
+   ],
+   "CountOfTypes": 761624175
+  },
+  {
+   "Offset": 5621,
+   "EntryLength": 2449,
+   "TimestampTicks": 637112778459146048,
+   "ModuleLength": 113,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\Microsoft.PowerShell.Utility\\Microsoft.PowerShell.Utility.psd1",
+   "CommandCount": 109,
+   "Func": [
+    {
+     "NameLen": 15,
+     "Name": "Remove-Variable",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Convert-String",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Trace-Command",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Sort-Object",
+     "Count": 8
+    },
+    {
+     "NameLen": 20,
+     "Name": "Register-ObjectEvent",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Get-Runspace",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Format-Table",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Wait-Debugger",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Get-RunspaceDebug",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Export-PSSession",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Write-Error",
+     "Count": 8
+    },
+    {
+     "NameLen": 8,
+     "Name": "Get-Date",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Get-UICulture",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Remove-PSBreakpoint",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Get-PSCallStack",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Export-Clixml",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Update-TypeData",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Remove-TypeData",
+     "Count": 8
+    },
+    {
+     "NameLen": 3,
+     "Name": "fhx",
+     "Count": 1
+    },
+    {
+     "NameLen": 13,
+     "Name": "Import-Clixml",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Get-Culture",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Format-Wide",
+     "Count": 8
+    },
+    {
+     "NameLen": 9,
+     "Name": "New-Event",
+     "Count": 8
+    },
+    {
+     "NameLen": 10,
+     "Name": "New-Object",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Write-Warning",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Write-Verbose",
+     "Count": 8
+    },
+    {
+     "NameLen": 9,
+     "Name": "Set-Alias",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Unblock-File",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "ConvertFrom-Json",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Get-TypeData",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Out-GridView",
+     "Count": 8
+    },
+    {
+     "NameLen": 18,
+     "Name": "ConvertFrom-String",
+     "Count": 8
+    },
+    {
+     "NameLen": 22,
+     "Name": "ConvertFrom-SddlString",
+     "Count": 2
+    },
+    {
+     "NameLen": 10,
+     "Name": "Get-Member",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Select-Object",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Get-EventSubscriber",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "ConvertFrom-Csv",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Debug-Runspace",
+     "Count": 8
+    },
+    {
+     "NameLen": 9,
+     "Name": "New-Alias",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Invoke-WebRequest",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "ConvertTo-Html",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Invoke-Expression",
+     "Count": 8
+    },
+    {
+     "NameLen": 21,
+     "Name": "Disable-RunspaceDebug",
+     "Count": 8
+    },
+    {
+     "NameLen": 9,
+     "Name": "Get-Alias",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Import-PSSession",
+     "Count": 8
+    },
+    {
+     "NameLen": 10,
+     "Name": "Export-Csv",
+     "Count": 8
+    },
+    {
+     "NameLen": 10,
+     "Name": "Tee-Object",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Get-TraceSource",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Format-Custom",
+     "Count": 8
+    },
+    {
+     "NameLen": 25,
+     "Name": "Import-PowerShellDataFile",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Enable-RunspaceDebug",
+     "Count": 8
+    },
+    {
+     "NameLen": 8,
+     "Name": "Out-File",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Group-Object",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Measure-Object",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Write-Output",
+     "Count": 8
+    },
+    {
+     "NameLen": 20,
+     "Name": "Register-EngineEvent",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Set-TraceSource",
+     "Count": 8
+    },
+    {
+     "NameLen": 8,
+     "Name": "Set-Date",
+     "Count": 8
+    },
+    {
+     "NameLen": 10,
+     "Name": "Wait-Event",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "ConvertTo-Csv",
+     "Count": 8
+    },
+    {
+     "NameLen": 10,
+     "Name": "Format-Hex",
+     "Count": 2
+    },
+    {
+     "NameLen": 12,
+     "Name": "New-Variable",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Show-Command",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Get-PSBreakpoint",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Invoke-RestMethod",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Get-Variable",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Enable-PSBreakpoint",
+     "Count": 8
+    },
+    {
+     "NameLen": 10,
+     "Name": "Get-Unique",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Measure-Command",
+     "Count": 8
+    },
+    {
+     "NameLen": 10,
+     "Name": "Select-Xml",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Clear-Variable",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Send-MailMessage",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "ConvertTo-Json",
+     "Count": 8
+    },
+    {
+     "NameLen": 8,
+     "Name": "Add-Type",
+     "Count": 8
+    },
+    {
+     "NameLen": 8,
+     "Name": "Get-Host",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Get-FileHash",
+     "Count": 2
+    },
+    {
+     "NameLen": 10,
+     "Name": "Write-Host",
+     "Count": 8
+    },
+    {
+     "NameLen": 20,
+     "Name": "Import-LocalizedData",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "Select-String",
+     "Count": 8
+    },
+    {
+     "NameLen": 22,
+     "Name": "ConvertFrom-StringData",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Export-Alias",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Start-Sleep",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Export-FormatData",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Write-Debug",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Remove-Event",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Set-PSBreakpoint",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Format-List",
+     "Count": 8
+    },
+    {
+     "NameLen": 8,
+     "Name": "New-Guid",
+     "Count": 2
+    },
+    {
+     "NameLen": 12,
+     "Name": "New-TimeSpan",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Import-Alias",
+     "Count": 8
+    },
+    {
+     "NameLen": 9,
+     "Name": "Get-Event",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Compare-Object",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Get-FormatData",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Unregister-Event",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Update-List",
+     "Count": 8
+    },
+    {
+     "NameLen": 10,
+     "Name": "Add-Member",
+     "Count": 8
+    },
+    {
+     "NameLen": 9,
+     "Name": "Read-Host",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "New-TemporaryFile",
+     "Count": 2
+    },
+    {
+     "NameLen": 10,
+     "Name": "Import-Csv",
+     "Count": 8
+    },
+    {
+     "NameLen": 10,
+     "Name": "Get-Random",
+     "Count": 8
+    },
+    {
+     "NameLen": 3,
+     "Name": "CFS",
+     "Count": 1
+    },
+    {
+     "NameLen": 10,
+     "Name": "Out-String",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Write-Progress",
+     "Count": 8
+    },
+    {
+     "NameLen": 20,
+     "Name": "Disable-PSBreakpoint",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Update-FormatData",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Write-Information",
+     "Count": 8
+    },
+    {
+     "NameLen": 13,
+     "Name": "ConvertTo-Xml",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Set-Variable",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Out-Printer",
+     "Count": 8
+    }
+   ],
+   "CountOfTypes": 285212672
+  },
+  {
+   "Offset": 8070,
+   "EntryLength": 306,
+   "TimestampTicks": 637112778459465894,
+   "ModuleLength": 81,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\BitsTransfer\\BitsTransfer.psd1",
+   "CommandCount": 8,
+   "Func": [
+    {
+     "NameLen": 18,
+     "Name": "Start-BitsTransfer",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Set-BitsTransfer",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Get-BitsTransfer",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Resume-BitsTransfer",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Add-BitsFile",
+     "Count": 8
+    },
+    {
+     "NameLen": 20,
+     "Name": "Suspend-BitsTransfer",
+     "Count": 8
+    },
+    {
+     "NameLen": 21,
+     "Name": "Complete-BitsTransfer",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Remove-BitsTransfer",
+     "Count": 8
+    }
+   ],
+   "CountOfTypes": 371
+  },
+  {
+   "Offset": 8376,
+   "EntryLength": 870,
+   "TimestampTicks": 637112777216291160,
+   "ModuleLength": 65,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\Appx\\Appx.psd1",
+   "CommandCount": 29,
+   "Func": [
+    {
+     "NameLen": 22,
+     "Name": "Get-AppPackageManifest",
+     "Count": 1
+    },
+    {
+     "NameLen": 19,
+     "Name": "Dismount-AppxVolume",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Add-AppxVolume",
+     "Count": 8
+    },
+    {
+     "NameLen": 20,
+     "Name": "Get-AppPackageVolume",
+     "Count": 1
+    },
+    {
+     "NameLen": 21,
+     "Name": "Set-AppxDefaultVolume",
+     "Count": 8
+    },
+    {
+     "NameLen": 21,
+     "Name": "Get-AppxDefaultVolume",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Move-AppPackage",
+     "Count": 1
+    },
+    {
+     "NameLen": 23,
+     "Name": "Remove-AppPackageVolume",
+     "Count": 1
+    },
+    {
+     "NameLen": 27,
+     "Name": "Set-AppPackageDefaultVolume",
+     "Count": 1
+    },
+    {
+     "NameLen": 30,
+     "Name": "Invoke-CommandInDesktopPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Remove-AppPackage",
+     "Count": 1
+    },
+    {
+     "NameLen": 23,
+     "Name": "Get-AppxPackageManifest",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Get-AppxLog",
+     "Count": 2
+    },
+    {
+     "NameLen": 14,
+     "Name": "Add-AppPackage",
+     "Count": 1
+    },
+    {
+     "NameLen": 14,
+     "Name": "Get-AppPackage",
+     "Count": 1
+    },
+    {
+     "NameLen": 18,
+     "Name": "Remove-AppxPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 23,
+     "Name": "Get-AppPackageLastError",
+     "Count": 1
+    },
+    {
+     "NameLen": 20,
+     "Name": "Add-AppPackageVolume",
+     "Count": 1
+    },
+    {
+     "NameLen": 16,
+     "Name": "Mount-AppxVolume",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Get-AppxVolume",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Get-AppPackageLog",
+     "Count": 1
+    },
+    {
+     "NameLen": 27,
+     "Name": "Get-AppPackageDefaultVolume",
+     "Count": 1
+    },
+    {
+     "NameLen": 16,
+     "Name": "Move-AppxPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Add-AppxPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Get-AppxPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 25,
+     "Name": "Dismount-AppPackageVolume",
+     "Count": 1
+    },
+    {
+     "NameLen": 17,
+     "Name": "Remove-AppxVolume",
+     "Count": 8
+    },
+    {
+     "NameLen": 22,
+     "Name": "Mount-AppPackageVolume",
+     "Count": 1
+    },
+    {
+     "NameLen": 17,
+     "Name": "Get-AppxLastError",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 1819475968
+  },
+  {
+   "Offset": 9246,
+   "EntryLength": 374,
+   "TimestampTicks": 637112777216756602,
+   "ModuleLength": 91,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\AppBackgroundTask\\AppBackgroundTask.psd1",
+   "CommandCount": 9,
+   "Func": [
+    {
+     "NameLen": 35,
+     "Name": "Set-AppBackgroundTaskResourcePolicy",
+     "Count": 8
+    },
+    {
+     "NameLen": 28,
+     "Name": "Unregister-AppBackgroundTask",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Get-AppBackgroundTask",
+     "Count": 2
+    },
+    {
+     "NameLen": 3,
+     "Name": "tid",
+     "Count": 1
+    },
+    {
+     "NameLen": 3,
+     "Name": "pfn",
+     "Count": 1
+    },
+    {
+     "NameLen": 3,
+     "Name": "iru",
+     "Count": 1
+    },
+    {
+     "NameLen": 37,
+     "Name": "Enable-AppBackgroundTaskDiagnosticLog",
+     "Count": 8
+    },
+    {
+     "NameLen": 23,
+     "Name": "Start-AppBackgroundTask",
+     "Count": 2
+    },
+    {
+     "NameLen": 38,
+     "Name": "Disable-AppBackgroundTaskDiagnosticLog",
+     "Count": 8
+    }
+   ],
+   "CountOfTypes": 1953384805
+  },
+  {
+   "Offset": 9620,
+   "EntryLength": 446,
+   "TimestampTicks": 637112779626226800,
+   "ModuleLength": 91,
+   "ModuleName": "C:\\Program Files\\WindowsPowerShell\\Modules\\PackageManagement\\1.0.0.1\\PackageManagement.psd1",
+   "CommandCount": 13,
+   "Func": [
+    {
+     "NameLen": 17,
+     "Name": "Set-PackageSource",
+     "Count": 8
+    },
+    {
+     "NameLen": 24,
+     "Name": "Unregister-PackageSource",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Get-PackageSource",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Install-Package",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Save-Package",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Get-Package",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Find-Package",
+     "Count": 8
+    },
+    {
+     "NameLen": 23,
+     "Name": "Install-PackageProvider",
+     "Count": 8
+    },
+    {
+     "NameLen": 22,
+     "Name": "Import-PackageProvider",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Get-PackageProvider",
+     "Count": 8
+    },
+    {
+     "NameLen": 22,
+     "Name": "Register-PackageSource",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Uninstall-Package",
+     "Count": 8
+    },
+    {
+     "NameLen": 20,
+     "Name": "Find-PackageProvider",
+     "Count": 8
+    }
+   ],
+   "CountOfTypes": 1850301555
+  },
+  {
+   "Offset": 10066,
+   "EntryLength": 388,
+   "TimestampTicks": 637112779643410444,
+   "ModuleLength": 73,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\Defender\\Defender.psd1",
+   "CommandCount": 12,
+   "Func": [
+    {
+     "NameLen": 16,
+     "Name": "Add-MpPreference",
+     "Count": 2
+    },
+    {
+     "NameLen": 19,
+     "Name": "Get-MpThreatCatalog",
+     "Count": 2
+    },
+    {
+     "NameLen": 12,
+     "Name": "Get-MpThreat",
+     "Count": 2
+    },
+    {
+     "NameLen": 18,
+     "Name": "Update-MpSignature",
+     "Count": 2
+    },
+    {
+     "NameLen": 19,
+     "Name": "Remove-MpPreference",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Get-MpPreference",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Get-MpThreatDetection",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Set-MpPreference",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Get-MpComputerStatus",
+     "Count": 2
+    },
+    {
+     "NameLen": 12,
+     "Name": "Start-MpScan",
+     "Count": 2
+    },
+    {
+     "NameLen": 15,
+     "Name": "Start-MpWDOScan",
+     "Count": 2
+    },
+    {
+     "NameLen": 15,
+     "Name": "Remove-MpThreat",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 40332905
+  },
+  {
+   "Offset": 10454,
+   "EntryLength": 996,
+   "TimestampTicks": 637112778210011911,
+   "ModuleLength": 79,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\BranchCache\\BranchCache.psd1",
+   "CommandCount": 32,
+   "Func": [
+    {
+     "NameLen": 24,
+     "Name": "Disable-BCServeOnBattery",
+     "Count": 2
+    },
+    {
+     "NameLen": 18,
+     "Name": "Import-BCSecretKey",
+     "Count": 2
+    },
+    {
+     "NameLen": 26,
+     "Name": "Get-BCNetworkConfiguration",
+     "Count": 2
+    },
+    {
+     "NameLen": 15,
+     "Name": "Get-BCDataCache",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Disable-BCDowngrading",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Enable-BCDowngrading",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Publish-BCWebContent",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Publish-BCFileContent",
+     "Count": 2
+    },
+    {
+     "NameLen": 27,
+     "Name": "Remove-BCDataCacheExtension",
+     "Count": 2
+    },
+    {
+     "NameLen": 13,
+     "Name": "Clear-BCCache",
+     "Count": 2
+    },
+    {
+     "NameLen": 12,
+     "Name": "Get-BCStatus",
+     "Count": 2
+    },
+    {
+     "NameLen": 24,
+     "Name": "Get-BCDataCacheExtension",
+     "Count": 2
+    },
+    {
+     "NameLen": 8,
+     "Name": "Reset-BC",
+     "Count": 2
+    },
+    {
+     "NameLen": 14,
+     "Name": "Enable-BCLocal",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Enable-BCHostedServer",
+     "Count": 2
+    },
+    {
+     "NameLen": 24,
+     "Name": "Add-BCDataCacheExtension",
+     "Count": 2
+    },
+    {
+     "NameLen": 11,
+     "Name": "Set-BCCache",
+     "Count": 2
+    },
+    {
+     "NameLen": 25,
+     "Name": "Get-BCClientConfiguration",
+     "Count": 2
+    },
+    {
+     "NameLen": 23,
+     "Name": "Enable-BCServeOnBattery",
+     "Count": 2
+    },
+    {
+     "NameLen": 19,
+     "Name": "Set-BCMinSMBLatency",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Enable-BCHostedClient",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Import-BCCachePackage",
+     "Count": 2
+    },
+    {
+     "NameLen": 32,
+     "Name": "Get-BCContentServerConfiguration",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Export-BCCachePackage",
+     "Count": 2
+    },
+    {
+     "NameLen": 15,
+     "Name": "Set-BCSecretKey",
+     "Count": 2
+    },
+    {
+     "NameLen": 10,
+     "Name": "Disable-BC",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Enable-BCDistributed",
+     "Count": 2
+    },
+    {
+     "NameLen": 26,
+     "Name": "Set-BCDataCacheEntryMaxAge",
+     "Count": 2
+    },
+    {
+     "NameLen": 36,
+     "Name": "Get-BCHostedCacheServerConfiguration",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Set-BCAuthentication",
+     "Count": 2
+    },
+    {
+     "NameLen": 18,
+     "Name": "Export-BCSecretKey",
+     "Count": 2
+    },
+    {
+     "NameLen": 15,
+     "Name": "Get-BCHashCache",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 1191182336
+  },
+  {
+   "Offset": 11450,
+   "EntryLength": 280,
+   "TimestampTicks": 637112778328895147,
+   "ModuleLength": 67,
+   "ModuleName": "C:\\Program Files\\WindowsPowerShell\\Modules\\Pester\\3.4.0\\Pester.psm1",
+   "CommandCount": 7,
+   "Func": [
+    {
+     "NameLen": 14,
+     "Name": "SafeGetCommand",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Get-ScriptBlockScope",
+     "Count": 2
+    },
+    {
+     "NameLen": 36,
+     "Name": "Get-DictionaryValueFromFirstKeyFound",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "New-PesterOption",
+     "Count": 2
+    },
+    {
+     "NameLen": 13,
+     "Name": "Invoke-Pester",
+     "Count": 2
+    },
+    {
+     "NameLen": 18,
+     "Name": "ResolveTestScripts",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Set-ScriptBlockScope",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 1969516365
+  },
+  {
+   "Offset": 11730,
+   "EntryLength": 2043,
+   "TimestampTicks": 637112777858222579,
+   "ModuleLength": 65,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\Dism\\Dism.psd1",
+   "CommandCount": 62,
+   "Func": [
+    {
+     "NameLen": 16,
+     "Name": "Add-WindowsImage",
+     "Count": 8
+    },
+    {
+     "NameLen": 26,
+     "Name": "Add-AppxProvisionedPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 31,
+     "Name": "Get-WindowsReservedStorageState",
+     "Count": 8
+    },
+    {
+     "NameLen": 31,
+     "Name": "Optimize-ProvisionedAppPackages",
+     "Count": 1
+    },
+    {
+     "NameLen": 22,
+     "Name": "New-WindowsCustomImage",
+     "Count": 8
+    },
+    {
+     "NameLen": 21,
+     "Name": "Optimize-WindowsImage",
+     "Count": 8
+    },
+    {
+     "NameLen": 20,
+     "Name": "Remove-WindowsDriver",
+     "Count": 8
+    },
+    {
+     "NameLen": 31,
+     "Name": "Set-WindowsReservedStorageState",
+     "Count": 8
+    },
+    {
+     "NameLen": 25,
+     "Name": "Add-ProvisionedAppPackage",
+     "Count": 1
+    },
+    {
+     "NameLen": 29,
+     "Name": "Enable-WindowsOptionalFeature",
+     "Count": 8
+    },
+    {
+     "NameLen": 33,
+     "Name": "Set-ProvisionedAppPackageDataFile",
+     "Count": 1
+    },
+    {
+     "NameLen": 25,
+     "Name": "Add-AppProvisionedPackage",
+     "Count": 1
+    },
+    {
+     "NameLen": 19,
+     "Name": "Use-WindowsUnattend",
+     "Count": 8
+    },
+    {
+     "NameLen": 30,
+     "Name": "Export-WindowsCapabilitySource",
+     "Count": 8
+    },
+    {
+     "NameLen": 26,
+     "Name": "Get-ProvisionedAppxPackage",
+     "Count": 1
+    },
+    {
+     "NameLen": 18,
+     "Name": "Get-WindowsPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 21,
+     "Name": "Remove-WindowsPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 18,
+     "Name": "Get-WindowsEdition",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Get-WindowsDriver",
+     "Count": 8
+    },
+    {
+     "NameLen": 18,
+     "Name": "Add-WindowsPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 32,
+     "Name": "Optimize-AppxProvisionedPackages",
+     "Count": 8
+    },
+    {
+     "NameLen": 29,
+     "Name": "Expand-WindowsCustomDataImage",
+     "Count": 8
+    },
+    {
+     "NameLen": 32,
+     "Name": "Optimize-ProvisionedAppxPackages",
+     "Count": 1
+    },
+    {
+     "NameLen": 18,
+     "Name": "Set-WindowsEdition",
+     "Count": 8
+    },
+    {
+     "NameLen": 26,
+     "Name": "Set-NonRemovableAppsPolicy",
+     "Count": 8
+    },
+    {
+     "NameLen": 28,
+     "Name": "Remove-AppProvisionedPackage",
+     "Count": 1
+    },
+    {
+     "NameLen": 19,
+     "Name": "Repair-WindowsImage",
+     "Count": 8
+    },
+    {
+     "NameLen": 20,
+     "Name": "Export-WindowsDriver",
+     "Count": 8
+    },
+    {
+     "NameLen": 21,
+     "Name": "Get-WindowsCapability",
+     "Count": 8
+    },
+    {
+     "NameLen": 31,
+     "Name": "Optimize-AppProvisionedPackages",
+     "Count": 1
+    },
+    {
+     "NameLen": 33,
+     "Name": "Set-AppPackageProvisionedDataFile",
+     "Count": 1
+    },
+    {
+     "NameLen": 25,
+     "Name": "Get-AppProvisionedPackage",
+     "Count": 1
+    },
+    {
+     "NameLen": 16,
+     "Name": "New-WindowsImage",
+     "Count": 8
+    },
+    {
+     "NameLen": 18,
+     "Name": "Split-WindowsImage",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Export-WindowsImage",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Get-WIMBootEntry",
+     "Count": 8
+    },
+    {
+     "NameLen": 30,
+     "Name": "Clear-WindowsCorruptMountPoint",
+     "Count": 8
+    },
+    {
+     "NameLen": 18,
+     "Name": "Mount-WindowsImage",
+     "Count": 8
+    },
+    {
+     "NameLen": 24,
+     "Name": "Remove-WindowsCapability",
+     "Count": 8
+    },
+    {
+     "NameLen": 27,
+     "Name": "Set-AppXProvisionedDataFile",
+     "Count": 8
+    },
+    {
+     "NameLen": 26,
+     "Name": "Add-ProvisionedAppxPackage",
+     "Count": 1
+    },
+    {
+     "NameLen": 19,
+     "Name": "Remove-WindowsImage",
+     "Count": 8
+    },
+    {
+     "NameLen": 27,
+     "Name": "Set-ProvisionedAppXDataFile",
+     "Count": 1
+    },
+    {
+     "NameLen": 21,
+     "Name": "Set-WindowsProductKey",
+     "Count": 8
+    },
+    {
+     "NameLen": 26,
+     "Name": "Get-WindowsOptionalFeature",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Expand-WindowsImage",
+     "Count": 8
+    },
+    {
+     "NameLen": 26,
+     "Name": "Get-AppxProvisionedPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Start-OSUninstall",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Get-WindowsImage",
+     "Count": 8
+    },
+    {
+     "NameLen": 28,
+     "Name": "Remove-ProvisionedAppPackage",
+     "Count": 1
+    },
+    {
+     "NameLen": 26,
+     "Name": "Get-NonRemovableAppsPolicy",
+     "Count": 8
+    },
+    {
+     "NameLen": 29,
+     "Name": "Remove-AppxProvisionedPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 21,
+     "Name": "Dismount-WindowsImage",
+     "Count": 8
+    },
+    {
+     "NameLen": 30,
+     "Name": "Disable-WindowsOptionalFeature",
+     "Count": 8
+    },
+    {
+     "NameLen": 23,
+     "Name": "Get-WindowsImageContent",
+     "Count": 8
+    },
+    {
+     "NameLen": 29,
+     "Name": "Remove-ProvisionedAppxPackage",
+     "Count": 1
+    },
+    {
+     "NameLen": 21,
+     "Name": "Add-WindowsCapability",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Update-WIMBootEntry",
+     "Count": 8
+    },
+    {
+     "NameLen": 25,
+     "Name": "Get-ProvisionedAppPackage",
+     "Count": 1
+    },
+    {
+     "NameLen": 17,
+     "Name": "Save-WindowsImage",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Add-WindowsDriver",
+     "Count": 8
+    },
+    {
+     "NameLen": 21,
+     "Name": "Apply-WindowsUnattend",
+     "Count": 1
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 13773,
+   "EntryLength": 514,
+   "TimestampTicks": 637112778393403164,
+   "ModuleLength": 75,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\BitLocker\\BitLocker.psd1",
+   "CommandCount": 14,
+   "Func": [
+    {
+     "NameLen": 25,
+     "Name": "Clear-BitLockerAutoUnlock",
+     "Count": 2
+    },
+    {
+     "NameLen": 14,
+     "Name": "Lock-BitLocker",
+     "Count": 2
+    },
+    {
+     "NameLen": 28,
+     "Name": "Backup-BitLockerKeyProtector",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Resume-BitLocker",
+     "Count": 2
+    },
+    {
+     "NameLen": 27,
+     "Name": "Disable-BitLockerAutoUnlock",
+     "Count": 2
+    },
+    {
+     "NameLen": 33,
+     "Name": "BackupToAAD-BitLockerKeyProtector",
+     "Count": 2
+    },
+    {
+     "NameLen": 25,
+     "Name": "Add-BitLockerKeyProtector",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Unlock-BitLocker",
+     "Count": 2
+    },
+    {
+     "NameLen": 26,
+     "Name": "Enable-BitLockerAutoUnlock",
+     "Count": 2
+    },
+    {
+     "NameLen": 17,
+     "Name": "Disable-BitLocker",
+     "Count": 2
+    },
+    {
+     "NameLen": 28,
+     "Name": "Remove-BitLockerKeyProtector",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Enable-BitLocker",
+     "Count": 2
+    },
+    {
+     "NameLen": 17,
+     "Name": "Suspend-BitLocker",
+     "Count": 2
+    },
+    {
+     "NameLen": 19,
+     "Name": "Get-BitLockerVolume",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 14287,
+   "EntryLength": 695,
+   "TimestampTicks": 637112777740213390,
+   "ModuleLength": 101,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\EventTracingManagement\\EventTracingManagement.psd1",
+   "CommandCount": 20,
+   "Func": [
+    {
+     "NameLen": 19,
+     "Name": "New-EtwTraceSession",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Send-EtwTraceSession",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Set-EtwTraceProvider",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Add-EtwTraceProvider",
+     "Count": 2
+    },
+    {
+     "NameLen": 22,
+     "Name": "Start-AutologgerConfig",
+     "Count": 2
+    },
+    {
+     "NameLen": 23,
+     "Name": "Remove-AutologgerConfig",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Set-AutologgerConfig",
+     "Count": 1
+    },
+    {
+     "NameLen": 20,
+     "Name": "Stop-EtwTraceSession",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Get-AutologgerConfig",
+     "Count": 2
+    },
+    {
+     "NameLen": 23,
+     "Name": "Update-AutologgerConfig",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Get-EtwTraceProvider",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "New-AutologgerConfig",
+     "Count": 2
+    },
+    {
+     "NameLen": 23,
+     "Name": "Remove-EtwTraceProvider",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Start-EtwTraceSession",
+     "Count": 2
+    },
+    {
+     "NameLen": 22,
+     "Name": "Update-EtwTraceSession",
+     "Count": 2
+    },
+    {
+     "NameLen": 22,
+     "Name": "Remove-EtwTraceSession",
+     "Count": 1
+    },
+    {
+     "NameLen": 19,
+     "Name": "Set-EtwTraceSession",
+     "Count": 1
+    },
+    {
+     "NameLen": 19,
+     "Name": "Get-EtwTraceSession",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Save-EtwTraceSession",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Flush-EtwTraceSession",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 14982,
+   "EntryLength": 400,
+   "TimestampTicks": 637427313038700000,
+   "ModuleLength": 85,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\ConfigDefender\\ConfigDefender.psd1",
+   "CommandCount": 12,
+   "Func": [
+    {
+     "NameLen": 16,
+     "Name": "Add-MpPreference",
+     "Count": 2
+    },
+    {
+     "NameLen": 19,
+     "Name": "Get-MpThreatCatalog",
+     "Count": 2
+    },
+    {
+     "NameLen": 12,
+     "Name": "Get-MpThreat",
+     "Count": 2
+    },
+    {
+     "NameLen": 18,
+     "Name": "Update-MpSignature",
+     "Count": 2
+    },
+    {
+     "NameLen": 19,
+     "Name": "Remove-MpPreference",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Get-MpPreference",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Get-MpThreatDetection",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Set-MpPreference",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Get-MpComputerStatus",
+     "Count": 2
+    },
+    {
+     "NameLen": 12,
+     "Name": "Start-MpScan",
+     "Count": 2
+    },
+    {
+     "NameLen": 15,
+     "Name": "Start-MpWDOScan",
+     "Count": 2
+    },
+    {
+     "NameLen": 15,
+     "Name": "Remove-MpThreat",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 15382,
+   "EntryLength": 240,
+   "TimestampTicks": 637112778224454791,
+   "ModuleLength": 75,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\AppLocker\\AppLocker.psd1",
+   "CommandCount": 5,
+   "Func": [
+    {
+     "NameLen": 20,
+     "Name": "Test-AppLockerPolicy",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Set-AppLockerPolicy",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "New-AppLockerPolicy",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Get-AppLockerPolicy",
+     "Count": 8
+    },
+    {
+     "NameLen": 28,
+     "Name": "Get-AppLockerFileInformation",
+     "Count": 8
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 15622,
+   "EntryLength": 179,
+   "TimestampTicks": 637112778459146048,
+   "ModuleLength": 113,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\Microsoft.PowerShell.Archive\\Microsoft.PowerShell.Archive.psd1",
+   "CommandCount": 2,
+   "Func": [
+    {
+     "NameLen": 16,
+     "Name": "Compress-Archive",
+     "Count": 2
+    },
+    {
+     "NameLen": 14,
+     "Name": "Expand-Archive",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 15801,
+   "EntryLength": 279,
+   "TimestampTicks": 637112779626543275,
+   "ModuleLength": 75,
+   "ModuleName": "C:\\Program Files\\WindowsPowerShell\\Modules\\PSReadline\\2.0.0\\PSReadLine.psm1",
+   "CommandCount": 6,
+   "Func": [
+    {
+     "NameLen": 21,
+     "Name": "PSConsoleHostReadLine",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Get-PSReadLineOption",
+     "Count": 8
+    },
+    {
+     "NameLen": 24,
+     "Name": "Set-PSReadLineKeyHandler",
+     "Count": 8
+    },
+    {
+     "NameLen": 24,
+     "Name": "Get-PSReadLineKeyHandler",
+     "Count": 8
+    },
+    {
+     "NameLen": 20,
+     "Name": "Set-PSReadLineOption",
+     "Count": 8
+    },
+    {
+     "NameLen": 27,
+     "Name": "Remove-PSReadLineKeyHandler",
+     "Count": 8
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 16080,
+   "EntryLength": 172,
+   "TimestampTicks": 637112778459146048,
+   "ModuleLength": 119,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\Microsoft.PowerShell.ODataUtils\\Microsoft.PowerShell.ODataUtils.psd1",
+   "CommandCount": 1,
+   "Func": [
+    {
+     "NameLen": 25,
+     "Name": "Export-ODataEndpointProxy",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 16252,
+   "EntryLength": 597,
+   "TimestampTicks": 637112778459615270,
+   "ModuleLength": 77,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\CimCmdlets\\CimCmdlets.psd1",
+   "CommandCount": 26,
+   "Func": [
+    {
+     "NameLen": 16,
+     "Name": "Invoke-CimMethod",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Get-CimSession",
+     "Count": 8
+    },
+    {
+     "NameLen": 4,
+     "Name": "ncms",
+     "Count": 1
+    },
+    {
+     "NameLen": 4,
+     "Name": "ncim",
+     "Count": 1
+    },
+    {
+     "NameLen": 12,
+     "Name": "Get-CimClass",
+     "Count": 8
+    },
+    {
+     "NameLen": 4,
+     "Name": "gcls",
+     "Count": 1
+    },
+    {
+     "NameLen": 18,
+     "Name": "Import-BinaryMiLog",
+     "Count": 8
+    },
+    {
+     "NameLen": 4,
+     "Name": "gcim",
+     "Count": 1
+    },
+    {
+     "NameLen": 4,
+     "Name": "rcim",
+     "Count": 1
+    },
+    {
+     "NameLen": 20,
+     "Name": "New-CimSessionOption",
+     "Count": 8
+    },
+    {
+     "NameLen": 4,
+     "Name": "rcms",
+     "Count": 1
+    },
+    {
+     "NameLen": 4,
+     "Name": "scim",
+     "Count": 1
+    },
+    {
+     "NameLen": 4,
+     "Name": "rcie",
+     "Count": 1
+    },
+    {
+     "NameLen": 18,
+     "Name": "Remove-CimInstance",
+     "Count": 8
+    },
+    {
+     "NameLen": 4,
+     "Name": "gcms",
+     "Count": 1
+    },
+    {
+     "NameLen": 15,
+     "Name": "New-CimInstance",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Set-CimInstance",
+     "Count": 8
+    },
+    {
+     "NameLen": 27,
+     "Name": "Register-CimIndicationEvent",
+     "Count": 8
+    },
+    {
+     "NameLen": 25,
+     "Name": "Get-CimAssociatedInstance",
+     "Count": 8
+    },
+    {
+     "NameLen": 4,
+     "Name": "ncso",
+     "Count": 1
+    },
+    {
+     "NameLen": 17,
+     "Name": "Remove-CimSession",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "New-CimSession",
+     "Count": 8
+    },
+    {
+     "NameLen": 4,
+     "Name": "gcai",
+     "Count": 1
+    },
+    {
+     "NameLen": 15,
+     "Name": "Get-CimInstance",
+     "Count": 8
+    },
+    {
+     "NameLen": 4,
+     "Name": "icim",
+     "Count": 1
+    },
+    {
+     "NameLen": 18,
+     "Name": "Export-BinaryMiLog",
+     "Count": 8
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 16849,
+   "EntryLength": 174,
+   "TimestampTicks": 637112778459146048,
+   "ModuleLength": 107,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\Microsoft.PowerShell.Host\\Microsoft.PowerShell.Host.psd1",
+   "CommandCount": 2,
+   "Func": [
+    {
+     "NameLen": 16,
+     "Name": "Start-Transcript",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Stop-Transcript",
+     "Count": 8
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 17023,
+   "EntryLength": 228,
+   "TimestampTicks": 637112777874752220,
+   "ModuleLength": 63,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\Kds\\Kds.psd1",
+   "CommandCount": 6,
+   "Func": [
+    {
+     "NameLen": 20,
+     "Name": "Set-KdsConfiguration",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Test-KdsRootKey",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Add-KdsRootKey",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Clear-KdsCache",
+     "Count": 8
+    },
+    {
+     "NameLen": 20,
+     "Name": "Get-KdsConfiguration",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Get-KdsRootKey",
+     "Count": 8
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 17251,
+   "EntryLength": 686,
+   "TimestampTicks": 637112779643572230,
+   "ModuleLength": 133,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\Microsoft.PowerShell.LocalAccounts\\1.0.0.0\\Microsoft.PowerShell.LocalAccounts.psd1",
+   "CommandCount": 30,
+   "Func": [
+    {
+     "NameLen": 4,
+     "Name": "glgm",
+     "Count": 1
+    },
+    {
+     "NameLen": 13,
+     "Name": "New-LocalUser",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Rename-LocalUser",
+     "Count": 8
+    },
+    {
+     "NameLen": 3,
+     "Name": "glu",
+     "Count": 1
+    },
+    {
+     "NameLen": 3,
+     "Name": "dlu",
+     "Count": 1
+    },
+    {
+     "NameLen": 3,
+     "Name": "rlg",
+     "Count": 1
+    },
+    {
+     "NameLen": 3,
+     "Name": "elu",
+     "Count": 1
+    },
+    {
+     "NameLen": 14,
+     "Name": "New-LocalGroup",
+     "Count": 8
+    },
+    {
+     "NameLen": 20,
+     "Name": "Add-LocalGroupMember",
+     "Count": 8
+    },
+    {
+     "NameLen": 20,
+     "Name": "Get-LocalGroupMember",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Remove-LocalGroup",
+     "Count": 8
+    },
+    {
+     "NameLen": 4,
+     "Name": "rnlu",
+     "Count": 1
+    },
+    {
+     "NameLen": 3,
+     "Name": "slu",
+     "Count": 1
+    },
+    {
+     "NameLen": 3,
+     "Name": "nlg",
+     "Count": 1
+    },
+    {
+     "NameLen": 16,
+     "Name": "Enable-LocalUser",
+     "Count": 8
+    },
+    {
+     "NameLen": 4,
+     "Name": "algm",
+     "Count": 1
+    },
+    {
+     "NameLen": 3,
+     "Name": "slg",
+     "Count": 1
+    },
+    {
+     "NameLen": 16,
+     "Name": "Remove-LocalUser",
+     "Count": 8
+    },
+    {
+     "NameLen": 4,
+     "Name": "rnlg",
+     "Count": 1
+    },
+    {
+     "NameLen": 14,
+     "Name": "Get-LocalGroup",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Rename-LocalGroup",
+     "Count": 8
+    },
+    {
+     "NameLen": 4,
+     "Name": "rlgm",
+     "Count": 1
+    },
+    {
+     "NameLen": 3,
+     "Name": "nlu",
+     "Count": 1
+    },
+    {
+     "NameLen": 3,
+     "Name": "glg",
+     "Count": 1
+    },
+    {
+     "NameLen": 13,
+     "Name": "Set-LocalUser",
+     "Count": 8
+    },
+    {
+     "NameLen": 3,
+     "Name": "rlu",
+     "Count": 1
+    },
+    {
+     "NameLen": 13,
+     "Name": "Get-LocalUser",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Disable-LocalUser",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Set-LocalGroup",
+     "Count": 8
+    },
+    {
+     "NameLen": 23,
+     "Name": "Remove-LocalGroupMember",
+     "Count": 8
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 17937,
+   "EntryLength": 1499,
+   "TimestampTicks": 637112803169131572,
+   "ModuleLength": 75,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\BitLocker\\BitLocker.psm1",
+   "CommandCount": 40,
+   "Func": [
+    {
+     "NameLen": 32,
+     "Name": "Add-ExternalKeyProtectorInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 25,
+     "Name": "Clear-BitLockerAutoUnlock",
+     "Count": 2
+    },
+    {
+     "NameLen": 27,
+     "Name": "Disable-BitLockerAutoUnlock",
+     "Count": 2
+    },
+    {
+     "NameLen": 27,
+     "Name": "Get-BitLockerVolumeInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 27,
+     "Name": "Set-BitLockerVolumeInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 26,
+     "Name": "Enable-BitLockerAutoUnlock",
+     "Count": 2
+    },
+    {
+     "NameLen": 37,
+     "Name": "Add-TpmAndStartupKeyProtectorInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 34,
+     "Name": "Get-Win32EncryptableVolumeInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 38,
+     "Name": "Test-SystemEntropyForBitLockerInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 38,
+     "Name": "Get-RecoveryKeyProtectorsCountInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 26,
+     "Name": "Get-ExceptionForHrInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 33,
+     "Name": "BackupToAAD-BitLockerKeyProtector",
+     "Count": 2
+    },
+    {
+     "NameLen": 25,
+     "Name": "Add-BitLockerKeyProtector",
+     "Count": 2
+    },
+    {
+     "NameLen": 28,
+     "Name": "Remove-BitLockerKeyProtector",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Resume-BitLocker",
+     "Count": 2
+    },
+    {
+     "NameLen": 28,
+     "Name": "Backup-BitLockerKeyProtector",
+     "Count": 2
+    },
+    {
+     "NameLen": 37,
+     "Name": "Show-BitLockerRequiredActionsInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 23,
+     "Name": "Unlock-PasswordInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Unlock-BitLocker",
+     "Count": 2
+    },
+    {
+     "NameLen": 24,
+     "Name": "Add-TpmProtectorInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 37,
+     "Name": "Add-RecoveryPasswordProtectorInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 26,
+     "Name": "Unlock-RecoveryKeyInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 33,
+     "Name": "Remove-KeyProtectorByTypeInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 28,
+     "Name": "Test-TpmForBitLockerInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 19,
+     "Name": "Get-BitLockerVolume",
+     "Count": 2
+    },
+    {
+     "NameLen": 17,
+     "Name": "Suspend-BitLocker",
+     "Count": 2
+    },
+    {
+     "NameLen": 31,
+     "Name": "Unlock-RecoveryPasswordInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 23,
+     "Name": "Read-UserSecretInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Enable-BitLocker",
+     "Count": 2
+    },
+    {
+     "NameLen": 30,
+     "Name": "Add-TpmAndPinProtectorInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 29,
+     "Name": "Add-PasswordProtectorInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 43,
+     "Name": "Add-TpmAndPinAndStartupKeyProtectorInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 24,
+     "Name": "Enable-BitLockerInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 31,
+     "Name": "Unlock-AdAccountOrGroupInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "IsNanoPowerShell",
+     "Count": 2
+    },
+    {
+     "NameLen": 31,
+     "Name": "Test-TpmProtectorNeededInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 24,
+     "Name": "Add-SidProtectorInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 28,
+     "Name": "Decrypt-SecureStringInternal",
+     "Count": 2
+    },
+    {
+     "NameLen": 17,
+     "Name": "Disable-BitLocker",
+     "Count": 2
+    },
+    {
+     "NameLen": 14,
+     "Name": "Lock-BitLocker",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 19436,
+   "EntryLength": 185,
+   "TimestampTicks": 637112778197418864,
+   "ModuleLength": 85,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\AssignedAccess\\AssignedAccess.psd1",
+   "CommandCount": 3,
+   "Func": [
+    {
+     "NameLen": 18,
+     "Name": "Set-AssignedAccess",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Clear-AssignedAccess",
+     "Count": 2
+    },
+    {
+     "NameLen": 18,
+     "Name": "Get-AssignedAccess",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 19621,
+   "EntryLength": 725,
+   "TimestampTicks": 637112777387385598,
+   "ModuleLength": 83,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\International\\International.psd1",
+   "CommandCount": 18,
+   "Func": [
+    {
+     "NameLen": 24,
+     "Name": "Get-WinLanguageBarOption",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Set-Culture",
+     "Count": 8
+    },
+    {
+     "NameLen": 36,
+     "Name": "Get-WinCultureFromLanguageListOptOut",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Get-WinHomeLocation",
+     "Count": 8
+    },
+    {
+     "NameLen": 36,
+     "Name": "Set-WinCultureFromLanguageListOptOut",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Get-WinSystemLocale",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Set-WinSystemLocale",
+     "Count": 8
+    },
+    {
+     "NameLen": 43,
+     "Name": "Get-WinAcceptLanguageFromLanguageListOptOut",
+     "Count": 8
+    },
+    {
+     "NameLen": 25,
+     "Name": "Set-WinUILanguageOverride",
+     "Count": 8
+    },
+    {
+     "NameLen": 43,
+     "Name": "Set-WinAcceptLanguageFromLanguageListOptOut",
+     "Count": 8
+    },
+    {
+     "NameLen": 23,
+     "Name": "Set-WinUserLanguageList",
+     "Count": 8
+    },
+    {
+     "NameLen": 23,
+     "Name": "New-WinUserLanguageList",
+     "Count": 8
+    },
+    {
+     "NameLen": 25,
+     "Name": "Get-WinUILanguageOverride",
+     "Count": 8
+    },
+    {
+     "NameLen": 23,
+     "Name": "Get-WinUserLanguageList",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Set-WinHomeLocation",
+     "Count": 8
+    },
+    {
+     "NameLen": 24,
+     "Name": "Set-WinLanguageBarOption",
+     "Count": 8
+    },
+    {
+     "NameLen": 33,
+     "Name": "Get-WinDefaultInputMethodOverride",
+     "Count": 8
+    },
+    {
+     "NameLen": 33,
+     "Name": "Set-WinDefaultInputMethodOverride",
+     "Count": 8
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 20346,
+   "EntryLength": 588,
+   "TimestampTicks": 637112777778035013,
+   "ModuleLength": 75,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\DnsClient\\DnsClient.psd1",
+   "CommandCount": 17,
+   "Func": [
+    {
+     "NameLen": 13,
+     "Name": "Get-DnsClient",
+     "Count": 2
+    },
+    {
+     "NameLen": 23,
+     "Name": "Get-DnsClientNrptGlobal",
+     "Count": 2
+    },
+    {
+     "NameLen": 26,
+     "Name": "Set-DnsClientGlobalSetting",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Set-DnsClientNrptRule",
+     "Count": 2
+    },
+    {
+     "NameLen": 26,
+     "Name": "Get-DnsClientServerAddress",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Clear-DnsClientCache",
+     "Count": 2
+    },
+    {
+     "NameLen": 23,
+     "Name": "Set-DnsClientNrptGlobal",
+     "Count": 2
+    },
+    {
+     "NameLen": 18,
+     "Name": "Get-DnsClientCache",
+     "Count": 2
+    },
+    {
+     "NameLen": 24,
+     "Name": "Remove-DnsClientNrptRule",
+     "Count": 2
+    },
+    {
+     "NameLen": 26,
+     "Name": "Get-DnsClientGlobalSetting",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Add-DnsClientNrptRule",
+     "Count": 2
+    },
+    {
+     "NameLen": 13,
+     "Name": "Set-DnsClient",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Get-DnsClientNrptRule",
+     "Count": 2
+    },
+    {
+     "NameLen": 15,
+     "Name": "Resolve-DnsName",
+     "Count": 8
+    },
+    {
+     "NameLen": 26,
+     "Name": "Set-DnsClientServerAddress",
+     "Count": 2
+    },
+    {
+     "NameLen": 18,
+     "Name": "Register-DnsClient",
+     "Count": 2
+    },
+    {
+     "NameLen": 23,
+     "Name": "Get-DnsClientNrptPolicy",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 20934,
+   "EntryLength": 480,
+   "TimestampTicks": 637112778210548171,
+   "ModuleLength": 73,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\ConfigCI\\ConfigCI.psd1",
+   "CommandCount": 16,
+   "Func": [
+    {
+     "NameLen": 16,
+     "Name": "Get-CIPolicyInfo",
+     "Count": 8
+    },
+    {
+     "NameLen": 18,
+     "Name": "Get-CIPolicyIdInfo",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Set-CIPolicySetting",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Merge-CIPolicy",
+     "Count": 8
+    },
+    {
+     "NameLen": 17,
+     "Name": "Edit-CIPolicyRule",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Set-CIPolicyVersion",
+     "Count": 8
+    },
+    {
+     "NameLen": 18,
+     "Name": "Set-CIPolicyIdInfo",
+     "Count": 8
+    },
+    {
+     "NameLen": 20,
+     "Name": "ConvertFrom-CIPolicy",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "Set-HVCIOptions",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Add-SignerRule",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "New-CIPolicy",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "Get-SystemDriver",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Set-RuleOption",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Get-CIPolicy",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Remove-CIPolicyRule",
+     "Count": 8
+    },
+    {
+     "NameLen": 16,
+     "Name": "New-CIPolicyRule",
+     "Count": 8
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 21414,
+   "EntryLength": 1160,
+   "TimestampTicks": 637112778196323051,
+   "ModuleLength": 77,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\AppvClient\\AppvClient.psd1",
+   "CommandCount": 33,
+   "Func": [
+    {
+     "NameLen": 31,
+     "Name": "Mount-AppvClientConnectionGroup",
+     "Count": 8
+    },
+    {
+     "NameLen": 23,
+     "Name": "Mount-AppvClientPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "Disable-Appv",
+     "Count": 8
+    },
+    {
+     "NameLen": 29,
+     "Name": "Add-AppvClientConnectionGroup",
+     "Count": 8
+    },
+    {
+     "NameLen": 21,
+     "Name": "Add-AppvClientPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 18,
+     "Name": "Get-AppvClientMode",
+     "Count": 8
+    },
+    {
+     "NameLen": 22,
+     "Name": "Get-AppvVirtualProcess",
+     "Count": 2
+    },
+    {
+     "NameLen": 22,
+     "Name": "Stop-AppvClientPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 25,
+     "Name": "Publish-AppvClientPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 21,
+     "Name": "Set-AppvClientPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 29,
+     "Name": "Get-AppvClientConnectionGroup",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Enable-Appv",
+     "Count": 8
+    },
+    {
+     "NameLen": 24,
+     "Name": "Start-AppvVirtualProcess",
+     "Count": 2
+    },
+    {
+     "NameLen": 24,
+     "Name": "Get-AppvPublishingServer",
+     "Count": 8
+    },
+    {
+     "NameLen": 25,
+     "Name": "Sync-AppvPublishingServer",
+     "Count": 8
+    },
+    {
+     "NameLen": 32,
+     "Name": "Enable-AppvClientConnectionGroup",
+     "Count": 8
+    },
+    {
+     "NameLen": 18,
+     "Name": "Set-AppvClientMode",
+     "Count": 8
+    },
+    {
+     "NameLen": 24,
+     "Name": "Add-AppvPublishingServer",
+     "Count": 8
+    },
+    {
+     "NameLen": 24,
+     "Name": "Remove-AppvClientPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 24,
+     "Name": "Repair-AppvClientPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 21,
+     "Name": "Send-AppvClientReport",
+     "Count": 8
+    },
+    {
+     "NameLen": 25,
+     "Name": "Get-AppvClientApplication",
+     "Count": 8
+    },
+    {
+     "NameLen": 24,
+     "Name": "Set-AppvPublishingServer",
+     "Count": 8
+    },
+    {
+     "NameLen": 32,
+     "Name": "Remove-AppvClientConnectionGroup",
+     "Count": 8
+    },
+    {
+     "NameLen": 27,
+     "Name": "Remove-AppvPublishingServer",
+     "Count": 8
+    },
+    {
+     "NameLen": 21,
+     "Name": "Get-AppvClientPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 27,
+     "Name": "Get-AppvClientConfiguration",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Get-AppvStatus",
+     "Count": 8
+    },
+    {
+     "NameLen": 27,
+     "Name": "Unpublish-AppvClientPackage",
+     "Count": 8
+    },
+    {
+     "NameLen": 33,
+     "Name": "Disable-AppvClientConnectionGroup",
+     "Count": 8
+    },
+    {
+     "NameLen": 27,
+     "Name": "Set-AppvClientConfiguration",
+     "Count": 8
+    },
+    {
+     "NameLen": 32,
+     "Name": "Repair-AppvClientConnectionGroup",
+     "Count": 8
+    },
+    {
+     "NameLen": 30,
+     "Name": "Stop-AppvClientConnectionGroup",
+     "Count": 8
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 22574,
+   "EntryLength": 244,
+   "TimestampTicks": 637112778459146048,
+   "ModuleLength": 121,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\Microsoft.PowerShell.Diagnostics\\Microsoft.PowerShell.Diagnostics.psd1",
+   "CommandCount": 5,
+   "Func": [
+    {
+     "NameLen": 12,
+     "Name": "Get-WinEvent",
+     "Count": 8
+    },
+    {
+     "NameLen": 12,
+     "Name": "New-WinEvent",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Import-Counter",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Export-Counter",
+     "Count": 8
+    },
+    {
+     "NameLen": 11,
+     "Name": "Get-Counter",
+     "Count": 8
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 22818,
+   "EntryLength": 279,
+   "TimestampTicks": 637112779626543275,
+   "ModuleLength": 75,
+   "ModuleName": "C:\\Program Files\\WindowsPowerShell\\Modules\\PSReadline\\2.0.0\\PSReadline.psd1",
+   "CommandCount": 6,
+   "Func": [
+    {
+     "NameLen": 21,
+     "Name": "PSConsoleHostReadLine",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Get-PSReadLineOption",
+     "Count": 8
+    },
+    {
+     "NameLen": 24,
+     "Name": "Set-PSReadLineKeyHandler",
+     "Count": 8
+    },
+    {
+     "NameLen": 24,
+     "Name": "Get-PSReadLineKeyHandler",
+     "Count": 8
+    },
+    {
+     "NameLen": 20,
+     "Name": "Set-PSReadLineOption",
+     "Count": 8
+    },
+    {
+     "NameLen": 27,
+     "Name": "Remove-PSReadLineKeyHandler",
+     "Count": 8
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 23097,
+   "EntryLength": 1080,
+   "TimestampTicks": 637112779626377672,
+   "ModuleLength": 78,
+   "ModuleName": "C:\\Program Files\\WindowsPowerShell\\Modules\\PowerShellGet\\1.0.0.1\\PSModule.psm1",
+   "CommandCount": 42,
+   "Func": [
+    {
+     "NameLen": 14,
+     "Name": "Install-Script",
+     "Count": 2
+    },
+    {
+     "NameLen": 11,
+     "Name": "Save-Module",
+     "Count": 2
+    },
+    {
+     "NameLen": 14,
+     "Name": "Publish-Module",
+     "Count": 2
+    },
+    {
+     "NameLen": 11,
+     "Name": "Find-Module",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Download-Package",
+     "Count": 2
+    },
+    {
+     "NameLen": 13,
+     "Name": "Update-Module",
+     "Count": 2
+    },
+    {
+     "NameLen": 12,
+     "Name": "Find-Command",
+     "Count": 2
+    },
+    {
+     "NameLen": 23,
+     "Name": "Unregister-PSRepository",
+     "Count": 2
+    },
+    {
+     "NameLen": 19,
+     "Name": "Get-InstalledScript",
+     "Count": 2
+    },
+    {
+     "NameLen": 18,
+     "Name": "Get-DynamicOptions",
+     "Count": 2
+    },
+    {
+     "NameLen": 17,
+     "Name": "Add-PackageSource",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Register-PSRepository",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Find-DscResource",
+     "Count": 2
+    },
+    {
+     "NameLen": 14,
+     "Name": "Publish-Script",
+     "Count": 2
+    },
+    {
+     "NameLen": 19,
+     "Name": "Find-RoleCapability",
+     "Count": 2
+    },
+    {
+     "NameLen": 17,
+     "Name": "Uninstall-Package",
+     "Count": 2
+    },
+    {
+     "NameLen": 23,
+     "Name": "Get-PackageDependencies",
+     "Count": 2
+    },
+    {
+     "NameLen": 4,
+     "Name": "pumo",
+     "Count": 1
+    },
+    {
+     "NameLen": 4,
+     "Name": "fimo",
+     "Count": 1
+    },
+    {
+     "NameLen": 11,
+     "Name": "Find-Script",
+     "Count": 2
+    },
+    {
+     "NameLen": 19,
+     "Name": "Initialize-Provider",
+     "Count": 2
+    },
+    {
+     "NameLen": 23,
+     "Name": "Get-PackageProviderName",
+     "Count": 2
+    },
+    {
+     "NameLen": 19,
+     "Name": "Test-ScriptFileInfo",
+     "Count": 2
+    },
+    {
+     "NameLen": 19,
+     "Name": "Get-InstalledModule",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Update-ScriptFileInfo",
+     "Count": 2
+    },
+    {
+     "NameLen": 20,
+     "Name": "Get-InstalledPackage",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Resolve-PackageSource",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Uninstall-Module",
+     "Count": 2
+    },
+    {
+     "NameLen": 4,
+     "Name": "inmo",
+     "Count": 1
+    },
+    {
+     "NameLen": 20,
+     "Name": "Remove-PackageSource",
+     "Count": 2
+    },
+    {
+     "NameLen": 13,
+     "Name": "Update-Script",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Uninstall-Script",
+     "Count": 2
+    },
+    {
+     "NameLen": 21,
+     "Name": "Update-ModuleManifest",
+     "Count": 2
+    },
+    {
+     "NameLen": 11,
+     "Name": "Get-Feature",
+     "Count": 2
+    },
+    {
+     "NameLen": 14,
+     "Name": "Install-Module",
+     "Count": 2
+    },
+    {
+     "NameLen": 15,
+     "Name": "Install-Package",
+     "Count": 2
+    },
+    {
+     "NameLen": 4,
+     "Name": "upmo",
+     "Count": 1
+    },
+    {
+     "NameLen": 18,
+     "Name": "New-ScriptFileInfo",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Set-PSRepository",
+     "Count": 2
+    },
+    {
+     "NameLen": 16,
+     "Name": "Get-PSRepository",
+     "Count": 2
+    },
+    {
+     "NameLen": 11,
+     "Name": "Save-Script",
+     "Count": 2
+    },
+    {
+     "NameLen": 12,
+     "Name": "Find-Package",
+     "Count": 2
+    }
+   ],
+   "CountOfTypes": 0
+  },
+  {
+   "Offset": 24177,
+   "EntryLength": 518,
+   "TimestampTicks": 637112778459146048,
+   "ModuleLength": 115,
+   "ModuleName": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\Microsoft.PowerShell.Security\\Microsoft.PowerShell.Security.psd1",
+   "CommandCount": 15,
+   "Func": [
+    {
+     "NameLen": 16,
+     "Name": "Test-FileCatalog",
+     "Count": 8
+    },
+    {
+     "NameLen": 25,
+     "Name": "Set-AuthenticodeSignature",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Get-ExecutionPolicy",
+     "Count": 8
+    },
+    {
+     "NameLen": 7,
+     "Name": "Set-Acl",
+     "Count": 8
+    },
+    {
+     "NameLen": 18,
+     "Name": "Protect-CmsMessage",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Get-Credential",
+     "Count": 8
+    },
+    {
+     "NameLen": 22,
+     "Name": "ConvertTo-SecureString",
+     "Count": 8
+    },
+    {
+     "NameLen": 7,
+     "Name": "Get-Acl",
+     "Count": 8
+    },
+    {
+     "NameLen": 18,
+     "Name": "Get-PfxCertificate",
+     "Count": 8
+    },
+    {
+     "NameLen": 25,
+     "Name": "Get-AuthenticodeSignature",
+     "Count": 8
+    },
+    {
+     "NameLen": 24,
+     "Name": "ConvertFrom-SecureString",
+     "Count": 8
+    },
+    {
+     "NameLen": 20,
+     "Name": "Unprotect-CmsMessage",
+     "Count": 8
+    },
+    {
+     "NameLen": 15,
+     "Name": "New-FileCatalog",
+     "Count": 8
+    },
+    {
+     "NameLen": 14,
+     "Name": "Get-CmsMessage",
+     "Count": 8
+    },
+    {
+     "NameLen": 19,
+     "Name": "Set-ExecutionPolicy",
+     "Count": 8
+    }
+   ],
+   "CountOfTypes": 0
+  }
+ ]
+}

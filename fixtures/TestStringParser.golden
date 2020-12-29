@@ -1,0 +1,8 @@
+{
+ "Length": 3,
+ "Field1": "hello",
+ "Field2": "hello\u0000world",
+ "Field3": "hello\u0000world",
+ "Field4": "hel",
+ "Field5": "hel"
+}
