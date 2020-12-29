@@ -2,28 +2,68 @@
 
 package vtypes
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"errors"
 
-func (self *BaseObject) _getJsonValue() interface{} {
-	switch self.parser.(type) {
-	case Integerer:
-		return self.AsInteger()
-	case Stringer:
-		return self.AsString()
-	case Getter:
-		res := make(map[string]interface{})
-		for _, field := range self.Fields() {
-			res[field] = self.Get(field).Value()
-		}
+	"github.com/Velocidex/ordereddict"
+)
 
-		return res
-
-	default:
-		return self.DebugString()
+func (self *StructDefinition) UnmarshalJSON(p []byte) error {
+	var tmp []json.RawMessage
+	if err := json.Unmarshal(p, &tmp); err != nil {
+		return err
 	}
+
+	if len(tmp) != 3 {
+		return errors.New("Struct Definition should be [name, size, fields]")
+	}
+
+	if err := json.Unmarshal(tmp[0], &self.Name); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tmp[1], &self.Size); err != nil {
+		if err := json.Unmarshal(tmp[1], &self.SizeExpression); err != nil {
+			return err
+		}
+	}
+
+	if err := json.Unmarshal(tmp[2], &self.Fields); err != nil {
+		return err
+	}
+
+	return nil
 }
 
-func (self *BaseObject) MarshalJSON() ([]byte, error) {
-	buf, err := json.Marshal(self._getJsonValue())
-	return buf, err
+func (self *FieldDefinition) UnmarshalJSON(p []byte) error {
+	var tmp []json.RawMessage
+	if err := json.Unmarshal(p, &tmp); err != nil {
+		return err
+	}
+
+	if len(tmp) != 3 && len(tmp) != 4 {
+		return errors.New("Field Definition should be [name, offset, type, options?]")
+	}
+
+	if err := json.Unmarshal(tmp[0], &self.Name); err != nil {
+		return err
+	}
+	if err := json.Unmarshal(tmp[1], &self.Offset); err != nil {
+		if err := json.Unmarshal(tmp[1], &self.OffsetExpression); err != nil {
+			return err
+		}
+	}
+	if err := json.Unmarshal(tmp[2], &self.Type); err != nil {
+		return err
+	}
+
+	if len(tmp) == 4 {
+		self.Options = ordereddict.NewDict()
+		if err := json.Unmarshal(tmp[3], &self.Options); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

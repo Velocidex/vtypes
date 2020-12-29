@@ -1,4 +1,7 @@
-//
+//  Every profile contains some basic built in types that make it
+//  easier to parse common structs. The model is a mapping between the
+//  generic names of types and the corresponding parsers.
+
 package vtypes
 
 import (
@@ -7,44 +10,49 @@ import (
 
 func AddModel(profile *Profile) {
 	profile.types["uint8"] = NewIntParser(
-		"uint8", func(buf []byte) int64 {
+		"uint8", 1, func(buf []byte) interface{} {
 			return int64(uint8(buf[0]))
 		})
 	profile.types["uint16"] = NewIntParser(
-		"uint16", func(buf []byte) int64 {
+		"uint16", 2, func(buf []byte) interface{} {
 			return int64(binary.LittleEndian.Uint16(buf))
 		})
 	profile.types["uint32"] = NewIntParser(
-		"uint32", func(buf []byte) int64 {
+		"uint32", 4, func(buf []byte) interface{} {
 			return int64(binary.LittleEndian.Uint32(buf))
 		})
 	profile.types["uint64"] = NewIntParser(
-		"uint64", func(buf []byte) int64 {
+		"uint64", 8, func(buf []byte) interface{} {
 			return int64(binary.LittleEndian.Uint64(buf))
 		})
 	profile.types["int8"] = NewIntParser(
-		"int8", func(buf []byte) int64 {
+		"int8", 1, func(buf []byte) interface{} {
 			return int64(int8(buf[0]))
 		})
 	profile.types["int16"] = NewIntParser(
-		"int16", func(buf []byte) int64 {
+		"int16", 2, func(buf []byte) interface{} {
 			return int64(int16(binary.LittleEndian.Uint16(buf)))
 		})
 	profile.types["int32"] = NewIntParser(
-		"int32", func(buf []byte) int64 {
+		"int32", 4, func(buf []byte) interface{} {
 			return int64(int32(binary.LittleEndian.Uint32(buf)))
 		})
 	profile.types["int64"] = NewIntParser(
-		"int64", func(buf []byte) int64 {
+		"int64", 8, func(buf []byte) interface{} {
 			return int64(binary.LittleEndian.Uint64(buf))
 		})
 
-	profile.types["String"] = NewStringParser("string")
-	profile.types["Enumeration"] = NewEnumeration("Enumeration", profile)
-	profile.types["Flags"] = NewFlagsParser("Flags", profile)
-	profile.types["Array"] = NewArrayParser("Array", "", profile, nil)
-	profile.types["BitField"] = NewBitField("BitField", profile)
+	profile.types["Array"] = &ArrayParser{}
+	profile.types["String"] = &StringParser{}
+	profile.types["Value"] = &ValueParser{}
 
+	/*
+		profile.types["String"] = NewStringParser("string")
+		profile.types["Enumeration"] = NewEnumeration("Enumeration", profile)
+		profile.types["Flags"] = NewFlagsParser("Flags", profile)
+
+		profile.types["BitField"] = NewBitField("BitField", profile)
+	*/
 	// Aliases
 	profile.types["int"] = profile.types["int32"]
 	profile.types["char"] = profile.types["int8"]
