@@ -45,6 +45,7 @@ func AddModel(profile *Profile) {
 	profile.types["Array"] = &ArrayParser{}
 	profile.types["String"] = &StringParser{}
 	profile.types["Value"] = &ValueParser{}
+	profile.types["Enumeration"] = &EnumerationParser{}
 
 	/*
 		profile.types["String"] = NewStringParser("string")
