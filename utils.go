@@ -89,7 +89,7 @@ func EndOf(obj interface{}) int64 {
 	return 0
 }
 
-func Associative(scope *vfilter.Scope, a vfilter.Any, field string) vfilter.Any {
+func Associative(scope vfilter.Scope, a vfilter.Any, field string) vfilter.Any {
 	var result vfilter.Any = a
 	var ok bool
 
@@ -109,7 +109,7 @@ func IsNil(v interface{}) bool {
 		reflect.ValueOf(v).IsNil())
 }
 
-func EvalLambdaAsInt64(expression *vfilter.Lambda, scope *vfilter.Scope) int64 {
+func EvalLambdaAsInt64(expression *vfilter.Lambda, scope vfilter.Scope) int64 {
 	this_obj, pres := scope.Resolve("this")
 	if !pres {
 		return 0

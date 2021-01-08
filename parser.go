@@ -12,7 +12,7 @@ import (
 // Parsers are objects which know how to parse a particular
 // type. Parsers are instantiated once and reused many times.
 type Parser interface {
-	Parse(scope *vfilter.Scope, reader io.ReaderAt, offset int64) interface{}
+	Parse(scope vfilter.Scope, reader io.ReaderAt, offset int64) interface{}
 
 	// Given options, this returns a new configured parser
 	New(profile *Profile, options *ordereddict.Dict) (Parser, error)
@@ -47,12 +47,12 @@ func (self *IntParser) Size() int {
 	return self.size
 }
 
-func (self *IntParser) DebugString(scope *vfilter.Scope, offset int64, reader io.ReaderAt) string {
+func (self *IntParser) DebugString(scope vfilter.Scope, offset int64, reader io.ReaderAt) string {
 	return fmt.Sprintf("[%s] %#0x",
 		self.type_name, self.Parse(scope, reader, offset))
 }
 
-func (self *IntParser) Parse(scope *vfilter.Scope, reader io.ReaderAt, offset int64) interface{} {
+func (self *IntParser) Parse(scope vfilter.Scope, reader io.ReaderAt, offset int64) interface{} {
 	buf := make([]byte, 8)
 
 	n, err := reader.ReadAt(buf, offset)

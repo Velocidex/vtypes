@@ -24,7 +24,7 @@ func StringIndent(v interface{}) string {
 	return string(result)
 }
 
-func ScopeDebug(scope *vfilter.Scope, fmt string, args ...interface{}) {
+func ScopeDebug(scope vfilter.Scope, fmt string, args ...interface{}) {
 	value, pres := scope.Resolve("DEBUG_VTYPES")
 	if pres && scope.Bool(value) {
 		scope.Log(fmt, args...)
