@@ -59,7 +59,7 @@ func (self *StringParser) New(profile *Profile, options *ordereddict.Dict) (Pars
 	return result, nil
 }
 
-func (self *StringParser) getCount(scope *vfilter.Scope) int64 {
+func (self *StringParser) getCount(scope vfilter.Scope) int64 {
 	result := self.options.Length
 
 	if self.options.LengthExpression != nil {
@@ -74,7 +74,7 @@ func (self *StringParser) getCount(scope *vfilter.Scope) int64 {
 }
 
 func (self *StringParser) Parse(
-	scope *vfilter.Scope,
+	scope vfilter.Scope,
 	reader io.ReaderAt, offset int64) interface{} {
 
 	result_len := self.getCount(scope)

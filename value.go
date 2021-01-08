@@ -40,7 +40,7 @@ func (self *ValueParser) New(profile *Profile, options *ordereddict.Dict) (Parse
 	return result, nil
 }
 
-func (self *ValueParser) Parse(scope *vfilter.Scope, reader io.ReaderAt, offset int64) interface{} {
+func (self *ValueParser) Parse(scope vfilter.Scope, reader io.ReaderAt, offset int64) interface{} {
 	if self.expression != nil {
 		this_obj, pres := scope.Resolve("this")
 		if pres {

@@ -57,7 +57,7 @@ func (self *Profile) GetParser(name string, options *ordereddict.Dict) (Parser, 
 	return parser.New(self, options)
 }
 
-func (self *Profile) ObjectSize(scope *vfilter.Scope,
+func (self *Profile) ObjectSize(scope vfilter.Scope,
 	name string, reader io.ReaderAt, offset int64) int {
 	parser, pres := self.types[name]
 	if pres {
@@ -153,7 +153,7 @@ func (self *Profile) ParseStructDefinitions(definitions string) (err error) {
 // For example:
 // type_name = "Array"
 // options = { "Target": "int"}
-func (self *Profile) Parse(scope *vfilter.Scope, type_name string,
+func (self *Profile) Parse(scope vfilter.Scope, type_name string,
 	reader io.ReaderAt, offset int64) (interface{}, error) {
 	parser, pres := self.types[type_name]
 	if !pres {

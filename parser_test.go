@@ -46,7 +46,7 @@ func TestStructParser(t *testing.T) {
 	AddModel(profile)
 
 	scope := MakeScope()
-	scope.Logger = log.New(os.Stderr, " ", 0)
+	scope.SetLogger(log.New(os.Stderr, " ", 0))
 
 	definition := `
 [
@@ -94,7 +94,7 @@ func TestArrayParser(t *testing.T) {
 	AddModel(profile)
 
 	scope := MakeScope()
-	scope.Logger = log.New(os.Stderr, " ", 0)
+	scope.SetLogger(log.New(os.Stderr, " ", 0))
 
 	definition := `
 [
@@ -147,7 +147,7 @@ func TestStringParser(t *testing.T) {
 	AddModel(profile)
 
 	scope := MakeScope()
-	scope.Logger = log.New(os.Stderr, " ", 0)
+	scope.SetLogger(log.New(os.Stderr, " ", 0))
 
 	definition := `
 [
@@ -214,7 +214,7 @@ func TestPowershellParser(t *testing.T) {
 	AddModel(profile)
 
 	scope := MakeScope()
-	scope.Logger = log.New(os.Stderr, " ", 0)
+	scope.SetLogger(log.New(os.Stderr, " ", 0))
 	//scope.AppendVars(ordereddict.NewDict().Set("DEBUG_VTYPES", 1))
 
 	definition := `

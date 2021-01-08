@@ -19,7 +19,7 @@ func (self StructAssociative) Applicable(a vfilter.Any, b vfilter.Any) bool {
 	return false
 }
 
-func (self StructAssociative) Associative(scope *vfilter.Scope,
+func (self StructAssociative) Associative(scope vfilter.Scope,
 	a vfilter.Any, b vfilter.Any) (vfilter.Any, bool) {
 	lhs, ok := a.(*StructObject)
 	if !ok {
@@ -46,7 +46,7 @@ func (self StructAssociative) Associative(scope *vfilter.Scope,
 	}
 }
 
-func (self StructAssociative) GetMembers(scope *vfilter.Scope, a vfilter.Any) []string {
+func (self StructAssociative) GetMembers(scope vfilter.Scope, a vfilter.Any) []string {
 	lhs, ok := a.(*StructObject)
 	if !ok {
 		return nil
@@ -68,7 +68,7 @@ func (self ArrayAssociative) Applicable(a vfilter.Any, b vfilter.Any) bool {
 	return false
 }
 
-func (self ArrayAssociative) Associative(scope *vfilter.Scope,
+func (self ArrayAssociative) Associative(scope vfilter.Scope,
 	a vfilter.Any, b vfilter.Any) (vfilter.Any, bool) {
 	lhs, ok := a.(*ArrayObject)
 	if !ok {
@@ -100,7 +100,7 @@ func (self ArrayAssociative) Associative(scope *vfilter.Scope,
 	}
 }
 
-func (self ArrayAssociative) GetMembers(scope *vfilter.Scope, a vfilter.Any) []string {
+func (self ArrayAssociative) GetMembers(scope vfilter.Scope, a vfilter.Any) []string {
 	return nil
 }
 
@@ -113,7 +113,7 @@ func (self ArrayIterator) Applicable(a vfilter.Any) bool {
 }
 
 func (self ArrayIterator) Iterate(
-	ctx context.Context, scope *vfilter.Scope, a vfilter.Any) <-chan vfilter.Row {
+	ctx context.Context, scope vfilter.Scope, a vfilter.Any) <-chan vfilter.Row {
 	output_chan := make(chan vfilter.Row)
 
 	go func() {

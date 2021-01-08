@@ -33,7 +33,7 @@ func (self *StructParser) AddField(field_name string, parser *ParseAtOffset) {
 }
 
 func (self *StructParser) Parse(
-	scope *vfilter.Scope,
+	scope vfilter.Scope,
 	reader io.ReaderAt, offset int64) interface{} {
 
 	ScopeDebug(scope, "Instantiating struct %v on %v\n", self.type_name, offset)
@@ -78,7 +78,7 @@ func (self *ParseAtOffset) New(profile *Profile, options *ordereddict.Dict) (Par
 	return self, nil
 }
 
-func (self *ParseAtOffset) getOffset(scope *vfilter.Scope) int64 {
+func (self *ParseAtOffset) getOffset(scope vfilter.Scope) int64 {
 	if self.offset_expression == nil {
 		return self.offset
 	}
@@ -87,7 +87,7 @@ func (self *ParseAtOffset) getOffset(scope *vfilter.Scope) int64 {
 }
 
 // NOTE: offset is the offset to the start of the struct.
-func (self *ParseAtOffset) Parse(scope *vfilter.Scope,
+func (self *ParseAtOffset) Parse(scope vfilter.Scope,
 	reader io.ReaderAt, offset int64) interface{} {
 
 	if IsNil(self.parser) {
@@ -109,7 +109,7 @@ type StructObject struct {
 
 	// The subscope in which to evaluate expressions. In this
 	// subscope "this" is assigned to this StructObject.
-	scope *vfilter.Scope
+	scope vfilter.Scope
 
 	// Cache the output of Get()
 	cache map[string]interface{}

@@ -41,7 +41,7 @@ func (self *EnumerationParser) New(profile *Profile, options *ordereddict.Dict) 
 }
 
 func (self *EnumerationParser) Parse(
-	scope *vfilter.Scope, reader io.ReaderAt, offset int64) interface{} {
+	scope vfilter.Scope, reader io.ReaderAt, offset int64) interface{} {
 
 	value := fmt.Sprintf("%v", self.parser.Parse(scope, reader, offset))
 	string_value, pres := self.choices.Get(value)
