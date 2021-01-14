@@ -2,6 +2,7 @@ package vtypes
 
 import (
 	"io"
+	"strings"
 
 	"github.com/Velocidex/ordereddict"
 	"www.velocidex.com/golang/vfilter"
@@ -113,6 +114,8 @@ type StructObject struct {
 
 	// Cache the output of Get()
 	cache map[string]interface{}
+
+	parent *StructObject
 }
 
 func (self *StructObject) Start() int64 {
@@ -139,6 +142,11 @@ func (self *StructObject) Get(field string) (interface{}, bool) {
 	}
 
 	res := parser.Parse(self.scope, self.reader, self.offset)
+	struct_obj, ok := res.(*StructObject)
+	if ok {
+		struct_obj.parent = self
+	}
+
 	self.cache[field] = res
 	return res, true
 }
@@ -153,11 +161,21 @@ func (self *StructObject) Size() int {
 	return self.parser.size
 }
 
+func (self *StructObject) Parent() vfilter.Any {
+	if self.parent == nil {
+		return vfilter.Null{}
+	}
+	return self.parent
+}
+
 func (self *StructObject) MarshalJSON() ([]byte, error) {
 	result := ordereddict.NewDict()
 	for _, field_name := range self.parser.field_names {
+		if strings.HasPrefix(field_name, "__") {
+			continue
+		}
 		value, ok := self.Get(field_name)
-		if ok && value != self {
+		if ok && value != self && value != self.parent {
 			result.Set(field_name, value)
 		}
 	}

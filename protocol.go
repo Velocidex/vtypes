@@ -38,6 +38,9 @@ func (self StructAssociative) Associative(scope vfilter.Scope,
 	case "StartOf":
 		return lhs.Start(), true
 
+	case "ParentOf":
+		return lhs.Parent(), true
+
 	case "EndOf":
 		return lhs.End(), true
 

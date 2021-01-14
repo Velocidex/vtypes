@@ -119,3 +119,14 @@ func EvalLambdaAsInt64(expression *vfilter.Lambda, scope vfilter.Scope) int64 {
 	result_int, _ := to_int64(result)
 	return result_int
 }
+
+func EvalLambdaAsString(expression *vfilter.Lambda, scope vfilter.Scope) string {
+	this_obj, pres := scope.Resolve("this")
+	if !pres {
+		return ""
+	}
+
+	result := expression.Reduce(context.Background(), scope, []vfilter.Any{this_obj})
+	result_int, _ := result.(string)
+	return result_int
+}

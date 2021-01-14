@@ -4,6 +4,7 @@ go 1.14
 
 require (
 	github.com/Velocidex/ordereddict v0.0.0-20200723153557-9460a6764ab8
+	github.com/Velocidex/yaml v2.1.0+incompatible
 	github.com/alecthomas/participle v0.7.1 // indirect
 	github.com/alecthomas/repr v0.0.0-20201120212035-bb82daffcca2 // indirect
 	github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc // indirect

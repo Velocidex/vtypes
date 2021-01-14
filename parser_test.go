@@ -8,6 +8,7 @@ import (
 	"os"
 	"testing"
 
+	"github.com/Velocidex/ordereddict"
 	"github.com/sebdah/goldie"
 	assert "github.com/stretchr/testify/assert"
 	"www.velocidex.com/golang/vfilter"
@@ -258,4 +259,54 @@ func TestPowershellParser(t *testing.T) {
 	assert.NoError(t, err)
 
 	goldie.Assert(t, "TestPowershellParser", serialized)
+}
+
+func TestUnion(t *testing.T) {
+	profile := NewProfile()
+	AddModel(profile)
+	scope := MakeScope()
+	scope.SetLogger(log.New(os.Stderr, " ", 0))
+
+	definition := `
+[
+  ["Header", 0, [
+    ["Field", 0, "uint8"],
+    ["Union", 4, "Union", {
+       "selector": "x=>x.Field",
+       "choices": {
+          "1": "Struct1",
+          "2": "Struct2",
+       }
+    }]
+  ]],
+  ["Struct1", 0, [
+    ["Field1", 0, "uint8"],
+  ]],
+  ["Struct2", 0, [
+    ["Field2", 4, "uint32"],
+  ]],
+]
+`
+	err := profile.ParseStructDefinitions(definition)
+	assert.NoError(t, err)
+
+	reader := bytes.NewReader(sample)
+	result := ordereddict.NewDict()
+
+	obj, err := profile.Parse(scope, "Header", reader, 0)
+	assert.NoError(t, err)
+	result.Set("@offset 0", obj)
+
+	obj, err = profile.Parse(scope, "Header", reader, 1)
+	assert.NoError(t, err)
+	result.Set("@offset 1", obj)
+
+	obj, err = profile.Parse(scope, "Header", reader, 2)
+	assert.NoError(t, err)
+	result.Set("@offset 2", obj)
+
+	serialized, err := json.MarshalIndent(result, "", " ")
+	assert.NoError(t, err)
+
+	goldie.Assert(t, "TestUnion", serialized)
 }

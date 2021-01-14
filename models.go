@@ -46,14 +46,12 @@ func AddModel(profile *Profile) {
 	profile.types["String"] = &StringParser{}
 	profile.types["Value"] = &ValueParser{}
 	profile.types["Enumeration"] = &EnumerationParser{}
+	profile.types["BitField"] = &BitField{}
+	profile.types["Flags"] = &Flags{}
+	profile.types["WinFileTime"] = &WinFileTime{}
+	profile.types["Timestamp"] = &EpochTimestamp{}
+	profile.types["Union"] = &Union{}
 
-	/*
-		profile.types["String"] = NewStringParser("string")
-		profile.types["Enumeration"] = NewEnumeration("Enumeration", profile)
-		profile.types["Flags"] = NewFlagsParser("Flags", profile)
-
-		profile.types["BitField"] = NewBitField("BitField", profile)
-	*/
 	// Aliases
 	profile.types["int"] = profile.types["int32"]
 	profile.types["char"] = profile.types["int8"]

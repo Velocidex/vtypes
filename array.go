@@ -26,6 +26,11 @@ type ArrayParser struct {
 
 func (self *ArrayParser) New(profile *Profile, options *ordereddict.Dict) (Parser, error) {
 	var pres bool
+
+	if options == nil {
+		return nil, fmt.Errorf("Array parser requires a type in the options")
+	}
+
 	result := &ArrayParser{profile: profile}
 
 	result.options.Type, pres = options.GetString("type")
