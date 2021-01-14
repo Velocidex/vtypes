@@ -3,6 +3,7 @@ package vtypes
 import (
 	"context"
 	"errors"
+	"fmt"
 	"io"
 	"strings"
 
@@ -18,6 +19,10 @@ type ValueParser struct {
 }
 
 func (self *ValueParser) New(profile *Profile, options *ordereddict.Dict) (Parser, error) {
+	if options == nil {
+		return nil, fmt.Errorf("Value parser requires a type in the options")
+	}
+
 	value, pres := options.Get("value")
 	if !pres || IsNil(value) {
 		return nil, errors.New("Value parser must specify a value")

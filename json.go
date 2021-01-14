@@ -5,6 +5,7 @@ package vtypes
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 
 	"github.com/Velocidex/ordereddict"
 )
@@ -30,7 +31,7 @@ func (self *StructDefinition) UnmarshalJSON(p []byte) error {
 	}
 
 	if err := json.Unmarshal(tmp[2], &self.Fields); err != nil {
-		return err
+		return fmt.Errorf("Decoding struct %v: %v", self.Name, err)
 	}
 
 	return nil

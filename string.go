@@ -3,6 +3,7 @@ package vtypes
 import (
 	"bytes"
 	"encoding/binary"
+	"encoding/hex"
 	"fmt"
 	"io"
 	"unicode/utf16"
@@ -35,6 +36,15 @@ func (self *StringParser) New(profile *Profile, options *ordereddict.Dict) (Pars
 	result.options.Term, pres = options.GetString("term")
 	if !pres {
 		result.options.Term = "\x00"
+	}
+
+	termhex, pres := options.GetString("term_hex")
+	if pres {
+		term, err := hex.DecodeString(termhex)
+		if err != nil {
+			return nil, err
+		}
+		result.options.Term = string(term)
 	}
 
 	// Default to 0 length

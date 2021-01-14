@@ -14,6 +14,10 @@ type EnumerationParser struct {
 }
 
 func (self *EnumerationParser) New(profile *Profile, options *ordereddict.Dict) (Parser, error) {
+	if options == nil {
+		return nil, fmt.Errorf("Enumeration parser requires a type in the options")
+	}
+
 	parser_type, pres := options.GetString("type")
 	if !pres {
 		return nil, fmt.Errorf("Enumeration parser requires a type in the options")

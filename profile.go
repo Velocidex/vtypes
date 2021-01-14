@@ -2,12 +2,13 @@
 package vtypes
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 
 	"github.com/Velocidex/ordereddict"
+	"github.com/Velocidex/yaml"
+
 	"www.velocidex.com/golang/vfilter"
 )
 
@@ -74,7 +75,7 @@ func (self *Profile) ObjectSize(scope vfilter.Scope,
 func (self *Profile) ParseStructDefinitions(definitions string) (err error) {
 	var profile_definitions []*StructDefinition
 
-	err = json.Unmarshal([]byte(definitions), &profile_definitions)
+	err = yaml.Unmarshal([]byte(definitions), &profile_definitions)
 	if err != nil {
 		return err
 	}

@@ -1,0 +1,18 @@
+{
+ "@offset 0": {
+  "Field": 1,
+  "Union": {
+   "Field1": 5
+  }
+ },
+ "@offset 1": {
+  "Field": 2,
+  "Union": {
+   "Field2": 218893066
+  }
+ },
+ "@offset 2": {
+  "Field": 3,
+  "Union": null
+ }
+}
