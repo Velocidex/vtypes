@@ -48,7 +48,7 @@ func (self *EpochTimestamp) Parse(
 		return vfilter.Null{}
 	}
 
-	return time.Unix(value/self.factor, value%self.factor)
+	return time.Unix(value/self.factor, value%self.factor).UTC()
 }
 
 type WinFileTime struct {
@@ -90,7 +90,7 @@ func (self *WinFileTime) Parse(
 		return vfilter.Null{}
 	}
 
-	return time.Unix((value/self.factor/10000000)-11644473600, 0)
+	return time.Unix((value/self.factor/10000000)-11644473600, 0).UTC()
 }
 
 type FatTimestamp struct {
@@ -126,5 +126,5 @@ func (self *FatTimestamp) Parse(
 	sec := (date_int) & ((1 << 6) - 1)
 
 	return time.Date(int(year), time.Month(month), int(day),
-		int(hour), int(min), int(sec), 0, time.UTC)
+		int(hour), int(min), int(sec), 0, time.UTC).UTC()
 }
