@@ -3,6 +3,7 @@ package vtypes
 import (
 	"fmt"
 	"io"
+	"sort"
 
 	"github.com/Velocidex/ordereddict"
 	"www.velocidex.com/golang/vfilter"
@@ -75,5 +76,8 @@ func (self *Flags) Parse(
 			result = append(result, self.Bitmap[idx])
 		}
 	}
+
+	// Sort result to maintain stable output.
+	sort.Strings(result)
 	return result
 }
