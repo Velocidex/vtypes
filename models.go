@@ -51,6 +51,7 @@ func AddModel(profile *Profile) {
 	profile.types["WinFileTime"] = &WinFileTime{}
 	profile.types["Timestamp"] = &EpochTimestamp{}
 	profile.types["Union"] = &Union{}
+	profile.types["FatTimestamp"] = &FatTimestamp{}
 
 	// Aliases
 	profile.types["int"] = profile.types["int32"]
