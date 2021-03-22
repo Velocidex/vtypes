@@ -38,6 +38,14 @@ func (self *ArrayParser) New(profile *Profile, options *ordereddict.Dict) (Parse
 		return nil, errors.New("Array must specify the type in options")
 	}
 
+	topts, pres := options.Get("type_options")
+	if pres {
+		topts_dict, ok := topts.(*ordereddict.Dict)
+		if ok {
+			result.options.TypeOptions = topts_dict
+		}
+	}
+
 	// Default to 0 length
 	result.options.Count, _ = options.GetInt64("count")
 	result.options.MaxCount, _ = options.GetInt64("max_count")
