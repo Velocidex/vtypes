@@ -52,6 +52,7 @@ func AddModel(profile *Profile) {
 	profile.types["Timestamp"] = &EpochTimestamp{}
 	profile.types["Union"] = &Union{}
 	profile.types["FatTimestamp"] = &FatTimestamp{}
+	profile.types["Pointer"] = &PointerParser{}
 
 	// Aliases
 	profile.types["int"] = profile.types["int32"]
