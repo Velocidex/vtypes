@@ -49,7 +49,6 @@ func (self *PointerParser) New(profile *Profile, options *ordereddict.Dict) (Par
 func (self *PointerParser) Parse(
 	scope vfilter.Scope,
 	reader io.ReaderAt, offset int64) interface{} {
-	Debug(self.options)
 	if self.parser == nil {
 		parser, err := self.profile.GetParser(
 			self.options.Type, self.options.TypeOptions)
