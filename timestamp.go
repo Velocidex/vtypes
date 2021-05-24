@@ -114,16 +114,27 @@ func (self *FatTimestamp) Parse(
 		return vfilter.Null{}
 	}
 
-	// Dos times are stored as 2 uint16 numbers - first the date
-	// then the time so swap them.
-	date_int = ((date_int & 0xFFFF) << 16) + (date_int >> 16)
+	// https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-dosdatetimetofiletime
+	fat_date := date_int & 0xFFFF
+	fat_time := date_int >> 16
 
-	year := 1980 + (date_int >> 25)
-	month := (date_int >> 21) & ((1 << 4) - 1)
-	day := (date_int >> 16) & ((1 << 6) - 1)
-	hour := (date_int >> 11) & ((1 << 6) - 1)
-	min := (date_int >> 5) & ((1 << 7) - 1)
-	sec := (date_int) & ((1 << 6) - 1)
+	// Bits 9-15
+	year := 1980 + (fat_date >> 9)
+
+	// Bits 5-8
+	month := (fat_date >> 5) & ((1 << 4) - 1)
+
+	// Bits 0-4
+	day := fat_date & ((1 << 5) - 1)
+
+	// Bits 11 - 15
+	hour := (fat_time >> 11)
+
+	// Bits 5-10
+	min := (fat_time >> 5) & ((1 << 6) - 1)
+
+	// Bits 0-4 divided by 2
+	sec := (fat_time & ((1 << 5) - 1)) * 2
 
 	return time.Date(int(year), time.Month(month), int(day),
 		int(hour), int(min), int(sec), 0, time.UTC).UTC()
