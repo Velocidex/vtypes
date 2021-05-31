@@ -39,7 +39,7 @@ func TestIntegerParser(t *testing.T) {
 	assert.NoError(t, err)
 
 	// 578437695752307201
-	assert.Equal(t, int64(0x0807060504030201), obj)
+	assert.Equal(t, uint64(0x0807060504030201), obj)
 }
 
 func TestStructParser(t *testing.T) {
@@ -74,7 +74,7 @@ func TestStructParser(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Field1 is at offset 2 has value 0x03
-	assert.Equal(t, int64(3), Associative(scope, obj, "Field1"))
+	assert.Equal(t, uint64(3), Associative(scope, obj, "Field1"))
 
 	// Object size is calculated as x.Field1 + 5  ... 8
 	assert.Equal(t, 8, SizeOf(obj))
@@ -82,7 +82,7 @@ func TestStructParser(t *testing.T) {
 	// Field4's offset is calculated as x=>x.Field1
 	// i.e. 3. SecondField1 has a relative offset of 2, therefore
 	// absolute offset of 3 + 2 = 5 -> value = 0x06
-	assert.Equal(t, int64(6), Associative(scope, obj, "Field4.SecondField1"))
+	assert.Equal(t, uint64(6), Associative(scope, obj, "Field4.SecondField1"))
 
 	serialized, err := json.MarshalIndent(obj, "", " ")
 	assert.NoError(t, err)
@@ -127,14 +127,14 @@ func TestArrayParser(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Length is at offset 1 value 2
-	assert.Equal(t, int64(2), Associative(scope, obj, "Length"))
+	assert.Equal(t, uint64(2), Associative(scope, obj, "Length"))
 
 	// Field1 is has length of 2 and starts at offset 3
-	assert.Equal(t, []interface{}{int64(3), int64(4)},
+	assert.Equal(t, []interface{}{uint64(3), uint64(4)},
 		Associative(scope, obj, "Field1.Value"))
 
 	// Field2 is an array of structs (each 5 bytes) starting at offset 1.
-	assert.Equal(t, []vfilter.Any{int64(4), int64(9)},
+	assert.Equal(t, []vfilter.Any{uint64(4), uint64(9)},
 		Associative(scope, obj, "Field2.SecondField1"))
 
 	serialized, err := json.MarshalIndent(obj, "", " ")
@@ -184,7 +184,7 @@ func TestStringParser(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Length is at offset 2 value 3
-	assert.Equal(t, int64(3), Associative(scope, obj, "Length"))
+	assert.Equal(t, uint64(3), Associative(scope, obj, "Length"))
 
 	// Field1 is default string - null terminated utf8.
 	assert.Equal(t, "hello", Associative(scope, obj, "Field1"))

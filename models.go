@@ -11,19 +11,19 @@ import (
 func AddModel(profile *Profile) {
 	profile.types["uint8"] = NewIntParser(
 		"uint8", 1, func(buf []byte) interface{} {
-			return int64(uint8(buf[0]))
+			return uint64(uint8(buf[0]))
 		})
 	profile.types["uint16"] = NewIntParser(
 		"uint16", 2, func(buf []byte) interface{} {
-			return int64(binary.LittleEndian.Uint16(buf))
+			return uint64(binary.LittleEndian.Uint16(buf))
 		})
 	profile.types["uint32"] = NewIntParser(
 		"uint32", 4, func(buf []byte) interface{} {
-			return int64(binary.LittleEndian.Uint32(buf))
+			return uint64(binary.LittleEndian.Uint32(buf))
 		})
 	profile.types["uint64"] = NewIntParser(
 		"uint64", 8, func(buf []byte) interface{} {
-			return int64(binary.LittleEndian.Uint64(buf))
+			return uint64(binary.LittleEndian.Uint64(buf))
 		})
 	profile.types["int8"] = NewIntParser(
 		"int8", 1, func(buf []byte) interface{} {
