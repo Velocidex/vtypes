@@ -46,8 +46,10 @@ func (self *StructParser) Parse(
 	}
 
 	// All dependencies will use this as the current struct
-	subscope := scope.Copy().AppendVars(ordereddict.NewDict().
-		Set("this", obj))
+	subscope := scope.Copy()
+	defer subscope.Close()
+
+	subscope.AppendVars(ordereddict.NewDict().Set("this", obj))
 	obj.scope = subscope
 
 	return obj
