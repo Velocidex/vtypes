@@ -126,17 +126,17 @@ func (self *StringParser) Parse(
 
 	
 	// If a terminator is specified read up to that.
+	if self.options.TermExpression != nil {
+		// Evaluate the offset expression with the current scope.
+			return EvalLambdaAsString(self.options.TermExpression, scope)
+		}
+		
 	if self.options.Term != "" {
 		idx := bytes.Index(result, []byte(self.options.Term))
 		if idx >= 0 {
 			result = result[:idx]
 		}
 	}
-
-	if self.options.TermExpression != nil {
-		// Evaluate the offset expression with the current scope.
-			return EvalLambdaAsString(self.options.TermExpression, scope)
-		}
 
 	return string(result)
 }
