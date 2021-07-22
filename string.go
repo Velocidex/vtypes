@@ -17,6 +17,7 @@ type StringParserOptions struct {
 	LengthExpression *vfilter.Lambda
 	MaxLength        int64
 	Term             string
+	TermExpression 	 *vfilter.Lambda
 	Encoding         string
 }
 
@@ -45,6 +46,17 @@ func (self *StringParser) New(profile *Profile, options *ordereddict.Dict) (Pars
 			return nil, err
 		}
 		result.options.Term = string(term)
+	}
+
+	// Add a termexpression if exist
+	termexpression, _ := options.GetString("term")
+	if termexpression != "" {
+		var err error
+		result.options.TermExpression, err = vfilter.ParseLambda(termexpression)
+		if err != nil {
+			return nil, fmt.Errorf("String parser term expression '%v': %w",
+				termexpression, err)
+		}
 	}
 
 	// Default to 0 length
@@ -113,12 +125,19 @@ func (self *StringParser) Parse(
 	}
 
 	// If a terminator is specified read up to that.
+	if self.options.TermExpression != nil {
+		// Evaluate the offset expression with the current scope.
+			return EvalLambdaAsString(self.options.TermExpression, scope)
+		}
+
 	if self.options.Term != "" {
 		idx := bytes.Index(result, []byte(self.options.Term))
 		if idx >= 0 {
 			result = result[:idx]
 		}
 	}
+
+
 
 	return string(result)
 }
