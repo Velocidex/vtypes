@@ -170,6 +170,9 @@ func TestStringParser(t *testing.T) {
      ["Field5", 31, "String", {
         "length": "x=>x.Length * 2",
         "encoding": "utf16"
+      }],
+     ["Field6", 31, "String", {
+        "term_exp": "x=> 'yolo!'"
       }]
   ]]
 ]

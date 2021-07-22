@@ -124,6 +124,7 @@ func (self *StringParser) Parse(
 		result = []byte(string(utf16.Decode(u16s)))
 	}
 
+	
 	// If a terminator is specified read up to that.
 	if self.options.Term != "" {
 		idx := bytes.Index(result, []byte(self.options.Term))
@@ -132,7 +133,6 @@ func (self *StringParser) Parse(
 		}
 	}
 
-	
 	if self.options.TermExpression != nil {
 		// Evaluate the offset expression with the current scope.
 			return EvalLambdaAsString(self.options.TermExpression, scope)
