@@ -49,7 +49,7 @@ func (self *StringParser) New(profile *Profile, options *ordereddict.Dict) (Pars
 	}
 
 	// Add a termexpression if exist
-	termexpression, _ := options.GetString("term")
+	termexpression, _ := options.GetString("term_exp")
 	if termexpression != "" {
 		var err error
 		result.options.TermExpression, err = vfilter.ParseLambda(termexpression)
@@ -124,12 +124,6 @@ func (self *StringParser) Parse(
 		result = []byte(string(utf16.Decode(u16s)))
 	}
 
-	// If a terminator is specified read up to that.
-	if self.options.TermExpression != nil {
-		// Evaluate the offset expression with the current scope.
-			return EvalLambdaAsString(self.options.TermExpression, scope)
-		}
-
 	if self.options.Term != "" {
 		idx := bytes.Index(result, []byte(self.options.Term))
 		if idx >= 0 {
@@ -137,7 +131,11 @@ func (self *StringParser) Parse(
 		}
 	}
 
-
+	// If a terminator is specified read up to that.
+	if self.options.TermExpression != nil {
+		// Evaluate the offset expression with the current scope.
+			return EvalLambdaAsString(self.options.TermExpression, scope)
+		}
 
 	return string(result)
 }
