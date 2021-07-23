@@ -170,6 +170,10 @@ func TestStringParser(t *testing.T) {
      ["Field5", 31, "String", {
         "length": "x=>x.Length * 2",
         "encoding": "utf16"
+      }],
+     ["Field6", 31, "String", {
+        "term_exp": "x=> '\u0000world'",
+        "encoding": "utf16"
       }]
   ]]
 ]
@@ -202,6 +206,8 @@ func TestStringParser(t *testing.T) {
 	// Field5 is length string, length specified by expression
 	// depends on Length field of struct (3) times 2 (due to utf16).
 	assert.Equal(t, "hel", Associative(scope, obj, "Field5"))
+
+	assert.Equal(t, "hello", Associative(scope, obj, "Field6"))
 
 	serialized, err := json.MarshalIndent(obj, "", " ")
 	assert.NoError(t, err)
