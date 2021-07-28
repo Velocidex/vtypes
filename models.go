@@ -42,6 +42,40 @@ func AddModel(profile *Profile) {
 			return int64(binary.LittleEndian.Uint64(buf))
 		})
 
+	// adding BigEndian option
+	profile.types["uint8b"] = NewIntParser(
+		"uint8", 1, func(buf []byte) interface{} {
+			return uint64(uint8(buf[0]))
+		})
+	profile.types["uint16b"] = NewIntParser(
+		"uint16", 2, func(buf []byte) interface{} {
+			return uint64(binary.BigEndian.Uint16(buf))
+		})
+	profile.types["uint32b"] = NewIntParser(
+		"uint32", 4, func(buf []byte) interface{} {
+			return uint64(binary.BigEndian.Uint32(buf))
+		})
+	profile.types["uint64b"] = NewIntParser(
+		"uint64", 8, func(buf []byte) interface{} {
+			return uint64(binary.BigEndian.Uint64(buf))
+		})
+	profile.types["int8b"] = NewIntParser(
+		"int8", 1, func(buf []byte) interface{} {
+			return int64(int8(buf[0]))
+		})
+	profile.types["int16b"] = NewIntParser(
+		"int16", 2, func(buf []byte) interface{} {
+			return int64(int16(binary.BigEndian.Uint16(buf)))
+		})
+	profile.types["int32b"] = NewIntParser(
+		"int32", 4, func(buf []byte) interface{} {
+			return int64(int32(binary.BigEndian.Uint32(buf)))
+		})
+	profile.types["int64b"] = NewIntParser(
+		"int64", 8, func(buf []byte) interface{} {
+			return int64(binary.BigEndian.Uint64(buf))
+		})
+
 	profile.types["Array"] = &ArrayParser{}
 	profile.types["String"] = &StringParser{}
 	profile.types["Value"] = &ValueParser{}
