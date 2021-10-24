@@ -144,9 +144,12 @@ func (self *StructObject) Get(field string) (interface{}, bool) {
 	}
 
 	res := parser.Parse(self.scope, self.reader, self.offset)
-	struct_obj, ok := res.(*StructObject)
-	if ok {
-		struct_obj.parent = self
+	switch t := res.(type) {
+	case *StructObject:
+		t.parent = self
+
+	case *ArrayObject:
+		t.SetParent(self)
 	}
 
 	self.cache[field] = res

@@ -134,6 +134,15 @@ type ArrayObject struct {
 	size     int64
 }
 
+func (self *ArrayObject) SetParent(parent *StructObject) {
+	for _, e := range self.contents {
+		switch t := e.(type) {
+		case *StructObject:
+			t.parent = parent
+		}
+	}
+}
+
 func (self *ArrayObject) Size() int {
 	return int(self.size)
 }

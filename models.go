@@ -6,6 +6,7 @@ package vtypes
 
 import (
 	"encoding/binary"
+	"math"
 )
 
 func AddModel(profile *Profile) {
@@ -25,10 +26,37 @@ func AddModel(profile *Profile) {
 		"uint64", 8, func(buf []byte) interface{} {
 			return uint64(binary.LittleEndian.Uint64(buf))
 		})
+
+	profile.types["uint16be"] = NewIntParser(
+		"uint16be", 2, func(buf []byte) interface{} {
+			return uint64(binary.BigEndian.Uint16(buf))
+		})
+	profile.types["uint32be"] = NewIntParser(
+		"uint32be", 4, func(buf []byte) interface{} {
+			return uint64(binary.BigEndian.Uint32(buf))
+		})
+	profile.types["uint64be"] = NewIntParser(
+		"uint64be", 8, func(buf []byte) interface{} {
+			return uint64(binary.BigEndian.Uint64(buf))
+		})
+
+	profile.types["float64"] = NewIntParser(
+		"float64", 8, func(buf []byte) interface{} {
+			bits := uint64(binary.LittleEndian.Uint64(buf))
+			return math.Float64frombits(bits)
+		})
+
+	profile.types["float64be"] = NewIntParser(
+		"float64be", 8, func(buf []byte) interface{} {
+			bits := uint64(binary.BigEndian.Uint64(buf))
+			return math.Float64frombits(bits)
+		})
+
 	profile.types["int8"] = NewIntParser(
 		"int8", 1, func(buf []byte) interface{} {
 			return int64(int8(buf[0]))
 		})
+
 	profile.types["int16"] = NewIntParser(
 		"int16", 2, func(buf []byte) interface{} {
 			return int64(int16(binary.LittleEndian.Uint16(buf)))
@@ -87,6 +115,7 @@ func AddModel(profile *Profile) {
 	profile.types["Union"] = &Union{}
 	profile.types["FatTimestamp"] = &FatTimestamp{}
 	profile.types["Pointer"] = &PointerParser{}
+	profile.types["Profile"] = &ProfileParser{}
 
 	// Aliases
 	profile.types["int"] = profile.types["int32"]
