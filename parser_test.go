@@ -174,7 +174,19 @@ func TestStringParser(t *testing.T) {
      ["Field6", 31, "String", {
         "term_exp": "x=> '\u0000world'",
         "encoding": "utf16"
-      }]
+      }],
+
+     # A length of zero is a valid length for the empty string.
+     ["Field7", 31, "String", {
+        "length": "x=>0",
+        "encoding": "utf16"
+     }],
+
+     # When length is not specified, we default to 1kb but still honor the term.
+     ["Field8", 31, "String", {
+        "encoding": "utf16"
+     }]
+
   ]]
 ]
 `
