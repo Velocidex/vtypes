@@ -33,6 +33,10 @@ func (self *StringParser) New(profile *Profile, options *ordereddict.Dict) (Pars
 		options = ordereddict.NewDict()
 	}
 
+	// Some defaults
+	result.options.Length = -1 // -1 means this is not set
+	result.options.MaxLength = 1024
+
 	result.options.Encoding, _ = options.GetString("encoding")
 	result.options.Term, pres = options.GetString("term")
 	if !pres {
@@ -60,14 +64,17 @@ func (self *StringParser) New(profile *Profile, options *ordereddict.Dict) (Pars
 	}
 
 	// Default to 0 length
-	result.options.Length, _ = options.GetInt64("length")
-	result.options.MaxLength, _ = options.GetInt64("max_length")
-
-	if result.options.MaxLength == 0 {
-		result.options.MaxLength = 1000
+	length, pres := options.GetInt64("length")
+	if pres {
+		result.options.Length = length
 	}
 
-	// Maybe add a length expression
+	max_length, pres := options.GetInt64("max_length")
+	if pres {
+		result.options.MaxLength = max_length
+	}
+
+	// Maybe add a length expression if length is a string.
 	expression, _ := options.GetString("length")
 	if expression != "" {
 		var err error
@@ -92,6 +99,7 @@ func (self *StringParser) getCount(scope vfilter.Scope) int64 {
 	if result > self.options.MaxLength {
 		return self.options.MaxLength
 	}
+
 	return result
 }
 
@@ -100,7 +108,8 @@ func (self *StringParser) Parse(
 	reader io.ReaderAt, offset int64) interface{} {
 
 	result_len := self.getCount(scope)
-	if result_len == 0 {
+	if result_len < 0 {
+		// length is not specified - max read 1kb.
 		result_len = 1024
 	}
 

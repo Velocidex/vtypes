@@ -5,5 +5,7 @@
  "Field3": "hello\u0000world",
  "Field4": "hel",
  "Field5": "hel",
- "Field6": "hello"
+ "Field6": "hello",
+ "Field7": "",
+ "Field8": "hello"
 }
