@@ -108,6 +108,14 @@ func TestArrayParser(t *testing.T) {
      ["Field2", 1, "Array", {
         "count": 2,
         "type": "Second"
+     }],
+
+     # Field with sentinel - note that the container struct is
+     # accessible with the this variable.
+     ["FieldSentinel", 0, "Array", {
+        count: 100,
+        type: "uint8",
+        sentinel: "x=> x=this.Length + 2",
      }]
   ]],
 

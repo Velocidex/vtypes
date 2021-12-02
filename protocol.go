@@ -3,6 +3,7 @@ package vtypes
 import (
 	"context"
 
+	"github.com/Velocidex/ordereddict"
 	"www.velocidex.com/golang/vfilter"
 )
 
@@ -87,6 +88,9 @@ func (self ArrayAssociative) Associative(scope vfilter.Scope,
 	case "SizeOf":
 		return lhs.Size(), true
 
+	case "ContentsOf":
+		return lhs.Contents(), true
+
 	case "StartOf":
 		return lhs.Start(), true
 
@@ -128,6 +132,17 @@ func (self ArrayIterator) Iterate(
 		}
 
 		for _, item := range obj.contents {
+			switch item.(type) {
+
+			// We must emit objects with a valid Associative protocol
+			// because this will form the basis for the columns in
+			// foreach. These objects are ok to emit directly.
+			case *ordereddict.Dict, *StructObject:
+			default:
+				// Anything else place inside a dict.
+				item = ordereddict.NewDict().Set("_value", item)
+			}
+
 			select {
 			case <-ctx.Done():
 				return
