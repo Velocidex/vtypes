@@ -11,5 +11,10 @@
   {
    "SecondField1": 9
   }
+ ],
+ "FieldSentinel": [
+  1,
+  2,
+  3
  ]
 }

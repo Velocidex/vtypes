@@ -1,6 +1,7 @@
 package vtypes
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -11,11 +12,12 @@ import (
 )
 
 type ArrayParserOptions struct {
-	Type            string
-	TypeOptions     *ordereddict.Dict
-	Count           int64
-	MaxCount        int64
-	CountExpression *vfilter.Lambda
+	Type               string
+	TypeOptions        *ordereddict.Dict
+	Count              int64
+	MaxCount           int64
+	CountExpression    *vfilter.Lambda
+	SentinelExpression *vfilter.Lambda
 }
 
 type ArrayParser struct {
@@ -65,6 +67,16 @@ func (self *ArrayParser) New(profile *Profile, options *ordereddict.Dict) (Parse
 		}
 	}
 
+	expression, _ = options.GetString("sentinel")
+	if expression != "" {
+		var err error
+		result.options.SentinelExpression, err = vfilter.ParseLambda(expression)
+		if err != nil {
+			return nil, fmt.Errorf("Array parser sentinel expression '%v': %w",
+				expression, err)
+		}
+	}
+
 	return result, nil
 }
 
@@ -105,6 +117,16 @@ func (self *ArrayParser) Parse(
 		element := self.parser.Parse(
 			scope, reader, offset+member_offset)
 
+		// Check for a sentinel value
+		if self.options.SentinelExpression != nil {
+			ctx := context.Background()
+			sentinel := self.options.SentinelExpression.Reduce(
+				ctx, scope, []vfilter.Any{element})
+			if scope.Bool(sentinel) {
+				break
+			}
+		}
+
 		// The parser may know about the element size, or the
 		// element itself.
 		element_size := SizeOf(self.parser)
@@ -141,6 +163,10 @@ func (self *ArrayObject) SetParent(parent *StructObject) {
 			t.parent = parent
 		}
 	}
+}
+
+func (self *ArrayObject) Contents() []interface{} {
+	return self.contents
 }
 
 func (self *ArrayObject) Size() int {
