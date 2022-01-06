@@ -1,5 +1,6 @@
 {
  "Length": 3,
+ "OverflowLength": 578437695752307201,
  "Field1": "hello",
  "Field2": "hello\u0000world",
  "Field3": "hello\u0000world",
@@ -7,5 +8,6 @@
  "Field5": "hel",
  "Field6": "hello",
  "Field7": "",
- "Field8": "hello"
+ "Field8": "hello",
+ "OverflowString": "h\u0000e\u0000l"
 }

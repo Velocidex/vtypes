@@ -162,6 +162,7 @@ func TestStringParser(t *testing.T) {
 [
   ["TestStruct", 0, [
      ["Length", 2, "uint8"],
+     ["OverflowLength", 0, "uint64"],
      ["Field1", 19, "String"],
      ["Field2", 19, "String", {
         "length": 11,
@@ -193,8 +194,13 @@ func TestStringParser(t *testing.T) {
      # When length is not specified, we default to 1kb but still honor the term.
      ["Field8", 31, "String", {
         "encoding": "utf16"
-     }]
+     }],
 
+     ["OverflowString", 31, "String", {
+        "length": "x=>x.OverflowLength",
+        "max_length": 5,
+        "term": "",
+     }],
   ]]
 ]
 `
@@ -228,6 +234,11 @@ func TestStringParser(t *testing.T) {
 	assert.Equal(t, "hel", Associative(scope, obj, "Field5"))
 
 	assert.Equal(t, "hello", Associative(scope, obj, "Field6"))
+
+	// Even though the length is huge, the max_length ensure string is
+	// clamped at something reasonable.
+	over_flow := Associative(scope, obj, "OverflowString")
+	assert.Equal(t, 5, len(over_flow.(string)))
 
 	serialized, err := json.MarshalIndent(obj, "", " ")
 	assert.NoError(t, err)
