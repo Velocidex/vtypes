@@ -93,7 +93,7 @@ func (self *StringParser) getCount(scope vfilter.Scope) int64 {
 
 	if self.options.LengthExpression != nil {
 		// Evaluate the offset expression with the current scope.
-		return EvalLambdaAsInt64(self.options.LengthExpression, scope)
+		result = EvalLambdaAsInt64(self.options.LengthExpression, scope)
 	}
 
 	if result > self.options.MaxLength {
