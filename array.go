@@ -85,11 +85,15 @@ func (self *ArrayParser) getCount(scope vfilter.Scope) int64 {
 
 	if self.options.CountExpression != nil {
 		// Evaluate the offset expression with the current scope.
-		return EvalLambdaAsInt64(self.options.CountExpression, scope)
+		result = EvalLambdaAsInt64(self.options.CountExpression, scope)
 	}
 
 	if result > self.options.MaxCount {
 		return self.options.MaxCount
+	}
+
+	if result < 0 {
+		result = 0
 	}
 	return result
 }
