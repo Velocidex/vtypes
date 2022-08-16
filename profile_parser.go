@@ -53,6 +53,10 @@ func (self *ProfileParser) New(profile *Profile, options *ordereddict.Dict) (Par
 		}
 	}
 
+	if result.options.Offset == nil {
+		return nil, fmt.Errorf("Profile offset must be specified.")
+	}
+
 	return result, nil
 }
 

@@ -80,8 +80,13 @@ func (self *Union) Parse(
 	// Resolve the parser from the profile now.
 	parser_name, pres := self.choice_names.GetString(value_str)
 	if !pres {
-		// Can not find the type - return null
-		return vfilter.Null{}
+		// Try the default
+		parser_name, pres = self.choice_names.GetString("default")
+		if !pres {
+			// Can not find the type - return null
+			return vfilter.Null{}
+		}
+		parser_name = "default"
 	}
 
 	// Resolve the parser from the profile
@@ -90,6 +95,8 @@ func (self *Union) Parse(
 		return vfilter.Null{}
 	}
 
-	self.Choices[value_str] = parser
+	if value_str != "default" {
+		self.Choices[value_str] = parser
+	}
 	return parser.Parse(scope, reader, offset)
 }
