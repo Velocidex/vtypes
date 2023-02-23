@@ -11,7 +11,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/sebdah/goldie v1.0.0
 	github.com/stretchr/testify v1.4.0
-	golang.org/x/text v0.3.7 // indirect
+	golang.org/x/text v0.3.8 // indirect
 	www.velocidex.com/golang/vfilter v0.0.0-20220103082604-85bb38175cb7
 )
 
