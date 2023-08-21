@@ -73,7 +73,7 @@ func (self *WinFileTime) New(profile *Profile, options *ordereddict.Dict) (Parse
 	}
 
 	parser, err := profile.GetParser(parser_type, ordereddict.NewDict())
-	if err != nil {
+	if err != nil || parser == nil {
 		return nil, fmt.Errorf("WinfileTime parser requires a type in the options: %w", err)
 	}
 
