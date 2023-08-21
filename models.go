@@ -110,10 +110,24 @@ func AddModel(profile *Profile) {
 	profile.types["Enumeration"] = &EnumerationParser{}
 	profile.types["BitField"] = &BitField{}
 	profile.types["Flags"] = &Flags{}
-	profile.types["WinFileTime"] = &WinFileTime{}
-	profile.types["Timestamp"] = &EpochTimestamp{}
+	profile.types["WinFileTime"] = &WinFileTime{
+		parser: NewIntParser(
+			"int64", 8, func(buf []byte) interface{} {
+				return int64(binary.LittleEndian.Uint64(buf))
+			}),
+		factor: 1,
+	}
+	profile.types["Timestamp"] = &EpochTimestamp{
+		parser: NewIntParser(
+			"int32", 4, func(buf []byte) interface{} {
+				return int64(int32(binary.LittleEndian.Uint32(buf)))
+			}),
+		factor: 1,
+	}
 	profile.types["Union"] = &Union{}
-	profile.types["FatTimestamp"] = &FatTimestamp{}
+	profile.types["FatTimestamp"] = &FatTimestamp{
+		profile: profile,
+	}
 	profile.types["Pointer"] = &PointerParser{}
 	profile.types["Profile"] = &ProfileParser{}
 
