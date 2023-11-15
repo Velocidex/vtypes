@@ -53,7 +53,10 @@ func (self *Profile) AddParser(type_name string, parser Parser) {
 func (self *Profile) GetParser(name string, options *ordereddict.Dict) (Parser, error) {
 	parser, pres := self.types[name]
 	if !pres {
-		return nil, errors.New("Parser not found")
+		return nil, fmt.Errorf("Parser %v not found", name)
+	}
+	if options == nil {
+		options = ordereddict.NewDict()
 	}
 	return parser.New(self, options)
 }
@@ -115,7 +118,11 @@ func (self *Profile) ParseStructDefinitions(definitions string) (err error) {
 			// Get the parser by name
 			parser, pres := self.types[field_def.Type]
 			if pres {
-				temp_parser.parser, err = parser.New(self, field_def.Options)
+				options := field_def.Options
+				if options == nil {
+					options = ordereddict.NewDict()
+				}
+				temp_parser.parser, err = parser.New(self, options)
 				if err != nil {
 					return fmt.Errorf("struct %v field '%v': %w",
 						struct_def.Name, field_def.Name, err)

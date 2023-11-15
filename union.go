@@ -92,6 +92,7 @@ func (self *Union) Parse(
 	// Resolve the parser from the profile
 	parser, err := self.profile.GetParser(parser_name, ordereddict.NewDict())
 	if err != nil {
+		scope.Log("ERROR:binary_parser: Union: %v", err)
 		return vfilter.Null{}
 	}
 

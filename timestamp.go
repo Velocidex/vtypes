@@ -9,88 +9,104 @@ import (
 	"www.velocidex.com/golang/vfilter"
 )
 
+type EpochTimestampOptions struct {
+	Type        string
+	TypeOptions *ordereddict.Dict
+	Factor      int64
+}
+
 type EpochTimestamp struct {
-	parser Parser
-	factor int64
+	options EpochTimestampOptions
+	profile *Profile
+	parser  Parser
 }
 
 func (self *EpochTimestamp) New(profile *Profile, options *ordereddict.Dict) (Parser, error) {
-	parser_type := "uint64"
-	factor := int64(1)
-	pres := false
-	if options != nil {
-		parser_type, pres = options.GetString("type")
-		if !pres {
-			return nil, fmt.Errorf("EpochTimestamp parser requires a type in the options")
-		}
+	var pres bool
+	result := &EpochTimestamp{profile: profile}
 
-		factor, pres = options.GetInt64("factor")
-		if !pres {
-			factor = 1
-		}
+	result.options.Type, pres = options.GetString("type")
+	if !pres {
+		result.options.Type = "uint64"
 	}
 
-	parser, err := profile.GetParser(parser_type, ordereddict.NewDict())
-	if err != nil {
-		return nil, fmt.Errorf("EpochTimestamp parser requires a type in the options: %w", err)
+	topts, pres := options.Get("type_options")
+	if !pres {
+		result.options.TypeOptions = ordereddict.NewDict()
+
+	} else {
+
+		topts_dict, ok := topts.(*ordereddict.Dict)
+		if !ok {
+			return nil, fmt.Errorf("Timestamp parser options should be a dict")
+		}
+		result.options.TypeOptions = topts_dict
 	}
 
-	return &EpochTimestamp{
-		parser: parser,
-		factor: factor,
-	}, nil
+	result.options.Factor, pres = options.GetInt64("factor")
+	if !pres {
+		result.options.Factor = 1
+	}
+
+	return result, nil
 }
 
 func (self *EpochTimestamp) Parse(
 	scope vfilter.Scope, reader io.ReaderAt, offset int64) interface{} {
+
+	if self.parser == nil {
+		parser, err := self.profile.GetParser(
+			self.options.Type, self.options.TypeOptions)
+		if err != nil {
+			scope.Log("ERROR:binary_parser: EpochTimestamp: %v", err)
+			self.parser = NullParser{}
+			return vfilter.Null{}
+		}
+
+		// Cache the parser for next time.
+		self.parser = parser
+	}
+
 	value, ok := to_int64(self.parser.Parse(scope, reader, offset))
 	if !ok {
 		return vfilter.Null{}
 	}
-
-	return time.Unix(value/self.factor, value%self.factor).UTC()
+	return time.Unix(value/self.options.Factor, value%self.options.Factor).UTC()
 }
 
 type WinFileTime struct {
-	parser Parser
-	factor int64
+	*EpochTimestamp
 }
 
 func (self *WinFileTime) New(profile *Profile, options *ordereddict.Dict) (Parser, error) {
-	parser_type := "uint64"
-	factor := int64(1)
-	pres := false
-	if options != nil {
-		parser_type, pres = options.GetString("type")
-		if !pres {
-			return nil, fmt.Errorf("WinfileTime parser requires a type in the options")
-		}
-
-		factor, pres = options.GetInt64("factor")
-		if !pres {
-			factor = 1
-		}
+	result, err := self.EpochTimestamp.New(profile, options)
+	if err != nil {
+		return nil, err
 	}
 
-	parser, err := profile.GetParser(parser_type, ordereddict.NewDict())
-	if err != nil || parser == nil {
-		return nil, fmt.Errorf("WinfileTime parser requires a type in the options: %w", err)
-	}
-
-	return &WinFileTime{
-		parser: parser,
-		factor: factor,
-	}, nil
+	return &WinFileTime{EpochTimestamp: result.(*EpochTimestamp)}, nil
 }
 
 func (self *WinFileTime) Parse(
 	scope vfilter.Scope, reader io.ReaderAt, offset int64) interface{} {
+	if self.parser == nil {
+		parser, err := self.profile.GetParser(
+			self.options.Type, self.options.TypeOptions)
+		if err != nil {
+			scope.Log("ERROR:binary_parser: WinFileTime: %v", err)
+			self.parser = NullParser{}
+			return vfilter.Null{}
+		}
+
+		// Cache the parser for next time.
+		self.parser = parser
+	}
+
 	value, ok := to_int64(self.parser.Parse(scope, reader, offset))
 	if !ok {
 		return vfilter.Null{}
 	}
-
-	return time.Unix((value/self.factor/10000000)-11644473600, 0).UTC()
+	return time.Unix((value/self.options.Factor/10000000)-11644473600, 0).UTC()
 }
 
 type FatTimestamp struct {
@@ -106,6 +122,7 @@ func (self *FatTimestamp) Parse(
 
 	parser, err := self.profile.GetParser("uint32", nil)
 	if err != nil {
+		scope.Log("ERROR:binary_parser: FatTimestamp: %v", err)
 		return vfilter.Null{}
 	}
 

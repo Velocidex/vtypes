@@ -28,12 +28,12 @@ func (self *BitField) New(profile *Profile, options *ordereddict.Dict) (Parser, 
 	}
 
 	start_bit, pres := options.GetInt64("start_bit")
-	if !pres {
+	if !pres || start_bit < 0 {
 		start_bit = 0
 	}
 
 	end_bit, pres := options.GetInt64("end_bit")
-	if !pres {
+	if !pres || end_bit > 64 {
 		end_bit = 64
 	}
 
@@ -56,5 +56,5 @@ func (self *BitField) Parse(
 		result |= value & (1 << uint8(i))
 	}
 
-	return result
+	return result >> self.StartBit
 }

@@ -67,6 +67,8 @@ func (self *ProfileParser) Parse(
 		parser, err := self.profile.GetParser(
 			self.options.Type, self.options.TypeOptions)
 		if err != nil {
+			scope.Log("ERROR:binary_parser: ProfileParser: %v", err)
+			self.parser = NullParser{}
 			return vfilter.Null{}
 		}
 

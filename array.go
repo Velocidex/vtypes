@@ -24,6 +24,8 @@ type ArrayParser struct {
 	options ArrayParserOptions
 	profile *Profile
 	parser  Parser
+
+	invalid_parser bool
 }
 
 func (self *ArrayParser) New(profile *Profile, options *ordereddict.Dict) (Parser, error) {
@@ -105,10 +107,16 @@ func (self *ArrayParser) Parse(
 	result_len := self.getCount(scope)
 	result := make([]interface{}, 0, result_len)
 
+	if self.invalid_parser {
+		return vfilter.Null{}
+	}
+
 	if self.parser == nil {
 		parser, err := self.profile.GetParser(
 			self.options.Type, self.options.TypeOptions)
 		if err != nil {
+			scope.Log("ERROR:binary_parser: ArrayParser: %v", err)
+			self.invalid_parser = true
 			return vfilter.Null{}
 		}
 

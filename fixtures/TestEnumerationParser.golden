@@ -1,0 +1,6 @@
+{
+ "FirstByte": "ONE",
+ "SecondByte": "TWO",
+ "BitFieldValue": 5,
+ "BitField": "ONE"
+}
