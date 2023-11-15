@@ -10,27 +10,40 @@ import (
 )
 
 // Accepts option bitmap: name (string) -> bit number
+type FlagsOptions struct {
+	Type        string
+	TypeOptions *ordereddict.Dict
+	Bitmap      map[int64]string
+	Bits        []int64
+}
 
 type Flags struct {
-	Type   string `json:"type"`
-	Bitmap map[int64]string
-	bits   []int64
-	parser Parser
+	options FlagsOptions
+	profile *Profile
+	parser  Parser
 }
 
 func (self *Flags) New(profile *Profile, options *ordereddict.Dict) (Parser, error) {
+	var pres bool
+
 	if options == nil {
 		return nil, fmt.Errorf("Bitmap parser requires a type in the options")
 	}
 
-	parser_type, pres := options.GetString("type")
+	result := &Flags{profile: profile}
+
+	result.options.Type, pres = options.GetString("type")
 	if !pres {
 		return nil, fmt.Errorf("Bitmap parser requires a type in the options")
 	}
 
-	parser, err := profile.GetParser(parser_type, ordereddict.NewDict())
-	if err != nil {
-		return nil, fmt.Errorf("Bitmap parser requires a type in the options: %w", err)
+	topts, pres := options.Get("type_options")
+	if pres {
+		topts_dict, ok := topts.(*ordereddict.Dict)
+		if !ok {
+			return nil, fmt.Errorf("Enumeration parser options should be a dict")
+		}
+		result.options.TypeOptions = topts_dict
 	}
 
 	bitmap, pres := options.Get("bitmap")
@@ -43,10 +56,7 @@ func (self *Flags) New(profile *Profile, options *ordereddict.Dict) (Parser, err
 		return nil, fmt.Errorf("Bitmap parser requires bitmap to be a mapping between names and the bit number")
 	}
 
-	result := &Flags{
-		Bitmap: make(map[int64]string),
-		parser: parser,
-	}
+	result.options.Bitmap = make(map[int64]string)
 
 	for _, name := range bitmap_dict.Keys() {
 		idx_any, _ := bitmap_dict.Get(name)
@@ -55,8 +65,8 @@ func (self *Flags) New(profile *Profile, options *ordereddict.Dict) (Parser, err
 			return nil, fmt.Errorf("Bitmap parser requires bitmap bit number between 0 and 64")
 		}
 
-		result.Bitmap[int64(1)<<idx] = name
-		result.bits = append(result.bits, int64(1)<<idx)
+		result.options.Bitmap[int64(1)<<idx] = name
+		result.options.Bits = append(result.options.Bits, int64(1)<<idx)
 	}
 
 	return result, nil
@@ -66,14 +76,27 @@ func (self *Flags) Parse(
 	scope vfilter.Scope, reader io.ReaderAt, offset int64) interface{} {
 	result := []string{}
 
+	if self.parser == nil {
+		parser, err := self.profile.GetParser(
+			self.options.Type, self.options.TypeOptions)
+		if err != nil {
+			scope.Log("ERROR:binary_parser: Flags: %v", err)
+			self.parser = NullParser{}
+			return vfilter.Null{}
+		}
+
+		// Cache the parser for next time.
+		self.parser = parser
+	}
+
 	value, ok := to_int64(self.parser.Parse(scope, reader, offset))
 	if !ok {
 		return result
 	}
 
-	for _, idx := range self.bits {
+	for _, idx := range self.options.Bits {
 		if idx&value != 0 {
-			result = append(result, self.Bitmap[idx])
+			result = append(result, self.options.Bitmap[idx])
 		}
 	}
 

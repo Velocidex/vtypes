@@ -1,0 +1,14 @@
+{
+ "Flags": null,
+ "Enumeration": null,
+ "Undefined": {
+  "ArrayOfUnderfinedStruct": null
+ },
+ "Undefined2": {
+  "ArrayOfUnderfinedStruct": null
+ }
+}
+ ERROR:binary_parser: Flags: BitField parser requires a type in the options
+ ERROR:binary_parser: Enumeration: BitField parser requires a type in the options
+ ERROR:binary_parser: ArrayParser: Parser Undefined not found
+

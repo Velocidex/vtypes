@@ -4,8 +4,10 @@ package vtypes
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"log"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/Velocidex/ordereddict"
@@ -16,16 +18,30 @@ import (
 
 var (
 	sample = []byte{
-		0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,
-		0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10,
-		0x11, 0x12, 0x13,
+		0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c,
+		0x0d, 0x0e, 0x0f, 0x10, 0x11, 0x12, 0x13,
 
 		// Offset 19 - "hello\x00world\x00"
 		0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x00, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x00,
 
-		// Offset 37 - utf16
+		// Offset 31 - utf16
 		0x68, 0x00, 0x65, 0x00, 0x6c, 0x00, 0x6c, 0x00, 0x6f, 0x00, 0x00, 0x00,
 		0x77, 0x00, 0x6f, 0x00, 0x72, 0x00, 0x6c, 0x00, 0x64, 0x00, 0x00, 0x00,
+
+		// Offset 55 - uint32 timestamp
+		0x61, 0x9c, 0x53, 0x65, 0x00, 0x00, 0x00, 0x00,
+
+		// Offset 63 - uint64 timestamp in millisec
+		0x40, 0x1a, 0xe7, 0x0c, 0x1f, 0x0a, 0x06, 0x00,
+
+		// Offset 71 - uint64 timestamp in millisec Bitfield from bit 4
+		0x00, 0xa4, 0x71, 0xce, 0xf0, 0xa1, 0x60, 0x00,
+
+		// Offset 79 - uint64 WinFileTime
+		0x81, 0x00, 0x61, 0x4e, 0x15, 0x17, 0xda, 0x01,
+
+		// Offset 87 - uint64 WinFileTime from 4th bit
+		0x10, 0x08, 0x10, 0xe6, 0x54, 0x71, 0xa1, 0x1d,
 	}
 )
 
@@ -346,4 +362,259 @@ func TestUnion(t *testing.T) {
 	assert.NoError(t, err)
 
 	goldie.Assert(t, "TestUnion", serialized)
+}
+
+func TestEnumerationParser(t *testing.T) {
+	profile := NewProfile()
+	AddModel(profile)
+
+	scope := MakeScope()
+	scope.SetLogger(log.New(os.Stderr, " ", 0))
+
+	definition := `
+[
+  ["TestStruct", 0, [
+     ["FirstByte", 0, "Enumeration", {
+        type: "uint8",
+        map: {
+           "ONE": 0x01,
+           "TWO": 0x02,
+        },
+     }],
+     ["SecondByte", 1, "Enumeration", {
+        type: "uint8",
+        choices: {
+           "1": "ONE",
+           "2": "TWO",
+        },
+     }],
+     ["BitFieldValue", 4, "uint8"],
+     ["BitField", 4, "Enumeration", {
+        type: "BitField",
+        type_options: {
+           start_bit: 0,
+           end_bit: 1,
+           type: "uint8",
+        },
+        choices: {
+           "1": "ONE",
+           "2": "TWO",
+        },
+     }],
+  ]]
+]
+`
+
+	err := profile.ParseStructDefinitions(definition)
+	assert.NoError(t, err)
+
+	// Parse TestStruct over the reader
+	reader := bytes.NewReader(sample)
+	obj, err := profile.Parse(scope, "TestStruct", reader, 0)
+	assert.NoError(t, err)
+
+	serialized, err := json.MarshalIndent(obj, "", " ")
+	assert.NoError(t, err)
+
+	goldie.Assert(t, "TestEnumerationParser", serialized)
+}
+
+func TestBitfieldParser(t *testing.T) {
+	profile := NewProfile()
+	AddModel(profile)
+
+	scope := MakeScope()
+	scope.SetLogger(log.New(os.Stderr, " ", 0))
+
+	definition := `
+[
+  ["TestStruct", 0, [
+     ["Value", 18, "uint8"],
+     ["FirstNibble", 18, "BitField", {
+        type: "uint8",
+        start_bit: 0,
+        end_bit: 4,
+     }],
+     ["SecondNibble", 18, "BitField", {
+        type: "uint8",
+        start_bit: 4,
+        end_bit: 8,
+     }],
+  ]]
+]
+`
+
+	err := profile.ParseStructDefinitions(definition)
+	assert.NoError(t, err)
+
+	// Parse TestStruct over the reader
+	reader := bytes.NewReader(sample)
+	obj, err := profile.Parse(scope, "TestStruct", reader, 0)
+	assert.NoError(t, err)
+
+	serialized, err := json.MarshalIndent(obj, "", " ")
+	assert.NoError(t, err)
+
+	goldie.Assert(t, "TestBitfieldParser", serialized)
+}
+
+func TestFlagsParser(t *testing.T) {
+	profile := NewProfile()
+	AddModel(profile)
+
+	scope := MakeScope()
+	scope.SetLogger(log.New(os.Stderr, " ", 0))
+
+	definition := `
+[
+  ["TestStruct", 0, [
+     ["Value", 18, "uint8"],
+     ["Flags", 18, "Flags", {
+        type: "uint8",
+        bitmap: {
+          "FirstBit": 1,
+          "SecondBit": 2,
+          "ThirdBit": 3,
+          "FourthBit": 4,
+        }
+     }],
+     ["FlagsBitfieldSecondNibble", 18, "Flags", {
+        type: "BitField",
+        type_options: {
+            type: "uint8",
+            start_bit: 4,
+            end_bit: 8,
+        },
+        bitmap: {
+          "FirstBit": 1,
+          "SecondBit": 2,
+          "ThirdBit": 3,
+          "FourthBit": 4,
+        }
+     }],
+  ]]
+]
+`
+
+	err := profile.ParseStructDefinitions(definition)
+	assert.NoError(t, err)
+
+	// Parse TestStruct over the reader
+	reader := bytes.NewReader(sample)
+	obj, err := profile.Parse(scope, "TestStruct", reader, 0)
+	assert.NoError(t, err)
+
+	serialized, err := json.MarshalIndent(obj, "", " ")
+	assert.NoError(t, err)
+
+	goldie.Assert(t, "TestFlagsParser", serialized)
+}
+
+func TestEpochTimestampParser(t *testing.T) {
+	profile := NewProfile()
+	AddModel(profile)
+
+	scope := MakeScope()
+	scope.SetLogger(log.New(os.Stderr, " ", 0))
+
+	definition := `
+[
+  ["TestStruct", 0, [
+     ["Value", 49, uint32],
+     ["Timestamp1", 55, "Timestamp"],
+     ["Timestamp2", 63, "Timestamp", {
+         factor: 1000000,
+     }],
+     ["Timestamp3", 71, "Timestamp", {
+         type: "BitField",
+         type_options: {
+            type: "uint64",
+            start_bit: 4,
+            end_bit: 64,
+         } ,
+         factor: 1000000,
+     }],
+
+     ["WinFileTime", 79, "WinFileTime"],
+     ["WinFileTime2", 87, "WinFileTime", {
+         type: "BitField",
+         type_options: {
+            type: "uint64",
+            start_bit: 4,
+            end_bit: 64,
+         } ,
+     }],
+
+  ]]
+]
+`
+
+	err := profile.ParseStructDefinitions(definition)
+	assert.NoError(t, err)
+
+	// Parse TestStruct over the reader
+	reader := bytes.NewReader(sample)
+	obj, err := profile.Parse(scope, "TestStruct", reader, 0)
+	assert.NoError(t, err)
+
+	serialized, err := json.MarshalIndent(obj, "", " ")
+	assert.NoError(t, err)
+
+	goldie.Assert(t, "TestEpochTimestampParser", serialized)
+}
+
+// Make sure errors are reported properly. Errors should only be
+// reported for invalid profile definitions since we have no control
+// over what data we may encounter. For example if the parsed data
+// makes no sense for the type we should not report an error just
+// return null. But if the profile definition is invalid then we need
+// to report it as an error to the user.
+func TestErrors(t *testing.T) {
+	profile := NewProfile()
+	AddModel(profile)
+
+	scope := MakeScope()
+	log_buffer := &strings.Builder{}
+	scope.SetLogger(log.New(log_buffer, " ", 0))
+
+	definition := `
+[
+  ["TestSubStruct", 0, [
+     ["ArrayOfUnderfinedStruct", 0, "Array", {
+         type: "Undefined",
+         count: 100,
+     }],
+  ]],
+  ["TestStruct", 0, [
+     ["Flags", 0, "Flags", {
+          type: "BitField",
+          bitmap: {
+             "FirstBit": 1,
+          },
+     }],
+     ["Enumeration", 0, "Enumeration", {
+          type: "BitField",
+          bitmap: {
+             "FirstBit": 1,
+          },
+     }],
+     ["Undefined", 0, "TestSubStruct"],
+     ["Undefined2", 0, "TestSubStruct"],
+  ]]
+]
+`
+	err := profile.ParseStructDefinitions(definition)
+	assert.NoError(t, err)
+
+	// Parse TestStruct over the reader
+	reader := bytes.NewReader(sample)
+	obj, err := profile.Parse(scope, "TestStruct", reader, 0)
+	assert.NoError(t, err)
+
+	serialized, err := json.MarshalIndent(obj, "", " ")
+	assert.NoError(t, err)
+
+	golden := string(serialized) + fmt.Sprintf("\n%v\n", log_buffer.String())
+
+	goldie.Assert(t, "TestErrors", []byte(golden))
 }

@@ -1,0 +1,8 @@
+{
+ "Value": 19,
+ "Flags": [
+  "FirstBit",
+  "FourthBit"
+ ],
+ "FlagsBitfieldSecondNibble": []
+}

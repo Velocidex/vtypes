@@ -9,24 +9,38 @@ import (
 	"www.velocidex.com/golang/vfilter"
 )
 
+type EnumerationParserOptions struct {
+	Type        string
+	TypeOptions *ordereddict.Dict
+	Choices     map[int64]string
+}
+
 type EnumerationParser struct {
-	choices map[int64]string
+	options EnumerationParserOptions
+	profile *Profile
 	parser  Parser
 }
 
 func (self *EnumerationParser) New(profile *Profile, options *ordereddict.Dict) (Parser, error) {
+	var pres bool
+
 	if options == nil {
-		return nil, fmt.Errorf("Enumeration parser requires a type in the options")
+		return nil, fmt.Errorf("Enumeration parser requires an options dict")
 	}
 
-	parser_type, pres := options.GetString("type")
+	result := &EnumerationParser{profile: profile}
+	result.options.Type, pres = options.GetString("type")
 	if !pres {
 		return nil, fmt.Errorf("Enumeration parser requires a type in the options")
 	}
 
-	parser, err := profile.GetParser(parser_type, ordereddict.NewDict())
-	if err != nil {
-		return nil, fmt.Errorf("Enumeration parser requires a type in the options: %w", err)
+	topts, pres := options.Get("type_options")
+	if pres {
+		topts_dict, ok := topts.(*ordereddict.Dict)
+		if !ok {
+			return nil, fmt.Errorf("Enumeration parser options should be a dict")
+		}
+		result.options.TypeOptions = topts_dict
 	}
 
 	mapping := make(map[int64]string)
@@ -73,21 +87,33 @@ func (self *EnumerationParser) New(profile *Profile, options *ordereddict.Dict) 
 		}
 	}
 
-	return &EnumerationParser{
-		choices: mapping,
-		parser:  parser,
-	}, nil
+	result.options.Choices = mapping
+
+	return result, nil
 }
 
 func (self *EnumerationParser) Parse(
 	scope vfilter.Scope, reader io.ReaderAt, offset int64) interface{} {
+
+	if self.parser == nil {
+		parser, err := self.profile.GetParser(
+			self.options.Type, self.options.TypeOptions)
+		if err != nil {
+			scope.Log("ERROR:binary_parser: Enumeration: %v", err)
+			self.parser = NullParser{}
+			return vfilter.Null{}
+		}
+
+		// Cache the parser for next time.
+		self.parser = parser
+	}
 
 	value, ok := to_int64(self.parser.Parse(scope, reader, offset))
 	if !ok {
 		return vfilter.Null{}
 	}
 
-	string_value, pres := self.choices[value]
+	string_value, pres := self.options.Choices[value]
 	if !pres {
 		string_value = fmt.Sprintf("%#x", value)
 	}

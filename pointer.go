@@ -53,6 +53,8 @@ func (self *PointerParser) Parse(
 		parser, err := self.profile.GetParser(
 			self.options.Type, self.options.TypeOptions)
 		if err != nil {
+			scope.Log("ERROR:binary_parser: PointerParser: %v", err)
+			self.parser = NullParser{}
 			return vfilter.Null{}
 		}
 
