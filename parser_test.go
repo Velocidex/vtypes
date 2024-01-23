@@ -106,6 +106,29 @@ func TestStructParser(t *testing.T) {
 	goldie.Assert(t, "TestStructParser", serialized)
 }
 
+func TestArrayParserError(t *testing.T) {
+	profile := NewProfile()
+	AddModel(profile)
+
+	scope := MakeScope()
+	scope.SetLogger(log.New(os.Stderr, " ", 0))
+
+	definition := `
+[
+  ["TestStruct", 0, [
+     ["Field1", 2, "Array", {
+        "max_count": "x=>x.Length",
+        "type": "uint8"
+     }],
+  ]
+]]
+`
+	err := profile.ParseStructDefinitions(definition)
+	assert.Error(t, err)
+
+	assert.Contains(t, err.Error(), "Array max_count must be an int not string")
+}
+
 func TestArrayParser(t *testing.T) {
 	profile := NewProfile()
 	AddModel(profile)
