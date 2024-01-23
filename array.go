@@ -52,7 +52,13 @@ func (self *ArrayParser) New(profile *Profile, options *ordereddict.Dict) (Parse
 
 	// Default to 0 length
 	result.options.Count, _ = options.GetInt64("count")
-	result.options.MaxCount, _ = options.GetInt64("max_count")
+	max_count_any, pres := options.Get("max_count")
+	if pres {
+		result.options.MaxCount, pres = to_int64(max_count_any)
+		if !pres {
+			return nil, fmt.Errorf("Array max_count must be an int not %T", max_count_any)
+		}
+	}
 
 	if result.options.MaxCount == 0 {
 		result.options.MaxCount = 1000
