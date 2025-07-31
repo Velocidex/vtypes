@@ -104,6 +104,9 @@ func AddModel(profile *Profile) {
 			return int64(binary.BigEndian.Uint64(buf))
 		})
 
+	// Var ints like in protobufs.
+	profile.types["leb128"] = &Leb128Parser{}
+	profile.types["sleb128"] = &Sleb128Parser{}
 	profile.types["Array"] = &ArrayParser{}
 	profile.types["String"] = &StringParser{}
 	profile.types["Value"] = &ValueParser{}

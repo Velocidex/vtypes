@@ -11,6 +11,10 @@ import (
 	"www.velocidex.com/golang/vfilter"
 )
 
+var (
+	NotFoundError = errors.New("NotFoundError")
+)
+
 type ArrayParserOptions struct {
 	Type               string
 	TypeOptions        *ordereddict.Dict
@@ -184,7 +188,18 @@ func (self *ArrayObject) SetParent(parent *StructObject) {
 }
 
 func (self *ArrayObject) Contents() []interface{} {
-	return self.contents
+	res := make([]interface{}, 0, len(self.contents))
+	for _, v := range self.contents {
+		res = append(res, ValueOf(v))
+	}
+	return res
+}
+
+func (self *ArrayObject) Get(i int64) (interface{}, error) {
+	if i < 0 || i > int64(len(self.contents)) {
+		return nil, NotFoundError
+	}
+	return self.contents[i], nil
 }
 
 func (self *ArrayObject) Size() int {
@@ -200,5 +215,5 @@ func (self *ArrayObject) End() int64 {
 }
 
 func (self *ArrayObject) MarshalJSON() ([]byte, error) {
-	return json.Marshal(self.contents)
+	return json.Marshal(self.Contents())
 }
