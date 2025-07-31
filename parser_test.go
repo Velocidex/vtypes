@@ -1,4 +1,3 @@
-//
 package vtypes
 
 import (
@@ -42,6 +41,9 @@ var (
 
 		// Offset 87 - uint64 WinFileTime from 4th bit
 		0x10, 0x08, 0x10, 0xe6, 0x54, 0x71, 0xa1, 0x1d,
+
+		// offset 95 - E58E26 -> 624485
+		0xe5, 0x8e, 0x26,
 	}
 )
 
@@ -56,6 +58,21 @@ func TestIntegerParser(t *testing.T) {
 
 	// 578437695752307201
 	assert.Equal(t, uint64(0x0807060504030201), obj)
+}
+
+func TestLeb128Parser(t *testing.T) {
+	reader := bytes.NewReader(sample)
+	profile := NewProfile()
+	AddModel(profile)
+
+	scope := vfilter.NewScope()
+	obj, err := profile.Parse(scope, "leb128", reader, 95)
+	assert.NoError(t, err)
+
+	obj_val, ok := obj.(VarInt)
+	assert.True(t, ok)
+
+	assert.Equal(t, uint64(624485), obj_val.Value())
 }
 
 func TestStructParser(t *testing.T) {

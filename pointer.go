@@ -65,7 +65,7 @@ func (self *PointerParser) Parse(
 	buf := make([]byte, 8)
 
 	n, err := reader.ReadAt(buf, offset)
-	if n == 0 || err != nil {
+	if n == 0 || (err != nil && !errors.Is(err, io.EOF)) {
 		return vfilter.Null{}
 	}
 

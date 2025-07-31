@@ -73,6 +73,14 @@ func SizeOf(obj interface{}) int {
 	return 0
 }
 
+func ValueOf(obj interface{}) interface{} {
+	v, ok := obj.(Valuer)
+	if ok {
+		return v.Value()
+	}
+	return obj
+}
+
 func StartOf(obj interface{}) int64 {
 	start, ok := obj.(Starter)
 	if ok {

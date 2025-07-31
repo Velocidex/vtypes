@@ -68,6 +68,11 @@ func (self ArrayAssociative) Applicable(a vfilter.Any, b vfilter.Any) bool {
 		if ok {
 			return true
 		}
+
+		_, ok = to_int64(b)
+		if ok {
+			return true
+		}
 	}
 	return false
 }
@@ -77,6 +82,16 @@ func (self ArrayAssociative) Associative(scope vfilter.Scope,
 	lhs, ok := a.(*ArrayObject)
 	if !ok {
 		return vfilter.Null{}, false
+	}
+
+	// Indexing the array
+	idx, ok := to_int64(b)
+	if ok {
+		res, err := lhs.Get(idx)
+		if err != nil {
+			return nil, false
+		}
+		return res, true
 	}
 
 	rhs, ok := b.(string)
