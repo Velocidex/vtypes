@@ -69,7 +69,10 @@ func TestLeb128Parser(t *testing.T) {
 	obj, err := profile.Parse(scope, "leb128", reader, 95)
 	assert.NoError(t, err)
 
-	assert.Equal(t, uint64(624485), obj)
+	obj_val, ok := obj.(VarInt)
+	assert.True(t, ok)
+
+	assert.Equal(t, uint64(624485), obj_val.Value())
 }
 
 func TestStructParser(t *testing.T) {
