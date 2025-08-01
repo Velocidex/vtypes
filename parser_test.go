@@ -143,7 +143,8 @@ func TestArrayParserError(t *testing.T) {
 	err := profile.ParseStructDefinitions(definition)
 	assert.Error(t, err)
 
-	assert.Contains(t, err.Error(), "Array max_count must be an int not string")
+	assert.Contains(t, err.Error(),
+		"struct TestStruct field 'Field1': ArrayParser: field max_count: Expecting an integer not string")
 }
 
 func TestArrayParser(t *testing.T) {
@@ -526,6 +527,7 @@ func TestFlagsParser(t *testing.T) {
             end_bit: 8,
         },
         bitmap: {
+          "ZeroBit": 0,
           "FirstBit": 1,
           "SecondBit": 2,
           "ThirdBit": 3,
@@ -610,14 +612,33 @@ func TestEpochTimestampParser(t *testing.T) {
 // return null. But if the profile definition is invalid then we need
 // to report it as an error to the user.
 func TestErrors(t *testing.T) {
-	profile := NewProfile()
-	AddModel(profile)
-
-	scope := MakeScope()
-	log_buffer := &strings.Builder{}
-	scope.SetLogger(log.New(log_buffer, " ", 0))
-
-	definition := `
+	definitions := []string{
+		// No erorr - this is a valid definition
+		`
+[
+  ["TestStruct", 0, [
+     ["Flags", 0, "Flags", {
+          type: "BitField",
+          bitmap: {
+             "FirstBit": 1,
+          }
+     }]
+  ]]
+]`,
+		// bitmap is not a valid option for Enumeration
+		`
+[
+  ["TestStruct", 0, [
+     ["Enumeration", 0, "Enumeration", {
+          type: "BitField",
+          bitmap: {
+            "FirstBit": 1,
+          }
+     }]
+  ]]
+]`,
+		// No error at parse time but an error at runtime.
+		`
 [
   ["TestSubStruct", 0, [
      ["ArrayOfUnderfinedStruct", 0, "Array", {
@@ -626,35 +647,41 @@ func TestErrors(t *testing.T) {
      }],
   ]],
   ["TestStruct", 0, [
-     ["Flags", 0, "Flags", {
-          type: "BitField",
-          bitmap: {
-             "FirstBit": 1,
-          },
-     }],
-     ["Enumeration", 0, "Enumeration", {
-          type: "BitField",
-          bitmap: {
-             "FirstBit": 1,
-          },
-     }],
      ["Undefined", 0, "TestSubStruct"],
      ["Undefined2", 0, "TestSubStruct"],
   ]]
 ]
-`
-	err := profile.ParseStructDefinitions(definition)
-	assert.NoError(t, err)
+`}
 
-	// Parse TestStruct over the reader
-	reader := bytes.NewReader(sample)
-	obj, err := profile.Parse(scope, "TestStruct", reader, 0)
-	assert.NoError(t, err)
+	golden := ""
 
-	serialized, err := json.MarshalIndent(obj, "", " ")
-	assert.NoError(t, err)
+	for idx, definition := range definitions {
+		profile := NewProfile()
+		AddModel(profile)
 
-	golden := string(serialized) + fmt.Sprintf("\n%v\n", log_buffer.String())
+		golden += fmt.Sprintf("\n\nTest Case %d: ", idx)
+		err := profile.ParseStructDefinitions(definition)
+		if err != nil {
+			golden += "\n" + err.Error()
+		} else {
+			golden += "No Error"
+		}
+
+		// Parse TestStruct over the reader
+		reader := bytes.NewReader(sample)
+
+		scope := MakeScope()
+		log_buffer := &strings.Builder{}
+		scope.SetLogger(log.New(log_buffer, " ", 0))
+
+		obj, err := profile.Parse(scope, "TestStruct", reader, 0)
+		assert.NoError(t, err)
+		serialized, err := json.MarshalIndent(obj, "", " ")
+		assert.NoError(t, err)
+
+		golden += fmt.Sprintf("\nParsing: %v", string(serialized))
+		golden += fmt.Sprintf("\nLogging: %v", log_buffer.String())
+	}
 
 	goldie.Assert(t, "TestErrors", []byte(golden))
 }

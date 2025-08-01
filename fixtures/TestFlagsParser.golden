@@ -4,5 +4,7 @@
   "FirstBit",
   "FourthBit"
  ],
- "FlagsBitfieldSecondNibble": []
+ "FlagsBitfieldSecondNibble": [
+  "ZeroBit"
+ ]
 }

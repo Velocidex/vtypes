@@ -1,6 +1,21 @@
-{
- "Flags": null,
- "Enumeration": null,
+
+
+Test Case 0: 
+struct TestStruct field 'Flags': Field type is required in *vtypes.BitFieldOptions
+Parsing: {
+ "Flags": null
+}
+Logging: 
+
+Test Case 1: 
+struct TestStruct field 'Enumeration': Unexpected parameters provided: [bitmap]
+Parsing: {
+ "Enumeration": null
+}
+Logging: 
+
+Test Case 2: No Error
+Parsing: {
  "Undefined": {
   "ArrayOfUnderfinedStruct": null
  },
@@ -8,7 +23,4 @@
   "ArrayOfUnderfinedStruct": null
  }
 }
- ERROR:binary_parser: Flags: BitField parser requires a type in the options
- ERROR:binary_parser: Enumeration: BitField parser requires a type in the options
- ERROR:binary_parser: ArrayParser: Parser Undefined not found
-
+Logging:  ERROR:binary_parser: ArrayParser: NotFoundError: Parser Undefined not found

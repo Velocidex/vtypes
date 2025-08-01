@@ -47,10 +47,13 @@ func (self *ValueParser) New(profile *Profile, options *ordereddict.Dict) (Parse
 
 func (self *ValueParser) Parse(scope vfilter.Scope, reader io.ReaderAt, offset int64) interface{} {
 	if self.expression != nil {
-		this_obj, pres := scope.Resolve("this")
+		subscope := scope.Copy()
+		defer subscope.Close()
+
+		this_obj, pres := getThis(subscope)
 		if pres {
 			return self.expression.Reduce(
-				context.Background(), scope, []vfilter.Any{this_obj})
+				context.Background(), subscope, []vfilter.Any{this_obj})
 		}
 	}
 	if IsNil(self.value) {

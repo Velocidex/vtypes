@@ -11,16 +11,33 @@ import (
 )
 
 type VarInt struct {
-	base uint64
-	size int
+	base   uint64
+	size   int
+	offset int64
 }
 
 func (self VarInt) Size() int {
 	return self.size
 }
 
+func (self VarInt) SizeOf() int {
+	return self.size
+}
+
+func (self VarInt) EndOf() uint64 {
+	return uint64(self.offset) + uint64(self.size)
+}
+
+func (self VarInt) OffsetOf() uint64 {
+	return uint64(self.offset)
+}
+
 func (self VarInt) Value() interface{} {
 	return self.base
+}
+
+func (self VarInt) ValueOf() interface{} {
+	return self.Value()
 }
 
 func (self VarInt) MarshalJSON() ([]byte, error) {
@@ -65,15 +82,17 @@ func (self *Leb128Parser) Parse(scope vfilter.Scope, reader io.ReaderAt, offset 
 		res |= value << (i * 7)
 		if next == 0 {
 			return VarInt{
-				base: res,
-				size: i + 1,
+				offset: offset,
+				base:   res,
+				size:   i + 1,
 			}
 		}
 	}
 
 	return VarInt{
-		base: res,
-		size: len(buf),
+		base:   res,
+		offset: offset,
+		size:   len(buf),
 	}
 }
 

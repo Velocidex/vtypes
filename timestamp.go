@@ -1,6 +1,7 @@
 package vtypes
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"time"
@@ -10,9 +11,9 @@ import (
 )
 
 type EpochTimestampOptions struct {
-	Type        string
-	TypeOptions *ordereddict.Dict
-	Factor      int64
+	Type        string            `vfilter:"optional,field=type,doc=The underlying type of the choice"`
+	TypeOptions *ordereddict.Dict `vfilter:"optional,field=type_options,doc=Any additional options required to parse the type"`
+	Factor      int64             `vfilter:"optional,field=factor,doc=A factor to be applied prior to parsing"`
 }
 
 type EpochTimestamp struct {
@@ -22,33 +23,35 @@ type EpochTimestamp struct {
 }
 
 func (self *EpochTimestamp) New(profile *Profile, options *ordereddict.Dict) (Parser, error) {
-	var pres bool
 	result := &EpochTimestamp{profile: profile}
+	ctx := context.Background()
+	err := ParseOptions(ctx, options, &result.options)
+	if err != nil {
+		return nil, fmt.Errorf("EpochTimestamp: %w", err)
+	}
 
-	result.options.Type, pres = options.GetString("type")
-	if !pres {
+	if result.options.Type == "" {
 		result.options.Type = "uint64"
 	}
 
-	topts, pres := options.Get("type_options")
-	if !pres {
-		result.options.TypeOptions = ordereddict.NewDict()
-
-	} else {
-
-		topts_dict, ok := topts.(*ordereddict.Dict)
-		if !ok {
-			return nil, fmt.Errorf("Timestamp parser options should be a dict")
-		}
-		result.options.TypeOptions = topts_dict
-	}
-
-	result.options.Factor, pres = options.GetInt64("factor")
-	if !pres {
+	if result.options.Factor == 0 {
 		result.options.Factor = 1
 	}
 
+	parser, err := maybeGetParser(profile,
+		result.options.Type, result.options.TypeOptions)
+	if err != nil {
+		return nil, err
+	}
+
+	// Cache the parser for next time.
+	result.parser = parser
+
 	return result, nil
+}
+
+func (self *EpochTimestamp) Size() int {
+	return SizeOf(self.parser)
 }
 
 func (self *EpochTimestamp) Parse(
@@ -71,7 +74,16 @@ func (self *EpochTimestamp) Parse(
 	if !ok {
 		return vfilter.Null{}
 	}
-	return time.Unix(value/self.options.Factor, value%self.options.Factor).UTC()
+
+	res := time.Unix(value/self.options.Factor,
+		value%self.options.Factor).UTC()
+
+	// Catch invalid timestamps.
+	_, err := res.MarshalJSON()
+	if err != nil {
+		return vfilter.Null{}
+	}
+	return res
 }
 
 type WinFileTime struct {

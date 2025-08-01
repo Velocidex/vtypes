@@ -2,6 +2,7 @@ package vtypes
 
 import (
 	"bytes"
+	"context"
 	"encoding/binary"
 	"encoding/hex"
 	"fmt"
@@ -12,13 +13,19 @@ import (
 	"www.velocidex.com/golang/vfilter"
 )
 
+var (
+	defaultTerm = "\x00"
+)
+
 type StringParserOptions struct {
-	Length           int64
+	Length           *int64 `vfilter:"optional,lambda=LengthExpression,field=length,doc=Length of the string to read in bytes (Can be a lambda)"`
 	LengthExpression *vfilter.Lambda
-	MaxLength        int64
-	Term             string
-	TermExpression   *vfilter.Lambda
-	Encoding         string
+	MaxLength        int64           `vfilter:"optional,field=max_length,doc=Maximum length that is enforced on the string size"`
+	Term             *string         `vfilter:"optional,lambda=TermExpression,field=term,doc=Terminating string (can be an expression)"`
+	TermHex          *string         `vfilter:"optional,field=term_hex,doc=A Terminator in hex encoding"`
+	TermExpression   *vfilter.Lambda `vfilter:"optional,field=term_exp,doc=A Terminator expression"`
+	Encoding         string          `vfilter:"optional,field=encoding,doc=The encoding to use, can be utf8 or utf16"`
+	Bytes            bool            `vfilter:"optional,field=byte_string,doc=Terminating string (can be an expression)"`
 }
 
 type StringParser struct {
@@ -26,70 +33,35 @@ type StringParser struct {
 }
 
 func (self *StringParser) New(profile *Profile, options *ordereddict.Dict) (Parser, error) {
-	var pres bool
 	result := &StringParser{}
-
-	if options == nil {
-		options = ordereddict.NewDict()
+	ctx := context.Background()
+	err := ParseOptions(ctx, options, &result.options)
+	if err != nil {
+		return nil, fmt.Errorf("StringParser: %v", err)
 	}
 
-	// Some defaults
-	result.options.Length = -1 // -1 means this is not set
-	result.options.MaxLength = 1024
-
-	result.options.Encoding, _ = options.GetString("encoding")
-	result.options.Term, pres = options.GetString("term")
-	if !pres {
-		result.options.Term = "\x00"
+	if result.options.MaxLength == 0 {
+		result.options.MaxLength = 1024
 	}
 
-	termhex, pres := options.GetString("term_hex")
-	if pres {
-		term, err := hex.DecodeString(termhex)
+	if result.options.TermHex != nil {
+		term, err := hex.DecodeString(*result.options.TermHex)
 		if err != nil {
 			return nil, err
 		}
-		result.options.Term = string(term)
-	}
-
-	// Add a termexpression if exist
-	termexpression, _ := options.GetString("term_exp")
-	if termexpression != "" {
-		var err error
-		result.options.TermExpression, err = vfilter.ParseLambda(termexpression)
-		if err != nil {
-			return nil, fmt.Errorf("String parser term expression '%v': %w",
-				termexpression, err)
-		}
-	}
-
-	// Default to 0 length
-	length, pres := options.GetInt64("length")
-	if pres {
-		result.options.Length = length
-	}
-
-	max_length, pres := options.GetInt64("max_length")
-	if pres {
-		result.options.MaxLength = max_length
-	}
-
-	// Maybe add a length expression if length is a string.
-	expression, _ := options.GetString("length")
-	if expression != "" {
-		var err error
-		result.options.LengthExpression, err = vfilter.ParseLambda(expression)
-		if err != nil {
-			return nil, fmt.Errorf("String parser length expression '%v': %w",
-				expression, err)
-		}
+		term_str := string(term)
+		result.options.Term = &term_str
 	}
 
 	return result, nil
 }
 
 func (self *StringParser) getCount(scope vfilter.Scope) int64 {
-	result := self.options.Length
+	var result int64 = 1024
+
+	if self.options.Length != nil {
+		result = *self.options.Length
+	}
 
 	if self.options.LengthExpression != nil {
 		// Evaluate the offset expression with the current scope.
@@ -108,10 +80,6 @@ func (self *StringParser) Parse(
 	reader io.ReaderAt, offset int64) interface{} {
 
 	result_len := self.getCount(scope)
-	if result_len < 0 {
-		// length is not specified - max read 1kb.
-		result_len = 1024
-	}
 
 	buf := make([]byte, result_len)
 
@@ -133,17 +101,29 @@ func (self *StringParser) Parse(
 		result = []byte(string(utf16.Decode(u16s)))
 	}
 
-	// if lamda term_exp configured evaluate and add as a standard term
+	// If a terminator is specified read up to that.
+	term := defaultTerm
+
+	// if lamda term_exp configured evaluate and add as a standard
+	// term
 	if self.options.TermExpression != nil {
-		self.options.Term = EvalLambdaAsString(self.options.TermExpression, scope)
+		term = EvalLambdaAsString(
+			self.options.TermExpression, scope)
 	}
 
-	// If a terminator is specified read up to that.
-	if self.options.Term != "" {
-		idx := bytes.Index(result, []byte(self.options.Term))
+	if self.options.Term != nil {
+		term = *self.options.Term
+	}
+
+	if term != "" {
+		idx := bytes.Index(result, []byte(term))
 		if idx >= 0 {
 			result = result[:idx]
 		}
+	}
+
+	if self.options.Bytes {
+		return result
 	}
 
 	return string(result)
