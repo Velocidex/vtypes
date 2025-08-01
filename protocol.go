@@ -32,21 +32,29 @@ func (self StructAssociative) Associative(scope vfilter.Scope,
 		return vfilter.Null{}, false
 	}
 
+	// A Struct definition overrides default fields - this way a
+	// struct may define a field called "Offset" and it will be
+	// honored but if not defined we retur the default offset.
+	if lhs.HasField(rhs) {
+		return lhs.Get(rhs)
+	}
+
 	switch rhs {
-	case "SizeOf":
+	case "SizeOf", "Size":
 		return lhs.Size(), true
 
-	case "StartOf":
+	case "StartOf", "Start", "OffsetOf":
 		return lhs.Start(), true
 
-	case "ParentOf":
+	case "ParentOf", "Parent":
 		return lhs.Parent(), true
 
-	case "EndOf":
+	case "EndOf", "End":
 		return lhs.End(), true
 
 	default:
-		return lhs.Get(rhs)
+		// scope.Log("No field %v defined on struct %v", b, lhs.TypeName())
+		return nil, false
 	}
 }
 

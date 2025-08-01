@@ -1,6 +1,7 @@
 package vtypes
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"sort"
@@ -11,10 +12,12 @@ import (
 
 // Accepts option bitmap: name (string) -> bit number
 type FlagsOptions struct {
-	Type        string
-	TypeOptions *ordereddict.Dict
-	Bitmap      map[int64]string
-	Bits        []int64
+	Type        string            `vfilter:"required,field=type,doc=The underlying type of the choice"`
+	TypeOptions *ordereddict.Dict `vfilter:"optional,field=type_options,doc=Any additional options required to parse the type"`
+	Bitmap      *ordereddict.Dict `vfilter:"required,field=bitmap,doc=A mapping between names and the bit number"`
+
+	bits   []int64
+	bitmap map[int64]string
 }
 
 type Flags struct {
@@ -24,52 +27,35 @@ type Flags struct {
 }
 
 func (self *Flags) New(profile *Profile, options *ordereddict.Dict) (Parser, error) {
-	var pres bool
-
 	if options == nil {
 		return nil, fmt.Errorf("Bitmap parser requires a type in the options")
 	}
 
 	result := &Flags{profile: profile}
-
-	result.options.Type, pres = options.GetString("type")
-	if !pres {
-		return nil, fmt.Errorf("Bitmap parser requires a type in the options")
+	ctx := context.Background()
+	err := ParseOptions(ctx, options, &result.options)
+	if err != nil {
+		return nil, fmt.Errorf("FlagsParser: %v", err)
 	}
+	result.options.bitmap = make(map[int64]string)
 
-	topts, pres := options.Get("type_options")
-	if pres {
-		topts_dict, ok := topts.(*ordereddict.Dict)
-		if !ok {
-			return nil, fmt.Errorf("Enumeration parser options should be a dict")
-		}
-		result.options.TypeOptions = topts_dict
-	}
-
-	bitmap, pres := options.Get("bitmap")
-	if !pres {
-		bitmap = ordereddict.NewDict()
-	}
-
-	bitmap_dict, ok := bitmap.(*ordereddict.Dict)
-	if !ok {
-		return nil, fmt.Errorf("Bitmap parser requires bitmap to be a mapping between names and the bit number")
-	}
-
-	result.options.Bitmap = make(map[int64]string)
-
-	for _, name := range bitmap_dict.Keys() {
-		idx_any, _ := bitmap_dict.Get(name)
+	for _, name := range result.options.Bitmap.Keys() {
+		idx_any, _ := result.options.Bitmap.Get(name)
 		idx, ok := to_int64(idx_any)
 		if !ok || idx < 0 || idx >= 64 {
-			return nil, fmt.Errorf("Bitmap parser requires bitmap bit number between 0 and 64")
+			return nil, fmt.Errorf(
+				"Bitmap parser requires bitmap bit number between 0 and 64")
 		}
 
-		result.options.Bitmap[int64(1)<<idx] = name
-		result.options.Bits = append(result.options.Bits, int64(1)<<idx)
+		result.options.bitmap[int64(1)<<idx] = name
+		result.options.bits = append(result.options.bits, int64(1)<<idx)
 	}
 
-	return result, nil
+	// Type must be available at definition time because flag fields
+	// can not operate on custome types.
+	result.parser, err = profile.GetParser(
+		result.options.Type, result.options.TypeOptions)
+	return result, err
 }
 
 func (self *Flags) Parse(
@@ -77,16 +63,7 @@ func (self *Flags) Parse(
 	result := []string{}
 
 	if self.parser == nil {
-		parser, err := self.profile.GetParser(
-			self.options.Type, self.options.TypeOptions)
-		if err != nil {
-			scope.Log("ERROR:binary_parser: Flags: %v", err)
-			self.parser = NullParser{}
-			return vfilter.Null{}
-		}
-
-		// Cache the parser for next time.
-		self.parser = parser
+		return vfilter.Null{}
 	}
 
 	value, ok := to_int64(self.parser.Parse(scope, reader, offset))
@@ -94,9 +71,9 @@ func (self *Flags) Parse(
 		return result
 	}
 
-	for _, idx := range self.options.Bits {
+	for _, idx := range self.options.bits {
 		if idx&value != 0 {
-			result = append(result, self.options.Bitmap[idx])
+			result = append(result, self.options.bitmap[idx])
 		}
 	}
 

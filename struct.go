@@ -24,6 +24,11 @@ func (self *StructParser) New(profile *Profile, options *ordereddict.Dict) (Pars
 	return self, nil
 }
 
+func (self *StructParser) HasField(name string) bool {
+	_, pres := self.fields[name]
+	return pres
+}
+
 func (self *StructParser) Size() int {
 	return self.size
 }
@@ -124,6 +129,14 @@ func (self *StructObject) Start() int64 {
 	return self.offset
 }
 
+func (self *StructObject) HasField(name string) bool {
+	return self.parser.HasField(name)
+}
+
+func (self *StructObject) TypeName() string {
+	return self.parser.type_name
+}
+
 func (self *StructObject) End() int64 {
 	return self.offset + int64(self.Size())
 }
@@ -186,4 +199,24 @@ func (self *StructObject) MarshalJSON() ([]byte, error) {
 	}
 	res, err := result.MarshalJSON()
 	return res, err
+}
+
+func getThis(scope vfilter.Scope) (interface{}, bool) {
+	this_obj, pres := scope.Resolve("this")
+	if !pres {
+		return nil, false
+	}
+
+	this_struct, ok := this_obj.(*StructObject)
+	if ok {
+		return &StructObject{
+			parser: this_struct.parser,
+			reader: this_struct.reader,
+			offset: this_struct.offset,
+			scope:  scope,
+			cache:  this_struct.cache,
+			parent: this_struct.parent,
+		}, true
+	}
+	return this_obj, true
 }

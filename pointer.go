@@ -1,6 +1,7 @@
 package vtypes
 
 import (
+	"context"
 	"encoding/binary"
 	"errors"
 	"fmt"
@@ -11,8 +12,8 @@ import (
 )
 
 type PointerParserOptions struct {
-	Type        string
-	TypeOptions *ordereddict.Dict
+	Type        string            `vfilter:"required,field=type,doc=The underlying type of the choice"`
+	TypeOptions *ordereddict.Dict `vfilter:"optional,field=type_options,doc=Any additional options required to parse the type"`
 }
 
 type PointerParser struct {
@@ -22,26 +23,23 @@ type PointerParser struct {
 }
 
 func (self *PointerParser) New(profile *Profile, options *ordereddict.Dict) (Parser, error) {
-	var pres bool
-
 	if options == nil {
 		return nil, fmt.Errorf("Pointer parser requires a type in the options")
 	}
 
 	result := &PointerParser{profile: profile}
-
-	result.options.Type, pres = options.GetString("type")
-	if !pres {
-		return nil, errors.New("Pointer must specify the type in options")
+	ctx := context.Background()
+	err := ParseOptions(ctx, options, &result.options)
+	if err != nil {
+		return nil, fmt.Errorf("PointerParser: %v", err)
 	}
 
-	topts, pres := options.Get("type_options")
-	if pres {
-		topts_dict, ok := topts.(*ordereddict.Dict)
-		if ok {
-			result.options.TypeOptions = topts_dict
-		}
+	parser, err := maybeGetParser(profile,
+		result.options.Type, result.options.TypeOptions)
+	if err != nil {
+		return nil, err
 	}
+	result.parser = parser
 
 	return result, nil
 }
@@ -49,6 +47,7 @@ func (self *PointerParser) New(profile *Profile, options *ordereddict.Dict) (Par
 func (self *PointerParser) Parse(
 	scope vfilter.Scope,
 	reader io.ReaderAt, offset int64) interface{} {
+
 	if self.parser == nil {
 		parser, err := self.profile.GetParser(
 			self.options.Type, self.options.TypeOptions)

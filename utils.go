@@ -118,23 +118,32 @@ func IsNil(v interface{}) bool {
 }
 
 func EvalLambdaAsInt64(expression *vfilter.Lambda, scope vfilter.Scope) int64 {
-	this_obj, pres := scope.Resolve("this")
+	subscope := scope.Copy()
+	defer subscope.Close()
+
+	this_obj, pres := getThis(subscope)
 	if !pres {
 		return 0
 	}
 
-	result := expression.Reduce(context.Background(), scope, []vfilter.Any{this_obj})
+	result := expression.Reduce(context.Background(),
+		subscope, []vfilter.Any{this_obj})
+
 	result_int, _ := to_int64(result)
 	return result_int
 }
 
 func EvalLambdaAsString(expression *vfilter.Lambda, scope vfilter.Scope) string {
-	this_obj, pres := scope.Resolve("this")
+	subscope := scope.Copy()
+	defer subscope.Close()
+
+	this_obj, pres := getThis(subscope)
 	if !pres {
 		return ""
 	}
 
-	result := expression.Reduce(context.Background(), scope, []vfilter.Any{this_obj})
+	result := expression.Reduce(context.Background(),
+		subscope, []vfilter.Any{this_obj})
 	result_int, _ := result.(string)
 	return result_int
 }

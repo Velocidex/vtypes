@@ -1,4 +1,3 @@
-//
 package vtypes
 
 import (
@@ -53,7 +52,8 @@ func (self *Profile) AddParser(type_name string, parser Parser) {
 func (self *Profile) GetParser(name string, options *ordereddict.Dict) (Parser, error) {
 	parser, pres := self.types[name]
 	if !pres {
-		return nil, fmt.Errorf("Parser %v not found", name)
+		return nil, fmt.Errorf("%w: Parser %v not found",
+			NotFoundError, name)
 	}
 	if options == nil {
 		options = ordereddict.NewDict()
@@ -84,6 +84,12 @@ func (self *Profile) ParseStructDefinitions(definitions string) (err error) {
 	}
 
 	for _, struct_def := range profile_definitions {
+		_, pres := self.types[struct_def.Name]
+		if pres {
+			return fmt.Errorf("Struct definition for %v masks an existing definition",
+				struct_def.Name)
+		}
+
 		struct_parser := NewStructParser(struct_def.Name, struct_def.Size)
 		self.types[struct_def.Name] = struct_parser
 

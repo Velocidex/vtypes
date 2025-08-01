@@ -111,7 +111,7 @@ func AddModel(profile *Profile) {
 	profile.types["String"] = &StringParser{}
 	profile.types["Value"] = &ValueParser{}
 	profile.types["Enumeration"] = &EnumerationParser{}
-	profile.types["BitField"] = &BitField{}
+	profile.types["BitField"] = &BitFieldParser{}
 	profile.types["Flags"] = &Flags{}
 	profile.types["WinFileTime"] = &WinFileTime{}
 	profile.types["Timestamp"] = &EpochTimestamp{}

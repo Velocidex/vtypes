@@ -1,6 +1,7 @@
 package vtypes
 
 import (
+	"context"
 	"fmt"
 	"io"
 
@@ -8,53 +9,69 @@ import (
 	"www.velocidex.com/golang/vfilter"
 )
 
-type BitField struct {
-	StartBit int64  `json:"start_bit"`
-	EndBit   int64  `json:"end_bit"`
-	Type     string `json:"type"`
+type BitFieldOptions struct {
+	StartBit int64  `json:"start_bit" vfilter:"optional,field=start_bit,doc=The start bit in the int to read"`
+	EndBit   int64  `json:"end_bit" vfilter:"optional,field=end_bit,doc=The end bit in the int to read"`
+	Type     string `json:"type" vfilter:"required,field=type,doc=The underlying type of the bit field"`
+}
+
+type BitFieldParser struct {
+	options BitFieldOptions
 
 	parser Parser
 }
 
-func (self *BitField) New(profile *Profile, options *ordereddict.Dict) (Parser, error) {
-	parser_type, pres := options.GetString("type")
-	if !pres {
-		return nil, fmt.Errorf("BitField parser requires a type in the options")
+func (self *BitFieldParser) New(profile *Profile, options *ordereddict.Dict) (Parser, error) {
+	if options == nil {
+		return nil, fmt.Errorf("BitField parser requires an options dict")
 	}
 
-	parser, err := profile.GetParser(parser_type, ordereddict.NewDict())
+	result := &BitFieldParser{}
+	ctx := context.Background()
+	err := ParseOptions(ctx, options, &result.options)
 	if err != nil {
-		return nil, fmt.Errorf("BitField parser requires a type in the options: %w", err)
+		return nil, err
 	}
 
-	start_bit, pres := options.GetInt64("start_bit")
-	if !pres || start_bit < 0 {
-		start_bit = 0
+	if result.options.EndBit == 0 {
+		result.options.EndBit = 64
 	}
 
-	end_bit, pres := options.GetInt64("end_bit")
-	if !pres || end_bit > 64 {
-		end_bit = 64
+	if result.options.StartBit < 0 || result.options.StartBit > 64 {
+		return nil, fmt.Errorf("BitField start_bit should be between 0-64")
 	}
 
-	return &BitField{
-		StartBit: start_bit,
-		EndBit:   end_bit,
-		parser:   parser,
-	}, nil
+	if result.options.EndBit < 0 || result.options.EndBit > 64 {
+		return nil, fmt.Errorf("BitField end_bit should be between 0-64")
+	}
+
+	if result.options.EndBit <= result.options.StartBit {
+		return nil, fmt.Errorf(
+			"BitField end_bit (%v) should be larger than start_bit (%v)",
+			result.options.EndBit, result.options.StartBit)
+	}
+
+	// Type must be available at definition time because bit fields
+	// can not operate on custome types.
+	result.parser, err = profile.GetParser(result.options.Type, nil)
+	return result, err
 }
 
-func (self *BitField) Parse(
+func (self *BitFieldParser) Parse(
 	scope vfilter.Scope, reader io.ReaderAt, offset int64) interface{} {
+
+	if self.parser == nil {
+		return vfilter.Null{}
+	}
 
 	result := int64(0)
 	value, ok := to_int64(self.parser.Parse(scope, reader, offset))
 	if !ok {
 		return 0
 	}
-	for i := self.StartBit; i < self.EndBit; i++ {
+	for i := self.options.StartBit; i < self.options.EndBit; i++ {
 		result |= value & (1 << uint8(i))
 	}
 
-	return result >> self.StartBit
+	return result >> self.options.StartBit
 }

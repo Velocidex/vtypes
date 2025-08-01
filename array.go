@@ -3,7 +3,6 @@ package vtypes
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 
@@ -11,17 +10,13 @@ import (
 	"www.velocidex.com/golang/vfilter"
 )
 
-var (
-	NotFoundError = errors.New("NotFoundError")
-)
-
 type ArrayParserOptions struct {
-	Type               string
-	TypeOptions        *ordereddict.Dict
-	Count              int64
-	MaxCount           int64
+	Type               string            `vfilter:"required,field=type,doc=The underlying type of the choice"`
+	TypeOptions        *ordereddict.Dict `vfilter:"optional,field=type_options,doc=Any additional options required to parse the type"`
+	Count              int64             `vfilter:"optional,lambda=CountExpression,field=count,doc=Number of elements in the array (default 0)"`
+	MaxCount           int64             `vfilter:"optional,field=max_count,doc=Maximum number of elements in the array (default 1000)"`
 	CountExpression    *vfilter.Lambda
-	SentinelExpression *vfilter.Lambda
+	SentinelExpression *vfilter.Lambda `vfilter:"optional,field=sentinel,doc=A lambda expression that will be used to determine the end of the array"`
 }
 
 type ArrayParser struct {
@@ -33,61 +28,30 @@ type ArrayParser struct {
 }
 
 func (self *ArrayParser) New(profile *Profile, options *ordereddict.Dict) (Parser, error) {
-	var pres bool
-
 	if options == nil {
 		return nil, fmt.Errorf("Array parser requires a type in the options")
 	}
 
 	result := &ArrayParser{profile: profile}
-
-	result.options.Type, pres = options.GetString("type")
-	if !pres {
-		return nil, errors.New("Array must specify the type in options")
+	ctx := context.Background()
+	err := ParseOptions(ctx, options, &result.options)
+	if err != nil {
+		return nil, fmt.Errorf("ArrayParser: %v", err)
 	}
-
-	topts, pres := options.Get("type_options")
-	if pres {
-		topts_dict, ok := topts.(*ordereddict.Dict)
-		if ok {
-			result.options.TypeOptions = topts_dict
-		}
-	}
-
-	// Default to 0 length
-	result.options.Count, _ = options.GetInt64("count")
-	max_count_any, pres := options.Get("max_count")
-	if pres {
-		result.options.MaxCount, pres = to_int64(max_count_any)
-		if !pres {
-			return nil, fmt.Errorf("Array max_count must be an int not %T", max_count_any)
-		}
-	}
-
 	if result.options.MaxCount == 0 {
 		result.options.MaxCount = 1000
 	}
 
-	// Maybe add a count expression
-	expression, _ := options.GetString("count")
-	if expression != "" {
-		var err error
-		result.options.CountExpression, err = vfilter.ParseLambda(expression)
-		if err != nil {
-			return nil, fmt.Errorf("Array parser count expression '%v': %w",
-				expression, err)
-		}
+	// Get the parser now so we can catch errors in sub parser
+	// definitions
+	parser, err := maybeGetParser(profile,
+		result.options.Type, result.options.TypeOptions)
+	if err != nil {
+		return nil, err
 	}
 
-	expression, _ = options.GetString("sentinel")
-	if expression != "" {
-		var err error
-		result.options.SentinelExpression, err = vfilter.ParseLambda(expression)
-		if err != nil {
-			return nil, fmt.Errorf("Array parser sentinel expression '%v': %w",
-				expression, err)
-		}
-	}
+	// Cache the parser for next time.
+	result.parser = parser
 
 	return result, nil
 }
@@ -142,8 +106,11 @@ func (self *ArrayParser) Parse(
 		// Check for a sentinel value
 		if self.options.SentinelExpression != nil {
 			ctx := context.Background()
+			subscope := scope.Copy()
 			sentinel := self.options.SentinelExpression.Reduce(
-				ctx, scope, []vfilter.Any{element})
+				ctx, subscope, []vfilter.Any{element})
+			subscope.Close()
+
 			if scope.Bool(sentinel) {
 				break
 			}

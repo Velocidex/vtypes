@@ -1,6 +1,7 @@
 package vtypes
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"strconv"
@@ -10,52 +11,39 @@ import (
 )
 
 type EnumerationParserOptions struct {
-	Type        string
-	TypeOptions *ordereddict.Dict
-	Choices     map[int64]string
+	Type        string            `vfilter:"required,field=type,doc=The underlying type of the choice"`
+	TypeOptions *ordereddict.Dict `vfilter:"optional,field=type_options,doc=Any additional options required to parse the type"`
+	Choices     *ordereddict.Dict `vfilter:"optional,field=choices,doc=A mapping between numbers and strings."`
+	Map         *ordereddict.Dict `vfilter:"optional,field=map,doc=A mapping between strings and numbers."`
+
+	choices map[int64]string
 }
 
 type EnumerationParser struct {
 	options EnumerationParserOptions
 	profile *Profile
 	parser  Parser
+
+	invalid_parser bool
 }
 
 func (self *EnumerationParser) New(profile *Profile, options *ordereddict.Dict) (Parser, error) {
-	var pres bool
-
 	if options == nil {
 		return nil, fmt.Errorf("Enumeration parser requires an options dict")
 	}
 
 	result := &EnumerationParser{profile: profile}
-	result.options.Type, pres = options.GetString("type")
-	if !pres {
-		return nil, fmt.Errorf("Enumeration parser requires a type in the options")
+	ctx := context.Background()
+	err := ParseOptions(ctx, options, &result.options)
+	if err != nil {
+		return nil, err
 	}
 
-	topts, pres := options.Get("type_options")
-	if pres {
-		topts_dict, ok := topts.(*ordereddict.Dict)
-		if !ok {
-			return nil, fmt.Errorf("Enumeration parser options should be a dict")
-		}
-		result.options.TypeOptions = topts_dict
-	}
+	result.options.choices = make(map[int64]string)
 
-	mapping := make(map[int64]string)
-
-	// Support 2 ways of providing the mapping - choices has ints
-	// as keys and map has strings as keys.
-	choices, pres := options.Get("choices")
-	if pres {
-		choices_dict, ok := choices.(*ordereddict.Dict)
-		if !ok {
-			return nil, fmt.Errorf("Enumeration parser requires choices to be a mapping between numbers and strings")
-		}
-
-		for _, k := range choices_dict.Keys() {
-			v, _ := choices_dict.Get(k)
+	if result.options.Choices != nil {
+		for _, k := range result.options.Choices.Keys() {
+			v, _ := result.options.Choices.Get(k)
 			i, err := strconv.ParseInt(k, 0, 64)
 			if err != nil {
 				return nil, fmt.Errorf("Enumeration parser requires choices to be a mapping between numbers and strings (not %v)", k)
@@ -66,28 +54,32 @@ func (self *EnumerationParser) New(profile *Profile, options *ordereddict.Dict) 
 				return nil, fmt.Errorf("Enumeration parser requires choices to be a mapping between numbers and strings")
 			}
 
-			mapping[i] = v_str
+			result.options.choices[i] = v_str
 		}
 	}
 
-	choices, pres = options.Get("map")
-	if pres {
-		choices_dict, ok := choices.(*ordereddict.Dict)
-		if !ok {
-			return nil, fmt.Errorf("Enumeration parser requires map to be a mapping between strings and numbers")
-		}
-		for _, k := range choices_dict.Keys() {
-			v, _ := choices_dict.Get(k)
+	if result.options.Map != nil {
+		for _, k := range result.options.Map.Keys() {
+			v, _ := result.options.Map.Get(k)
 			v_int, ok := to_int64(v)
 			if !ok {
 				return nil, fmt.Errorf("Enumeration parser requires map to be a mapping between strings and numbers")
 			}
 
-			mapping[v_int] = k
+			result.options.choices[v_int] = k
 		}
 	}
 
-	result.options.Choices = mapping
+	// Get the parser now so we can catch errors in sub parser
+	// definitions
+	parser, err := maybeGetParser(profile,
+		result.options.Type, result.options.TypeOptions)
+	if err != nil {
+		return nil, err
+	}
+
+	// Cache the parser for next time.
+	result.parser = parser
 
 	return result, nil
 }
@@ -95,12 +87,16 @@ func (self *EnumerationParser) New(profile *Profile, options *ordereddict.Dict) 
 func (self *EnumerationParser) Parse(
 	scope vfilter.Scope, reader io.ReaderAt, offset int64) interface{} {
 
+	if self.invalid_parser {
+		return vfilter.Null{}
+	}
+
 	if self.parser == nil {
 		parser, err := self.profile.GetParser(
 			self.options.Type, self.options.TypeOptions)
 		if err != nil {
-			scope.Log("ERROR:binary_parser: Enumeration: %v", err)
-			self.parser = NullParser{}
+			scope.Log("ERROR:binary_parser: EnumerationParser: %v", err)
+			self.invalid_parser = true
 			return vfilter.Null{}
 		}
 
@@ -113,7 +109,7 @@ func (self *EnumerationParser) Parse(
 		return vfilter.Null{}
 	}
 
-	string_value, pres := self.options.Choices[value]
+	string_value, pres := self.options.choices[value]
 	if !pres {
 		string_value = fmt.Sprintf("%#x", value)
 	}
