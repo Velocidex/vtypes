@@ -26,6 +26,8 @@ type StringParserOptions struct {
 	TermExpression   *vfilter.Lambda `vfilter:"optional,field=term_exp,doc=A Terminator expression"`
 	Encoding         string          `vfilter:"optional,field=encoding,doc=The encoding to use, can be utf8 or utf16"`
 	Bytes            bool            `vfilter:"optional,field=byte_string,doc=Terminating string (can be an expression)"`
+
+	utf16 bool
 }
 
 type StringParser struct {
@@ -44,6 +46,14 @@ func (self *StringParser) New(profile *Profile, options *ordereddict.Dict) (Pars
 		result.options.MaxLength = 1024
 	}
 
+	switch result.options.Encoding {
+	case "utf8", "":
+	case "utf16":
+		result.options.utf16 = true
+	default:
+		return nil, fmt.Errorf("StringParser: encoding can only be utf8 or utf16")
+	}
+
 	if result.options.TermHex != nil {
 		term, err := hex.DecodeString(*result.options.TermHex)
 		if err != nil {
@@ -56,9 +66,66 @@ func (self *StringParser) New(profile *Profile, options *ordereddict.Dict) (Pars
 	return result, nil
 }
 
+func (self *StringParser) InstanceSize(
+	scope vfilter.Scope,
+	reader io.ReaderAt, offset int64) int {
+
+	// The length of the string we are allowed to read.
+	result_len := self.getCount(scope)
+
+	buf := make([]byte, result_len)
+
+	n, _ := reader.ReadAt(buf, offset)
+	result := buf[:n]
+
+	// If a terminator is specified read up to that.
+	term := defaultTerm
+
+	// if lamda term_exp configured evaluate and add as a standard
+	// term
+	if self.options.TermExpression != nil {
+		term = EvalLambdaAsString(
+			self.options.TermExpression, scope)
+	}
+
+	if self.options.Term != nil {
+		term = *self.options.Term
+	}
+
+	// We need to bisect the read buffer by the terminator.
+	var term_bytes []byte
+	step := 1
+
+	if self.options.utf16 {
+		term_bytes = UTF16Encode(term)
+		step = 2
+
+	} else {
+		term_bytes = []byte(term)
+	}
+
+	// Truncate to the right place by trying to find the
+	// term_bytes. Note that UTF16 comparisons must be aligned to 2
+	// bytes.
+	if len(term_bytes) > 0 {
+		for i := 0; i < len(result); i += step {
+			if bytes.HasPrefix(result[i:], term_bytes) {
+				// Include the terminator in the size as it is
+				// technically part of the string.
+				return i + len(term_bytes)
+			}
+		}
+	}
+
+	// Does not include the terminator
+	return len(result)
+}
+
 func (self *StringParser) getCount(scope vfilter.Scope) int64 {
 	var result int64 = 1024
 
+	// If length is not specified, we read 1kb and look for the
+	// terminator.
 	if self.options.Length != nil {
 		result = *self.options.Length
 	}
@@ -76,8 +143,19 @@ func (self *StringParser) getCount(scope vfilter.Scope) int64 {
 }
 
 func (self *StringParser) Parse(
-	scope vfilter.Scope,
-	reader io.ReaderAt, offset int64) interface{} {
+	scope vfilter.Scope, reader io.ReaderAt, offset int64) interface{} {
+
+	result := self._Parse(scope, reader, offset)
+	if self.options.Bytes {
+		return result
+	}
+
+	return string(result)
+
+}
+
+func (self *StringParser) _Parse(
+	scope vfilter.Scope, reader io.ReaderAt, offset int64) []byte {
 
 	result_len := self.getCount(scope)
 
@@ -85,21 +163,6 @@ func (self *StringParser) Parse(
 
 	n, _ := reader.ReadAt(buf, offset)
 	result := buf[:n]
-
-	// If encoding is specified, convert from utf16
-	if self.options.Encoding == "utf16" {
-		order := binary.LittleEndian
-		u16s := []uint16{}
-
-		for i, j := 0, len(result); i < j; i += 2 {
-			if len(result) < i+2 {
-				break
-			}
-			u16s = append(u16s, order.Uint16(result[i:]))
-		}
-
-		result = []byte(string(utf16.Decode(u16s)))
-	}
 
 	// If a terminator is specified read up to that.
 	term := defaultTerm
@@ -115,16 +178,46 @@ func (self *StringParser) Parse(
 		term = *self.options.Term
 	}
 
-	if term != "" {
-		idx := bytes.Index(result, []byte(term))
-		if idx >= 0 {
-			result = result[:idx]
+	// We need to bisect the read buffer by the terminator.
+	var term_bytes []byte
+	step := 1
+
+	if self.options.utf16 {
+		term_bytes = UTF16Encode(term)
+		step = 2
+
+	} else {
+		term_bytes = []byte(term)
+	}
+
+	// Truncate to the right place by trying to find the
+	// term_bytes. Note that UTF16 comparisons must be aligned to 2
+	// bytes.
+	if len(term_bytes) > 0 {
+		for i := 0; i < len(result); i += step {
+			if bytes.HasPrefix(result[i:], term_bytes) {
+				result = result[:i]
+				break
+			}
 		}
 	}
 
-	if self.options.Bytes {
-		return result
+	if self.options.utf16 {
+		return []byte(UTF16Decode(result))
 	}
 
-	return string(result)
+	return result
+}
+
+func UTF16Encode(in string) []byte {
+	buf := bytes.NewBuffer(nil)
+	ints := utf16.Encode([]rune(in))
+	binary.Write(buf, binary.LittleEndian, &ints)
+	return buf.Bytes()
+}
+
+func UTF16Decode(in []byte) string {
+	ints := make([]uint16, len(in)/2)
+	binary.Read(bytes.NewReader([]byte(in)), binary.LittleEndian, &ints)
+	return string(utf16.Decode(ints))
 }

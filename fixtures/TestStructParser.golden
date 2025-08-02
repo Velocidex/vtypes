@@ -1,20 +1,36 @@
 {
- "Field1": 3,
+ "Field1": 5,
  "Field2": {
-  "SecondField1": 7
+  "SecondField1": 9
  },
+ "StringField": "hello",
  "X": {
-  "Field1": 3,
+  "Field1": 5,
   "Field2": {
-   "SecondField1": 7
+   "SecondField1": 9
   },
-  "Field3": 578437695752307201,
+  "StringField": "hello",
+  "Field3": 1084818905618843912,
   "Field4": {
-   "SecondField1": 6
-  }
+   "SecondField1": 10
+  },
+  "OffsetOfField3": 7,
+  "SizeOfField3": 8,
+  "OffsetOfField2": 6,
+  "RelOffsetField2": 4,
+  "SizeOfField2": 5,
+  "StructOffset": 2,
+  "StringFieldSize": 12
  },
- "Field3": 578437695752307201,
+ "Field3": 1084818905618843912,
  "Field4": {
-  "SecondField1": 6
- }
+  "SecondField1": 10
+ },
+ "OffsetOfField3": 7,
+ "SizeOfField3": 8,
+ "OffsetOfField2": 6,
+ "RelOffsetField2": 4,
+ "SizeOfField2": 5,
+ "StructOffset": 2,
+ "StringFieldSize": 12
 }

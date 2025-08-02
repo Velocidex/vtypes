@@ -17,8 +17,15 @@ type Parser interface {
 	New(profile *Profile, options *ordereddict.Dict) (Parser, error)
 }
 
+// Used by parsers or wrappers who have fixed size
 type Sizer interface {
 	Size() int
+}
+
+// Applies on a parser which needs to instantiate to figure out the
+// size. i.e. the size depends on the data read (e.g. a string).
+type InstanceSizer interface {
+	InstanceSize(scope vfilter.Scope, reader io.ReaderAt, offset int64) int
 }
 
 // Allows psuedo elements to reveal their own value.
