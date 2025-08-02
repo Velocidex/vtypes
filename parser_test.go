@@ -44,6 +44,9 @@ var (
 
 		// offset 95 - E58E26 -> 624485
 		0xe5, 0x8e, 0x26,
+
+		// offset 96 - UTF16 string
+		0x68, 0x00, 0x65, 0x00, 0x6c, 0x00, 0x6c, 0x00, 0x6f, 0x00, 0x00, 0x00,
 	}
 )
 
@@ -87,9 +90,35 @@ func TestStructParser(t *testing.T) {
   ["TestStruct", "x => x.Field1 + 5", [
      ["Field1", 2, "uint8"],
      ["Field2", 4, "Second"],
+     ["StringField", 96, String, {
+         length: 20,
+         encoding: "utf16",
+     }],
      ["X", 0, "Value", {"value": "x=>x"}],
-     ["Field3", 0, "unsigned long long"],
-     ["Field4", "x => x.Field1", "Second"]
+     ["Field3", 5, "unsigned long long"],
+     ["Field4", "x => x.Field1", "Second"],
+     ["OffsetOfField3", 0, Value, {
+         ` + "value: 'x=>x.`@Field3`.OffsetOf', " + `
+     }],
+     ["SizeOfField3", 0, Value, {
+         ` + "value: 'x=>x.`@Field3`.SizeOf', " + `
+     }],
+     ["OffsetOfField2", 0, Value, {
+         ` + "value: 'x=>x.`@Field2`.OffsetOf', " + `
+     }],
+     ["RelOffsetField2", 0, Value, {
+         ` + "value: 'x=>x.`@Field2`.RelOffset', " + `
+     }],
+     ["SizeOfField2", 0, Value, {
+         ` + "value: 'x=>x.`@Field2`.SizeOf', " + `
+     }],
+     ["StructOffset", 0, Value, {
+        value: "x=>x.OffsetOf",
+     }],
+     ["StringFieldSize", 0, Value, {
+        ` + "value: 'x=>x.`@StringField`.SizeOf', " + `
+     }],
+
   ]],
 
   ["Second", 5, [
@@ -103,19 +132,19 @@ func TestStructParser(t *testing.T) {
 
 	// Parse TestStruct over the reader
 	reader := bytes.NewReader(sample)
-	obj, err := profile.Parse(scope, "TestStruct", reader, 0)
+	obj, err := profile.Parse(scope, "TestStruct", reader, 2)
 	assert.NoError(t, err)
 
 	// Field1 is at offset 2 has value 0x03
-	assert.Equal(t, uint64(3), Associative(scope, obj, "Field1"))
+	assert.Equal(t, uint64(5), Associative(scope, obj, "Field1"))
 
 	// Object size is calculated as x.Field1 + 5  ... 8
-	assert.Equal(t, 8, SizeOf(obj))
+	assert.Equal(t, 10, SizeOf(obj))
 
 	// Field4's offset is calculated as x=>x.Field1
 	// i.e. 3. SecondField1 has a relative offset of 2, therefore
 	// absolute offset of 3 + 2 = 5 -> value = 0x06
-	assert.Equal(t, uint64(6), Associative(scope, obj, "Field4.SecondField1"))
+	assert.Equal(t, uint64(10), Associative(scope, obj, "Field4.SecondField1"))
 
 	serialized, err := json.MarshalIndent(obj, "", " ")
 	assert.NoError(t, err)

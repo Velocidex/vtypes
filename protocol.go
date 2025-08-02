@@ -34,7 +34,7 @@ func (self StructAssociative) Associative(scope vfilter.Scope,
 
 	// A Struct definition overrides default fields - this way a
 	// struct may define a field called "Offset" and it will be
-	// honored but if not defined we retur the default offset.
+	// honored but if not defined we return the default offset.
 	if lhs.HasField(rhs) {
 		return lhs.Get(rhs)
 	}
@@ -177,4 +177,66 @@ func (self ArrayIterator) Iterate(
 
 	return output_chan
 
+}
+
+type StructFieldReferenceAssociative struct{}
+
+func (self StructFieldReferenceAssociative) Applicable(a vfilter.Any, b vfilter.Any) bool {
+	switch a.(type) {
+	case StructFieldReference, *StructFieldReference:
+		_, ok := b.(string)
+		if ok {
+			return true
+		}
+	}
+	return false
+}
+
+func (self StructFieldReferenceAssociative) Associative(scope vfilter.Scope,
+	a vfilter.Any, b vfilter.Any) (vfilter.Any, bool) {
+	lhs, ok := a.(*StructFieldReference)
+	if !ok {
+		return vfilter.Null{}, false
+	}
+
+	rhs, ok := b.(string)
+	if !ok {
+		return vfilter.Null{}, false
+	}
+
+	switch rhs {
+	case "SizeOf", "Size":
+		return lhs.Size(), true
+
+	case "StartOf", "Start", "OffsetOf":
+		return lhs.Start(), true
+
+	case "RelOffset":
+		return lhs.RelOffset(), true
+
+	case "RelEndOf":
+		return lhs.RelOffset() + int64(lhs.Size()), true
+
+	case "EndOf", "End":
+		return lhs.End(), true
+
+	case "Value":
+		return lhs.Value(), true
+
+	default:
+		return nil, false
+	}
+}
+
+func (self StructFieldReferenceAssociative) GetMembers(scope vfilter.Scope, a vfilter.Any) []string {
+	return nil
+}
+
+func GetProtocols() []vfilter.Any {
+	return []vfilter.Any{
+		&StructAssociative{},
+		&ArrayAssociative{},
+		&ArrayIterator{},
+		&StructFieldReferenceAssociative{},
+	}
 }

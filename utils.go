@@ -2,6 +2,7 @@ package vtypes
 
 import (
 	"context"
+	"io"
 	"reflect"
 	"strings"
 
@@ -66,9 +67,26 @@ func to_int64(x interface{}) (int64, bool) {
 // Some helpers
 
 func SizeOf(obj interface{}) int {
-	sizer, ok := obj.(Sizer)
-	if ok {
-		return sizer.Size()
+	switch t := obj.(type) {
+	case Sizer:
+		return t.Size()
+
+		// Built in types
+	case string:
+		return len(t)
+	case []byte:
+		return len(t)
+	default:
+		return 0
+	}
+}
+
+func InstanceSizeOf(parser Parser,
+	scope vfilter.Scope, reader io.ReaderAt, offset int64) int {
+
+	switch t := parser.(type) {
+	case InstanceSizer:
+		return t.InstanceSize(scope, reader, offset)
 	}
 	return 0
 }

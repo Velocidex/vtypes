@@ -15,7 +15,7 @@ type StructParser struct {
 	size_expression *vfilter.Lambda
 
 	// Maintain the order of the fields.
-	fields      map[string]Parser
+	fields      map[string]*ParseAtOffset
 	field_names []string
 }
 
@@ -64,7 +64,7 @@ func NewStructParser(type_name string, size int) *StructParser {
 	result := &StructParser{
 		type_name: type_name,
 		size:      size,
-		fields:    make(map[string]Parser),
+		fields:    make(map[string]*ParseAtOffset),
 	}
 
 	return result
@@ -92,6 +92,25 @@ func (self *ParseAtOffset) getOffset(scope vfilter.Scope) int64 {
 	}
 
 	return EvalLambdaAsInt64(self.offset_expression, scope)
+}
+
+// Geting a field size may require actually parsing it since the size
+// may be calculated.
+func (self *ParseAtOffset) Size(
+	scope vfilter.Scope, reader io.ReaderAt, offset int64) int {
+	element_size := SizeOf(self.parser)
+	if element_size != 0 {
+		return element_size
+	}
+
+	field_offset := self.getOffset(scope)
+	element_size = InstanceSizeOf(self.parser, scope, reader, offset+field_offset)
+	if element_size != 0 {
+		return element_size
+	}
+
+	element := self.Parse(scope, reader, offset)
+	return SizeOf(element)
 }
 
 // NOTE: offset is the offset to the start of the struct.
@@ -129,8 +148,9 @@ func (self *StructObject) Start() int64 {
 	return self.offset
 }
 
-func (self *StructObject) HasField(name string) bool {
-	return self.parser.HasField(name)
+func (self *StructObject) HasField(field string) bool {
+	pure_field := strings.TrimPrefix(field, "@")
+	return self.parser.HasField(pure_field)
 }
 
 func (self *StructObject) TypeName() string {
@@ -149,6 +169,26 @@ func (self *StructObject) Get(field string) (interface{}, bool) {
 	hit, pres := self.cache[field]
 	if pres {
 		return hit, true
+	}
+
+	// User wants a reference
+	pure_field := strings.TrimPrefix(field, "@")
+	if field != pure_field {
+		parser, pres := self.parser.fields[pure_field]
+		if !pres {
+			return vfilter.Null{}, false
+		}
+
+		return &StructFieldReference{
+			// Offset to the start of the struct
+			offset: self.offset,
+			reader: self.reader,
+			scope:  self.scope,
+			field:  field,
+
+			// The field parser
+			parser: parser,
+		}, true
 	}
 
 	parser, pres := self.parser.fields[field]
