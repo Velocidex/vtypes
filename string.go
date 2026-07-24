@@ -139,6 +139,10 @@ func (self *StringParser) getCount(scope vfilter.Scope) int64 {
 		return self.options.MaxLength
 	}
 
+	if result < 0 {
+		result = 0
+	}
+
 	return result
 }
 
