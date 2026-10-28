@@ -1,7 +1,6 @@
 package vtypes
 
 import (
-	"errors"
 	"fmt"
 	"io"
 
@@ -31,10 +30,10 @@ func (self *IntParser) DebugString(scope vfilter.Scope, offset int64, reader io.
 }
 
 func (self *IntParser) Parse(scope vfilter.Scope, reader io.ReaderAt, offset int64) interface{} {
-	buf := make([]byte, 8)
+	buf := make([]byte, self.size)
 
-	n, err := reader.ReadAt(buf, offset)
-	if n == 0 || (err != nil && !errors.Is(err, io.EOF)) {
+	n, _ := reader.ReadAt(buf, offset)
+	if n != self.size {
 		return 0
 	}
 	return self.converter(buf)

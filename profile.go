@@ -116,7 +116,7 @@ func (self *Profile) ParseStructDefinitions(definitions string) (err error) {
 				temp_parser.offset_expression, err = vfilter.ParseLambda(
 					field_def.OffsetExpression)
 				if err != nil {
-					return fmt.Errorf("struct %v field offset '%v': %w",
+					return fmt.Errorf("struct '%v' field offset '%v': %w",
 						struct_def.Name, field_def.OffsetExpression, err)
 				}
 			}
@@ -130,7 +130,7 @@ func (self *Profile) ParseStructDefinitions(definitions string) (err error) {
 				}
 				temp_parser.parser, err = parser.New(self, options)
 				if err != nil {
-					return fmt.Errorf("struct %v field '%v': %w",
+					return fmt.Errorf("struct '%v' field '%v': %w",
 						struct_def.Name, field_def.Name, err)
 				}
 			} else {

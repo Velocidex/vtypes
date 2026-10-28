@@ -2,7 +2,6 @@ package vtypes
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 
@@ -70,10 +69,9 @@ func (self *Leb128Parser) Parse(scope vfilter.Scope, reader io.ReaderAt, offset 
 	// We only support uint64 - max size 64 / 7 = 10  bytes
 	buf := make([]byte, 10)
 
-	n, err := reader.ReadAt(buf, offset)
-	if n == 0 || (err != nil && !errors.Is(err, io.EOF)) {
-		return 0
-	}
+	// Read up to 10 chars but it is ok if it is a bit shorter.
+	n, _ := reader.ReadAt(buf, offset)
+	buf = buf[:n]
 
 	var res uint64
 	for i := 0; i < len(buf); i++ {

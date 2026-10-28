@@ -173,7 +173,7 @@ func TestArrayParserError(t *testing.T) {
 	assert.Error(t, err)
 
 	assert.Contains(t, err.Error(),
-		"struct TestStruct field 'Field1': ArrayParser: field max_count: Expecting an integer not string")
+		"struct 'TestStruct' field 'Field1': ArrayParser: field max_count: Expecting an integer not string")
 }
 
 func TestArrayParser(t *testing.T) {
