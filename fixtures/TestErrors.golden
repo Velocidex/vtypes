@@ -1,14 +1,14 @@
 
 
 Test Case 0: 
-struct TestStruct field 'Flags': Field type is required in *vtypes.BitFieldOptions
+struct 'TestStruct' field 'Flags': Field type is required in *vtypes.BitFieldOptions
 Parsing: {
  "Flags": null
 }
 Logging: 
 
 Test Case 1: 
-struct TestStruct field 'Enumeration': Unexpected parameters provided: [bitmap]
+struct 'TestStruct' field 'Enumeration': Unexpected parameters provided: [bitmap]
 Parsing: {
  "Enumeration": null
 }
