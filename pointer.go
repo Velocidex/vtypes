@@ -3,7 +3,6 @@ package vtypes
 import (
 	"context"
 	"encoding/binary"
-	"errors"
 	"fmt"
 	"io"
 
@@ -63,8 +62,8 @@ func (self *PointerParser) Parse(
 
 	buf := make([]byte, 8)
 
-	n, err := reader.ReadAt(buf, offset)
-	if n == 0 || (err != nil && !errors.Is(err, io.EOF)) {
+	n, _ := reader.ReadAt(buf, offset)
+	if n != 8 {
 		return vfilter.Null{}
 	}
 

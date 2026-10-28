@@ -30,3 +30,5 @@ func ScopeDebug(scope vfilter.Scope, fmt string, args ...interface{}) {
 		scope.Log(fmt, args...)
 	}
 }
+
+func DlvBreak() {}
