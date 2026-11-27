@@ -12,6 +12,8 @@ import (
 	"github.com/Velocidex/ordereddict"
 	"github.com/sebdah/goldie"
 	assert "github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+	"go.yaml.in/yaml/v4"
 	"www.velocidex.com/golang/vfilter"
 )
 
@@ -61,6 +63,41 @@ func TestIntegerParser(t *testing.T) {
 
 	// 578437695752307201
 	assert.Equal(t, uint64(0x0807060504030201), obj)
+}
+
+func TestYAMLProfileOptions(t *testing.T) {
+	const definition = `[&key Example, 0, [
+	  [First, 0, Custom, &opts {z: 1, nested: [{last: 2, first: 3}], *key: 4}],
+	  [Second, 0, Custom, *opts]
+	]]`
+	var profile StructDefinition
+	require.NoError(t, yaml.Load([]byte(definition), &profile, yaml.WithV2Defaults()))
+	require.Len(t, profile.Fields, 2)
+	for _, field := range profile.Fields {
+		require.Equal(t, []string{"z", "nested", "Example"}, field.Options.Keys())
+		value, ok := field.Options.Get("nested")
+		require.True(t, ok)
+		require.IsType(t, []interface{}{}, value)
+		items := value.([]interface{})
+		require.Len(t, items, 1)
+		require.IsType(t, &ordereddict.Dict{}, items[0])
+		require.Equal(t, []string{"last", "first"}, items[0].(*ordereddict.Dict).Keys())
+	}
+}
+
+func TestYAMLProfileRejectsNonStringOptionKeys(t *testing.T) {
+	const definition = `[[Example, 0, [[Field, 0, Enumeration, {choices: {1: ONE}}]]]]`
+	err := NewProfile().ParseStructDefinitions(definition)
+	require.ErrorContains(t, err, "keys should be strings")
+}
+
+func TestYAMLProfileOptionKeysInLists(t *testing.T) {
+	const definition = `[Example, 0, [[Field, 0, Custom, {items: [{1: ONE, label: text}]}]]]`
+	var profile StructDefinition
+	require.NoError(t, yaml.Load([]byte(definition), &profile, yaml.WithV2Defaults()))
+	items, ok := profile.Fields[0].Options.Get("items")
+	require.True(t, ok)
+	require.Equal(t, []interface{}{map[interface{}]interface{}{1: "ONE", "label": "text"}}, items)
 }
 
 func TestLeb128Parser(t *testing.T) {

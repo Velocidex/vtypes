@@ -6,7 +6,7 @@ import (
 	"io"
 
 	"github.com/Velocidex/ordereddict"
-	"github.com/Velocidex/yaml/v2"
+	"go.yaml.in/yaml/v4"
 
 	"www.velocidex.com/golang/vfilter"
 )
@@ -78,12 +78,15 @@ func (self *Profile) ObjectSize(scope vfilter.Scope,
 func (self *Profile) ParseStructDefinitions(definitions string) (err error) {
 	var profile_definitions []*StructDefinition
 
-	err = yaml.Unmarshal([]byte(definitions), &profile_definitions)
+	err = yaml.Load([]byte(definitions), &profile_definitions, yaml.WithV2Defaults())
 	if err != nil {
 		return err
 	}
 
 	for _, struct_def := range profile_definitions {
+		if struct_def == nil {
+			return errors.New("expected a struct definition")
+		}
 		_, pres := self.types[struct_def.Name]
 		if pres {
 			return fmt.Errorf("Struct definition for %v masks an existing definition",
